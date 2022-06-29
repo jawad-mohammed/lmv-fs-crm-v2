@@ -1,0 +1,24 @@
+{
+  "name": "lmvcustomerform",
+  "version": "1.0.0",
+  "description": "form description with customer details",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "fast-two-sms": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.18",
+    "pg": "^8.7.3",
+    "pool": "^0.4.1"
+  }
+}
