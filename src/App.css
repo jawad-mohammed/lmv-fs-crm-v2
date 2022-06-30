@@ -25,9 +25,12 @@ body {
 .labelfrm {
   color: black
 }
+#tabled{
+  margin-top: -700px;
+}
 
 .container {
-  color: whitesmoke;
+  /* color: whitesmoke; */
   justify-content: center;
   align-items: center;
   display: flex;

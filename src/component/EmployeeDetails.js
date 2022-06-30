@@ -36,6 +36,13 @@ import Crmfsfrm from "./Crmfsfrm";
 const Header = () => {
   const [menuCollapse, setMenuCollapse] = useState(false);
   const addEmployee = useNavigate();
+  const ViewEmployee=useNavigate()
+  const Empesignation=useNavigate()
+  const ViewEmployeeForm= (e) => {
+    e.preventDefault()
+    addEmployee("/ViewEmployee");
+  };
+
 
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
@@ -44,6 +51,11 @@ const Header = () => {
     e.preventDefault()
     addEmployee("/Crmfsfrm");
   };
+  const employeeDesignation=(e)=>{
+    e.preventDefault();
+    Empesignation("/EmployeeDesignation")
+  }
+ 
 
   return (
     <>
@@ -72,12 +84,12 @@ const Header = () => {
                       </button>
                     </MenuItem>
                     <MenuItem>
-                      <button className="sidebtn">
+                      <button onClick={employeeDesignation} className="sidebtn">
                         {menuCollapse ? "R" : "EMPLOYEE DESIGNATION"}
                       </button>
                     </MenuItem>
                     <MenuItem>
-                      <button className="sidebtn">
+                      <button onClick={ViewEmployeeForm}  className="sidebtn">
                         {menuCollapse ? "E" : "EMPLOYEE VIEW EMPLOYEE"}
                       </button>
                     </MenuItem>

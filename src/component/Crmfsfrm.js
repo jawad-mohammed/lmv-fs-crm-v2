@@ -28,22 +28,10 @@ const Crmfsfrm = () => {
     return addEmployeeValidation(values);
   };
 
-  const onChangeLoginFields = (value, name) => {
-    setLoginFields({
-      ...loginFields,
-      [name]: value,
-    });
-  };
+ 
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    const result = validate(loginFields);
-    if (Object.values(result).every((key, index) => key === "")) {
-      const { email, password } = loginFields;
-      // await obj.user.login(email, password, {});
-      setIsSubmitted(false);
-    } else {
+  
       e.preventDefault();
       try {
         const body = { ...addEmployeeInitialValues };
@@ -57,7 +45,7 @@ const Crmfsfrm = () => {
         console.error(err.message);
       }
       console.log(userdata);
-    }
+    
   };
 
   const redirectToSignUp = () => {
@@ -87,10 +75,7 @@ const Crmfsfrm = () => {
   const changeHandler = (e) => {
     setUserdata({ ...userdata, [e.target.name]: [e.target.value] });
   };
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-  //
-  // };
+
   const {
     Employeeid,
     userName,
