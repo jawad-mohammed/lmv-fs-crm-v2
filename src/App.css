@@ -28,10 +28,12 @@ body {
 #tabled{
   margin-top: -700px;
 }
+#tabled2{
+  margin-top: -900px;
+}
 
 .container {
-  /* color: whitesmoke; */
-  justify-content: center;
+  justify-content: auto;
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -268,4 +270,10 @@ MenuItem {
   .elogo {
     display: none;
   }
+}
+.viewEmployeeBtn{
+  background-color: #3fa2db;
+  border: none;
+  border-radius: 12px;
+  width: 100%;
 }
