@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const jwtAuthorize = require('./utils/jwtAuthorize')
-
-
+const cors = require('cors')
+router.use(cors)
 const pool = require('./db')
 
 
@@ -17,6 +17,8 @@ router.get('/lmv',async(req,res)=>{
     } catch (error) {
         console.log(error);
     }
+
+
 })
 
 
@@ -32,27 +34,50 @@ router.get('/lmv/:id',async(req,res)=>{
 
 
 //post req with jwt token 
-router.post('/lmv/register',async(req,res)=>{
+router.post('/lmv',async(req,res)=>{
     try {
 //verifi in detabase whether user exists 
-const verifyUser = await pool.query(`select * from lmvcustomerform where user_mobilenum=$1`,[req.body.MobileNum])
-if(verifyUser.rows.length>0) return res.json('user already exists create with different number') 
+// const verifyUser = await pool.query(`select * from lmvcustomerform where user_mobilenum=$1`,[req.body.MobileNum])
+// if(verifyUser.rows.length>0) return res.json('user already exists create with different number') 
 
-//hashing password before string in database
-const salt = await bcrypt.genSalt(10)
-const hashedPassword = await bcrypt.hash(req.body.Password,salt)
+// //hashing password before string in database
+// const salt = await bcrypt.genSalt(10)
+// const hashedPassword = await bcrypt.hash(req.body.Password,salt)
 
 //storing in database 
-        const newUser = await pool.query(`insert into lmvcustomerform(
-            user_name,user_passwword,user_mobilenum,user_adhar,alternate_num,user_bank,user_bank_Account,
-            user_designation,user_location,user_branch,user_state,assigned_manager,user_address)
-            values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) returning * `,
-                [ req.body.Name,hashedPassword,req.body.MobileNum,req.body.Adhar,req.body.AlternateNum,
-                    req.body.BankName,req.body.BankAccount,req.body.Designation,
-                    req.body.Location,req.body.Branch,req.body.State,req.body.AssignedManager,req.body.Address])
+const newUser = await pool.query(`insert into lmvcustomerform(
+    emp_id,emp_name,emp_address,emp_city,emp_pincode,emp_mobile,emp_bankname, 
+    emp_branch,emp_ifsc,emp_accnum,emp_adhar,emp_pan,emp_alternateNo, 
+    emp_MotherName,emp_email,emp_state,emp_password,emp_designation,
+    emp_assignedManager)
+    values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,
+        $15,$16,$17,$18,$19) returning *`,[
+  req.body.Employeeid,
+  req.body.userName,
+  req.body.Address,
+  req.body.city,
+  req.body.Pincode,
+  req.body.MNumber,
+  req.body.BankName,
+  req.body.BankBranch,
+  req.body.IFSCCODE,
+  req.body.AccountNo,
+  req.body.AdharCard,
+  req.body.PanCard,
+  req.body.AlternateNo,
+  req.body.MotherName,
+  req.body.email,
+  req.body.state,
+  req.body.password,
+  req.body.designation,
+  req.body.AssignedManager ])
 
-   const jwtToken = jwtAuthorize(newUser.rows[0].customerid)
-   return res.json({jwtToken})
+
+res.json(newUser.rows)
+
+
+//    const jwtToken = jwtAuthorize(newUser.rows[0].customerid)
+//    return res.json({jwtToken})
                     
 
     } catch (error) {
