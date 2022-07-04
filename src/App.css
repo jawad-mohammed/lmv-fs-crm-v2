@@ -22,18 +22,18 @@ body {
   /* background-color: white; */
 }
 
-.labelfrm {
-  color: black
-}
-#tabled{
+
+#tabled {
   margin-top: -700px;
 }
-#tabled2{
+
+#tabled2 {
   margin-top: -900px;
 }
 
 .container {
-  justify-content: auto;
+  /* color: whitesmoke; */
+  justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -169,7 +169,8 @@ tr:nth-child(even) {
   height: 900px;
 
 }
-.sidebtn{
+
+.sidebtn {
   border: none;
 }
 
@@ -271,9 +272,16 @@ MenuItem {
     display: none;
   }
 }
-.viewEmployeeBtn{
+
+.viewEmployeeBtn {
   background-color: #3fa2db;
   border: none;
   border-radius: 12px;
   width: 100%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

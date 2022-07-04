@@ -2,19 +2,22 @@ import React from "react";
 import EmployeeDetails from "./EmployeeDetails";
 
 const EmployeeDesignation = () => {
+// const changeHandler=()=>{
+
+// }
   return (
     <>
       <div className="text-center">
         <h1 className="text-center mt-5" style={{ color: "#3fa2db" }}>
           VIEW EMPLOYEE
         </h1>
+        <div className="align-item-center flex">
+
+        <input type={"search"}  className="text-center"  /><button>SUBMIT</button>
+        </div>
       </div>
       <div className="container">
         <EmployeeDetails />
-        <div className="align-item-center flex" id="tabled">
-
-        <input type={"search"}  className="text-center" /><button>SUBMIT</button>
-        </div>
         <table className="table-bordered" id="tabled">
           <thead>
             <tr>
@@ -31,7 +34,7 @@ const EmployeeDesignation = () => {
           </thead>
           <tbody>
             <tr>
-              <td scope="col">IMRAN</td>
+              <td scope="col">1</td>
               <td scope="col">Software Developer</td>
               <td scope="col">
                 <button className="viewEmployeeBtn">Delete</button>
