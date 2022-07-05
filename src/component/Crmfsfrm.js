@@ -15,11 +15,10 @@ const Crmfsfrm = () => {
     register,
     handleSubmit,
     formState: { errors },
-   
   } = useForm();
   // console.log(errors);
   // const initialValues = addEmployeeInitialValues();
-  
+
   // const navigate = useNavigate();
 
   // const redirectToSignUp = () => {
@@ -46,10 +45,9 @@ const Crmfsfrm = () => {
     Status: "",
     AAddress: "",
     CBankBranch: "",
+    district: "",
+    city: "",
   });
-  const changeHandler = (e) => {
-    setUserdata({ ...userdata, [e.target.name]: [e.target.value] });
-  };
 
   const {
     Employeeid,
@@ -72,24 +70,24 @@ const Crmfsfrm = () => {
     Status,
     AAddress,
     CBankBranch,
+    district,
+    city,
   } = userdata;
+
+  const changeHandler = (e) => {
+    setUserdata({ ...userdata, [e.target.name]: e.target.value });
+  };
+
   const submitHandler = async (e) => {
     // e.preventDefault();
-    try {
-      const body = { ...addEmployeeInitialValues };
-      const response = await fetch("/formvalue", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      console.log(response);
-      console.log(userdata);
-    } catch (err) {
-      console.error(err.message);
-    }
+    const body = userdata;
+    console.log(body);
+    const response = await fetch(`http://localhost:8000/lmv/register`, {
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify(body),
+    });
   };
-  // console.log(userdata)
-  // console.log(errors);
 
   return (
     <>
@@ -100,7 +98,7 @@ const Crmfsfrm = () => {
             <h5>
               <u style={{ color: "#3fa2db" }}>Personal Details:</u>
             </h5>
-            <div className="col-lg-12 md-4 sm-1">
+            <div className="col-lg-12 md-4 sm-12">
               <div className="d-flex">
                 {/* 1st line */}
                 <div className="mb-3 flex ">
@@ -226,9 +224,9 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </div>
+              {/* 2nd line */}
               <div className="d-flex ">
-                {/* 2nd line */}
-                <div className="mb-3 ">
+                <div className="mb-3  ">
                   <label htmlFor="mid">
                     <b>ALTERNATE NUMBER:</b>
                   </label>
@@ -326,8 +324,8 @@ const Crmfsfrm = () => {
                     value={Status}
                     onChange={changeHandler}
                   >
-                    <option value="1">Active</option>
-                    <option value="2">In Active</option>
+                    <option value="Active">Active</option>
+                    <option value="In Active">In Active</option>
                   </Form.Select>
                 </div>
                 {/* 3rd line */}
@@ -336,7 +334,7 @@ const Crmfsfrm = () => {
                 <u style={{ color: "#3fa2db" }}>Bank Details:</u>
               </h5>
               {/* 3rd line */}
-              <div className="col-lg-12 md-4 sm-1">
+              <div className="col-sm-12">
                 <div className="d-flex">
                   <div className="mb-3 flex ">
                     <label htmlFor="mid" className="labelfrm">
@@ -427,34 +425,34 @@ const Crmfsfrm = () => {
                   </div>
                   {/*  */}
                   <div className="mb-3 form-check">
-                  <label htmlFor="mid">
-                    <b> BRANCH NAME:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("BankBranch", {
-                      required: "Please Enter Your Branch Name ",
-                      pattern: {
-                        value: /[A-Za-z]/,
-                        message: "Invalid User Name",
-                      },
-                    })}
-                  >
-                    <FormControl
-                      placeholder="User Name"
-                      aria-label="BankBranch"
-                      aria-describedby="basic-addon1"
-                      value={BankBranch}
-                      name="BankBranch"
-                      onChange={changeHandler}
-                    />
-                  </InputGroup>
-                  {errors.BankBranch && (
-                    <small className="text-danger">
-                      {errors.BankBranch.message}
-                    </small>
-                  )}
-                </div>
+                    <label htmlFor="mid">
+                      <b> BRANCH NAME:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("BankBranch", {
+                        required: "Please Enter Your Branch Name ",
+                        pattern: {
+                          value: /[A-Za-z]/,
+                          message: "Invalid User Name",
+                        },
+                      })}
+                    >
+                      <FormControl
+                        placeholder="User Name"
+                        aria-label="BankBranch"
+                        aria-describedby="basic-addon1"
+                        value={BankBranch}
+                        name="BankBranch"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.BankBranch && (
+                      <small className="text-danger">
+                        {errors.BankBranch.message}
+                      </small>
+                    )}
+                  </div>
                 </div>
 
                 {/*4th line */}
@@ -561,7 +559,7 @@ const Crmfsfrm = () => {
                         {...register("state", {
                           required: "Please Enter Your State Name",
                           // pattern: {
-                          //   value: /^[1-9]{1}[0-9]{2}\\s{0, 1}[0-9]{3}$/,
+                          //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
                           //   message: "Please Enter  A Valid state Name",
                           // },
                         })}
@@ -581,6 +579,66 @@ const Crmfsfrm = () => {
                         </small>
                       )}
                     </div>
+                  </div>
+                </div>
+                <div className="d-flex col-lg-12 md-4 sm-1 ">
+                  <div className="mb-3">
+                    <label htmlFor="mid" className="labelfrm">
+                      <b>DISTRICT:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("district", {
+                        required: "Please Enter Your State Name",
+                        // pattern: {
+                        //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
+                        //   message: "Please Enter  A Valid state Name",
+                        // },
+                      })}
+                    >
+                      <FormControl
+                        aria-label="Default select example"
+                        placeholder="please Enter Your State"
+                        // style={{ width: "212px" }}
+                        value={district}
+                        name="district"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.district && (
+                      <small className="text-danger">
+                        {errors.district.message}
+                      </small>
+                    )}
+                  </div>
+                  <div className="mb-3 form-check">
+                    <label htmlFor="mid" className="labelfrm">
+                      <b>CITY:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("city", {
+                        required: "Please Enter Your State Name",
+                        // pattern: {
+                        //     value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
+                        //     message: "Please Enter  A Valid City Name",
+                        //   },
+                      })}
+                    >
+                      <FormControl
+                        aria-label="Default select example"
+                        placeholder="please Enter Your State"
+                        // style={{ width: "212px" }}
+                        value={city}
+                        name="city"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.city && (
+                      <small className="text-danger">
+                        {errors.city.message}
+                      </small>
+                    )}
                   </div>
                 </div>
                 {/* 5th line */}
@@ -677,39 +735,39 @@ const Crmfsfrm = () => {
                   </div>
                   {/*  */}
                   <div className="mb-3 form-check">
-                  <label htmlFor="mid">
-                    <b> BRANCH NAME:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("CBankBranch", {
-                      required: "Please Enter Your Branch Name ",
-                      pattern: {
-                        value: /[A-Za-z]/,
-                        message: "Invalid User Name",
-                      },
-                    })}
-                  >
-                    <FormControl
-                      placeholder="User Name"
-                      aria-label="CBankBranch"
-                      aria-describedby="basic-addon1"
-                      value={CBankBranch}
-                      name="CBankBranch"
-                      onChange={changeHandler}
-                    />
-                  </InputGroup>
-                  {errors.CBankBranch && (
-                    <small className="text-danger">
-                      {errors.CBankBranch.message}
-                    </small>
-                  )}
-                </div>
+                    <label htmlFor="mid">
+                      <b> BRANCH NAME:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("CBankBranch", {
+                        required: "Please Enter Your Branch Name ",
+                        pattern: {
+                          value: /[A-Za-z]/,
+                          message: "Invalid User Name",
+                        },
+                      })}
+                    >
+                      <FormControl
+                        placeholder="User Name"
+                        aria-label="CBankBranch"
+                        aria-describedby="basic-addon1"
+                        value={CBankBranch}
+                        name="CBankBranch"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.CBankBranch && (
+                      <small className="text-danger">
+                        {errors.CBankBranch.message}
+                      </small>
+                    )}
+                  </div>
                 </div>
               </div>
 
               <div className="mb-3 form-check justify-content-center">
-                <Button 
+                <Button
                   style={{ backgroundColor: "#3fa2db", text: "white" }}
                   type="submit"
                 >
