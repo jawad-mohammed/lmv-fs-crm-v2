@@ -1,37 +1,23 @@
-import React from "react";
+import { useState,useEffect } from "react";
 import EmployeeDetails from "./EmployeeDetails";
 
-const viewEmployee = () => {
-  const values = [
-    {
-      id: 1,
-      name: "imran",
-      mobile: 6300027879,
-      Designation: "Software Engineer",
-      Status: "active",
-    },
-    {
-      id: 2,
-      name: "Arvind",
-      mobile: 965153125,
-      Designation: "Software Engineer",
-      Status: "active",
-    },
-    {
-      id: 3,
-      name: "jawad",
-      mobile: 1234654789,
-      Designation: "Software Engineer",
-      Status: "active",
-    },
-  ];
-  console.log(values);
+const ViewEmployee = () => {
+const [allUsers,setAllUsers] = useState([])
+const fetchData = async()=>{
+  const response = await fetch(`http://localhost:8000/lmv`)
+  const jsonData = await response.json()
+  setAllUsers(jsonData)
+}
+useEffect(()=>{
+fetchData()
+},[])
   return (
     <>
       <h1 className="text-center mt-5" style={{color:"#3fa2db"}}>VIEW EMPLOYEE</h1>
+      
       <div className="container">
         <EmployeeDetails />
-        <table className="table-bordered" id="tabled">
+        <table className="table-bordered " id="tabled">
           <thead>
             <tr>
               <th scope="col"><b>Employee ID</b></th>
@@ -44,13 +30,13 @@ const viewEmployee = () => {
           </thead>
           <tbody>
               
-            {values.map((user) => (
+            {allUsers.map((user) => (
               <tr >
-                <td scope="col">{user.id}</td>
-                <td scope="col">{user.name}</td>
-                <td scope="col">{user.mobile}</td>
-                <td scope="col">{user.Designation}</td>
-                <td scope="col">{user.Status}</td>
+                <td scope="col">{user.employeeid}</td>
+                <td scope="col">{user.username}</td>
+                <td scope="col">{user.MNumber}</td>
+                <td scope="col">{user.designation}</td>
+                <td scope="col">{user.tatus}</td>
                 <td scope="col">
                   <button className="viewEmployeeBtn">EDIT</button>
                 </td>
@@ -64,4 +50,4 @@ const viewEmployee = () => {
   );
 };
 
-export default viewEmployee;
+export default ViewEmployee;

@@ -1,6 +1,6 @@
 import React, { useState, useNavigation } from "react";
-import logo from "../lmvlogo.jpeg";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import logo from "./images/Lmv-fs-logo.jpg";
 
 const Crmregister = () => {
   const [data, setDate] = useState({

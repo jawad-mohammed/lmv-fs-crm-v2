@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Crmfsfrm from "./component/Crmfsfrm";
 import ViewEmployee from "./component/ViewEmployee";
 import EmployeeDesignation from "./component/EmployeeDesignation";
-
+import Logohead from "./component/Logohead";
 // import Crmform from "../src/component/crm-form/src/Component/Crmform";
 // import Crmform
 // import AddEmployee from "./component/addEmployee";
@@ -16,9 +16,11 @@ function App() {
 
   return (
     <>
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Crmlogin />} />
+          <Route path="Logohead" element={<Logohead />} />
           <Route path="employeeDetails" element={<EmployeeDetails />} />
           <Route path="Crmregister" element={<Crmregister />} />
           <Route path="Crmfsfrm" element={<Crmfsfrm />} />

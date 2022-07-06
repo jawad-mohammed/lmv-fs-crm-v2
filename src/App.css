@@ -1,3 +1,4 @@
+/* header ,form are custom branch name */
 .App {
   text-align: center;
 }
@@ -9,6 +10,23 @@ body {
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.brand {
+  background: url(./component/images/Lmv-fs-logo.jpg) 0 0 no-repeat;
+  background-size: contain;
+  height: 90px;
+  margin: 5px;
+}
+.brand button{
+  margin-left: 12px;
+}
+#logoutbtn{
+  float: right;
+  margin-left: 12px;
+  background-color: #00adff;
+  margin-top: 25px;
+  font-size: larger;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -25,10 +43,23 @@ body {
 
 #tabled {
   margin-top: -700px;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 82%;
+}
+
+#tabled ::after {
+  /* margin-top: -700px; */
 }
 
 #tabled2 {
   margin-top: -900px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 82%;
 }
 
 .container {
@@ -89,6 +120,8 @@ Link {
 
 form {
   margin-top: 75px;
+  /* custom */
+  /* padding-left: 248px; */
 }
 
 .App-header {
@@ -157,11 +190,25 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
+#crmselect {
+  width: 222px;
+  margin-left: -18px;
+}
+
 /* ADMIN */
 #header {
-  float: left;
-  width: 323px;
+  /* Float: left;
+    width: min-content;
+    position: sticky; */
+  Float: left;
+  width: min-content;
+  position: relative;
+  /* margin-left: 307px; */
+  left: 0;
+  /* margin-left: -35px;
   /* margin-left: -35px; */
+  /* custom */
+  /* margin-top: -36rem; */
 }
 
 #header .pro-sidebar {
@@ -174,13 +221,13 @@ tr:nth-child(even) {
   border: none;
 }
 
-.sform {
+/* .sform {
   width: 100vw;
-}
+} */
 
-#header .closemenu {
+.closemenu {
   color: #000;
-  position: absolute;
+  /* position: absolute; */
   right: 0;
   z-index: 9999;
   line-height: 20px;
@@ -190,9 +237,16 @@ tr:nth-child(even) {
   top: 55px;
   cursor: pointer;
 }
+.closemenu svg{
+  margin-top: -74px;
+  margin-top: -74px;
+    height: 41px;
+    width: 31px;
+}
 
 #header .pro-sidebar {
   width: 100%;
+  min-width: 100%;
   min-width: 100%;
 }
 
@@ -217,9 +271,9 @@ tr:nth-child(even) {
   font-weight: bold;
 }
 
-#header .pro-sidebar-inner .pro-sidebar-layout ul {
+/* #header .pro-sidebar-inner .pro-sidebar-layout ul {
   padding: 0 5px;
-}
+} */
 
 #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
   color: #000;
@@ -245,6 +299,10 @@ tr:nth-child(even) {
   padding: 20px;
 }
 
+/* width: 80px;
+min-width: 80px;
+margin-left: -89px; */
+
 MenuItem {
   background-color: white;
 }
@@ -263,10 +321,29 @@ MenuItem {
   margin-top: 68px;
 }
 
+.districtdiv {
+  margin-left: -36vw;
+}
+
 @media only screen and (max-width: 720px) {
-  html {
-    overflow: hidden;
+  .districtdiv {
+    margin-left: 0vw;
   }
+
+  #header .pro-sidebar-inner {
+    background-color: white;
+    box-shadow: 0.5px 0.866px 2px 0px rgb(0 0 0 / 15%);
+    position: absolute;
+    height: 310vh;
+  }
+
+  #header .pro-sidebar.collapsed {
+    width: 80px;
+    min-width: 80px;
+    margin-left: -180px;
+    position: absolute
+  }
+
 
   .elogo {
     display: none;

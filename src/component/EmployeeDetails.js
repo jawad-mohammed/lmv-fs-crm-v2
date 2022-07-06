@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "../lmvlogo.jpeg";
 import { Link, useNavigate } from "react-router-dom";
 
 //import react pro sidebar components
@@ -15,7 +14,7 @@ import {
 
 //import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
-import { FaCog, FaUserTie, FaColumns, FaThList, FaHeart } from "react-icons/fa";
+import { FaCog, FaUserTie, FaColumns, FaThList, FaHeart, } from "react-icons/fa";
 import {
   FiHome,
   FiLogOut,
@@ -34,7 +33,7 @@ import Crmfsfrm from "./Crmfsfrm";
 // import "./Header.css";
 
 const Header = () => {
-  const [menuCollapse, setMenuCollapse] = useState(false);
+  const [menuCollapse, setMenuCollapse] = useState(true);
   const addEmployee = useNavigate();
   const ViewEmployee=useNavigate()
   const Empesignation=useNavigate()
@@ -59,16 +58,15 @@ const Header = () => {
 
   return (
     <>
-      <div id="header">
-        <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader>
-            <div className="logotext">
-              {<img src={logo} className="elogo"/>}
-            </div>
-            <div className="closemenu" onClick={menuIconClick}>
+           
+     <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? <FiAlignJustify /> : <FiAlignJustify />}
             </div>
+      <div id="header">
+          <SidebarHeader>
+           
           </SidebarHeader>
+        <ProSidebar collapsed={menuCollapse}>
           <SidebarContent>
             <div className="sidebarcon">
               <Menu iconShape="square">
@@ -77,7 +75,7 @@ const Header = () => {
                     Home
                   </MenuItem>
                   <MenuItem icon={<FaList />}>Dashboard</MenuItem>
-                  <SubMenu title="USERS" icon={<FiUsers />}>
+                  <SubMenu title="USERS" icon={<FiUsers />} className="pro-inner-list-item">
                     <MenuItem>
                       <button onClick={addEmployeeForm} className="sidebtn">
                         {menuCollapse ? "A" : "Add Employee"}
@@ -98,11 +96,7 @@ const Header = () => {
               </Menu>
             </div>
           </SidebarContent>
-          <SidebarFooter>
-            <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-            </Menu>
-          </SidebarFooter>
+          
         </ProSidebar>
       </div>
     </>

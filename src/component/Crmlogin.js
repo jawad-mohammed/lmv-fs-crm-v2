@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import logo from "../lmvlogo.jpeg";
+import logo from "./images/Lmv-fs-logo.jpg";
+
 import { Link, useNavigate } from "react-router-dom";
 
 const Crmlogin = () => {

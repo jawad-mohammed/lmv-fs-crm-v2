@@ -3,12 +3,14 @@ import { useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 // import "../App.css";
 
+import { Container, Row, Col } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import EmployeeDetails from "./EmployeeDetails";
 import { addEmployeeInitialValues } from "../validations/initialValues";
+import Logohead from "./Logohead";
 
 const Crmfsfrm = () => {
   const {
@@ -91,18 +93,31 @@ const Crmfsfrm = () => {
 
   return (
     <>
-      <div className="container ">
+      {<Logohead />}
+      <div style={{ background: "#00adff",}}>
+        <h3 className="text-center">
+          <u
+            style={{ color: "white", width: "100vw" }}
+          ><b>
+
+            Add Employee
+          </b>
+          </u>
+        </h3>
+      </div>
+      <div className="container-fluid d-flex">
         <EmployeeDetails />
-        <div className="sform">
-          <Form onSubmit={handleSubmit(submitHandler)}>
-            <h5>
-              <u style={{ color: "#3fa2db" }}>Personal Details:</u>
-            </h5>
-            <div className="col-lg-12 md-4 sm-12">
-              <div className="d-flex">
-                {/* 1st line */}
-                <div className="mb-3 flex ">
-                  <label htmlFor="mid" className="labelfrm">
+        {/* <div > */}
+        <Form onSubmit={handleSubmit(submitHandler)}>
+          <h5>
+            <u style={{ color: "white" }}>Personal Details:</u>
+          </h5>
+          {/*  */}
+          <Container>
+            <Row>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
                     <b>EMPLOYEE ID:</b>
                   </label>
                   <InputGroup
@@ -131,7 +146,9 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-                <div className="mb-3 form-check">
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b> EMPLOYEE NAME:</b>
                   </label>
@@ -160,12 +177,13 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-                <div className="mb-3 form-check">
-                  <label htmlFor="mid" className="labelfrm">
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
                     <b>MOBILE NUMBER:</b>
                   </label>
                   <InputGroup
-                    className="mb-3"
                     {...register("MNumber", {
                       required: "Please Enter The Mobile Number",
                       pattern: {
@@ -190,9 +208,12 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-                {/*  */}
-                <div className=" form-check mb-3" style={{ marginTop: "-7px" }}>
-                  {/* <input type={"email"} */}
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3">
+                  <label htmlFor="mid">
+                    <b> EMAIL:</b>
+                  </label>
                   <InputGroup
                     {...register("email", {
                       required: "Please Enter Your Email",
@@ -202,20 +223,15 @@ const Crmfsfrm = () => {
                       },
                     })}
                   >
-                    <Form.Group className="mb-2">
-                      <Form.Label>
-                        <b className="labelfrm">EMAIL ADDRESS:</b>
-                      </Form.Label>
-                      <Form.Control
-                        type="email"
-                        placeholder="Enter email"
-                        id="emailid"
-                        name="email"
-                        value={email}
-                        onChange={changeHandler}
-                      />
-                      {/* /> */}
-                    </Form.Group>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      id="emailid"
+                      name="email"
+                      value={email}
+                      onChange={changeHandler}
+                    />
+                    {/* /> */}
                   </InputGroup>
                   {errors.email && (
                     <small className="text-danger">
@@ -223,41 +239,51 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-              </div>
-              {/* 2nd line */}
-              <div className="d-flex ">
-                <div className="mb-3  ">
+              </Col>
+            </Row>
+          </Container>
+          {/*  */}
+
+          {/* <div className> */}
+          {/* <div> */}
+          {/* 2nd  line */}
+          <Container>
+            <Row>
+              <Col md={3} lg={3} sm={12}>
+                {/* <div className="mb-3  "> */}
+                <label htmlFor="mid">
+                  <b>ALTERNATE NUMBER:</b>
+                </label>
+                <InputGroup
+                  className="mb-3"
+                  {...register("AlternateNo", {
+                    required: "Alternate Number Is Required",
+                    pattern: {
+                      value: /^[6-9]\d{9}$/,
+                      message: "Invalid Alternate Number",
+                    },
+                  })}
+                >
+                  <FormControl
+                    placeholder="Alternate  Number"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    type="number"
+                    name="AlternateNo"
+                    value={AlternateNo}
+                    onChange={changeHandler}
+                  />
+                </InputGroup>
+                {errors.AlternateNo && (
+                  <small className="text-danger">
+                    {errors.AlternateNo.message}
+                  </small>
+                )}
+                {/* </div> */}
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
                   <label htmlFor="mid">
-                    <b>ALTERNATE NUMBER:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("AlternateNo", {
-                      required: "Alternate Number Is Required",
-                      pattern: {
-                        value: /^[6-9]\d{9}$/,
-                        message: "Invalid Alternate Number",
-                      },
-                    })}
-                  >
-                    <FormControl
-                      placeholder="Alternate  Number"
-                      aria-label="Username"
-                      aria-describedby="basic-addon1"
-                      type="number"
-                      name="AlternateNo"
-                      value={AlternateNo}
-                      onChange={changeHandler}
-                    />
-                  </InputGroup>
-                  {errors.AlternateNo && (
-                    <small className="text-danger">
-                      {errors.AlternateNo.message}
-                    </small>
-                  )}
-                </div>
-                <div className="mb-3 form-check">
-                  <label htmlFor="mid" className="labelfrm">
                     <b>PANCARD NO:</b>
                   </label>
                   <InputGroup
@@ -285,8 +311,10 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-                <div className="mb-3 form-check">
-                  <label htmlFor="mid" className="labelfrm">
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
                     <b>ADHAR CARD NO:</b>
                   </label>
                   <InputGroup
@@ -314,276 +342,309 @@ const Crmfsfrm = () => {
                     </small>
                   )}
                 </div>
-                <div className="mb-3 form-check w-25">
+              </Col>
+              <Col>
+                <div className="mb-3 form-check" id={"crmselect"}>
                   <label>
                     <b>STATUS:</b>
                   </label>
                   <Form.Select
                     aria-label="Default select example"
                     placeholder="Select"
-                    value={Status}
+                    name="Status"
                     onChange={changeHandler}
                   >
                     <option value="Active">Active</option>
-                    <option value="In Active">In Active</option>
+                    <option name={Status} value="In Active">
+                      In Active
+                    </option>
                   </Form.Select>
                 </div>
-                {/* 3rd line */}
-              </div>
-              <h5>
-                <u style={{ color: "#3fa2db" }}>Bank Details:</u>
-              </h5>
-              {/* 3rd line */}
-              <div className="col-sm-12">
-                <div className="d-flex">
-                  <div className="mb-3 flex ">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>BANK NAME:</b>
+              </Col>
+            </Row>
+          </Container>
+
+          <h5>
+            <u style={{ color: "white" }}>Bank Details:</u>
+          </h5>
+          {/*  */}
+          <Container>
+            <Row>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 flex ">
+                  <label htmlFor="mid">
+                    <b>BANK NAME:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("BankName", {
+                      required: "Please Enter your Bank Name",
+                      pattern: {
+                        value: /^[a-zA-Z\s]+$/,
+                        message: "Invalid Bank Name",
+                      },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Bank Name"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      name="BankName"
+                      onChange={changeHandler}
+                      value={BankName}
+                    />
+                  </InputGroup>
+                  {errors.BankName && (
+                    <small className="text-danger">
+                      {errors.BankName.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 flex  ">
+                  <label htmlFor="mid">
+                    <b>ACCOUNT NUMBER</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("AccountNo", {
+                      required: "Please Enter Your Account Number",
+                      pattern: {
+                        value: /^\d{9,18}$/,
+                        message: "Invalid Account Number",
+                      },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Bank Account Number"
+                      aria-label="AccountNo"
+                      aria-describedby="basic-addon1"
+                      name="AccountNo"
+                      value={AccountNo}
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.AccountNo && (
+                    <small className="text-danger">
+                      {errors.AccountNo.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
+                    <b>IFSC CODE:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("IFSCCODE", {
+                      required: "Please Enter Your IFSC code",
+                      pattern: {
+                        value: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/,
+                        message: "Invalid IFSC Code",
+                      },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="IFSC Code"
+                      aria-label="IFSC"
+                      aria-describedby="basic-addon1"
+                      name="IFSCCODE"
+                      value={IFSCCODE}
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.IFSCCODE && (
+                    <small className="text-danger">
+                      {errors.IFSCCODE.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3">
+                  <label htmlFor="mid">
+                    <b> BRANCH NAME:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("BankBranch", {
+                      required: "Please Enter Your Branch Name ",
+                      pattern: {
+                        value: /[A-Za-z]/,
+                        message: "Invalid User Name",
+                      },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="User Name"
+                      aria-label="BankBranch"
+                      aria-describedby="basic-addon1"
+                      value={BankBranch}
+                      name="BankBranch"
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.BankBranch && (
+                    <small className="text-danger">
+                      {errors.BankBranch.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+            </Row>
+          </Container>
+          {/* 2nd line end */}
+
+          {/* 3rd line */}
+
+          {/*  */}
+
+          {/*4th line */}
+
+          <div>
+            <h5>
+              <u style={{ color: "white" }}>ADDRESS:</u>
+            </h5>
+            {/*  */}
+            <Container>
+              <Row>
+                <Col md={3} lg={3} sm={12}>
+                  <div className="mb-3  ">
+                    <label htmlFor="mid">
+                      <b>ADDRESS 1:</b>
                     </label>
                     <InputGroup
                       className="mb-3"
-                      {...register("BankName", {
-                        required: "Please Enter your Bank Name",
-                        pattern: {
-                          value: /^[a-zA-Z\s]+$/,
-                          message: "Invalid Bank Name",
-                        },
+                      {...register("Address", {
+                        required: "Please Enter Your Address",
+                        // pattern: {
+                        //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
+                        //   message: "Invalid address Number",
+                        // },
                       })}
                     >
                       <FormControl
-                        placeholder="Bank Name"
+                        placeholder="Address"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        name="BankName"
-                        onChange={changeHandler}
-                        value={BankName}
-                      />
-                    </InputGroup>
-                    {errors.BankName && (
-                      <small className="text-danger">
-                        {errors.BankName.message}
-                      </small>
-                    )}
-                  </div>
-                  <div className="mb-3 flex form-check ">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>ACCOUNT NUMBER</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("AccountNo", {
-                        required: "Please Enter Your Account Number",
-                        pattern: {
-                          value: /^\d{9,18}$/,
-                          message: "Invalid Account Number",
-                        },
-                      })}
-                    >
-                      <FormControl
-                        placeholder="Bank Account Number"
-                        aria-label="AccountNo"
-                        aria-describedby="basic-addon1"
-                        name="AccountNo"
-                        value={AccountNo}
+                        value={Address}
+                        name="Address"
                         onChange={changeHandler}
                       />
                     </InputGroup>
-                    {errors.AccountNo && (
+                    {errors.Address && (
                       <small className="text-danger">
-                        {errors.AccountNo.message}
+                        {errors.Address.message}
                       </small>
                     )}
                   </div>
-                  <div className="mb-3 form-check">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>IFSC CODE:</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("IFSCCODE", {
-                        required: "Please Enter Your IFSC code",
-                        pattern: {
-                          value: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/,
-                          message: "Invalid IFSC Code",
-                        },
-                      })}
-                    >
-                      <FormControl
-                        placeholder="IFSC Code"
-                        aria-label="IFSC"
-                        aria-describedby="basic-addon1"
-                        name="IFSCCODE"
-                        value={IFSCCODE}
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.IFSCCODE && (
-                      <small className="text-danger">
-                        {errors.IFSCCODE.message}
-                      </small>
-                    )}
-                  </div>
-                  {/*  */}
-                  <div className="mb-3 form-check">
+                </Col>
+                <Col md={3} lg={3} sm={12}>
+                  <div className="mb-3   ">
                     <label htmlFor="mid">
-                      <b> BRANCH NAME:</b>
+                      <b> ADDRESS 2:</b>
                     </label>
                     <InputGroup
                       className="mb-3"
-                      {...register("BankBranch", {
-                        required: "Please Enter Your Branch Name ",
+                      {...register("Address", {
+                        required: "Please Enter Your Address",
+                        // pattern: {
+                        //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
+                        //   message: "Invalid address Number",
+                        // },
+                      })}
+                    >
+                      <FormControl
+                        placeholder="Alternate Address"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        value={AAddress}
+                        name="AAddress"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.Address && (
+                      <small className="text-danger">
+                        {errors.Address.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
+                <Col md={3} lg={3} sm={12}>
+                  <div className="mb-3 ">
+                    <label htmlFor="mid">
+                      <b>PINCODE:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("Pincode", {
+                        required: "Please Enter Your Pincode",
                         pattern: {
-                          value: /[A-Za-z]/,
-                          message: "Invalid User Name",
+                          value: /^[1-9][0-9]{5}$/,
+                          message: "Invalid Pincode",
                         },
                       })}
                     >
                       <FormControl
-                        placeholder="User Name"
-                        aria-label="BankBranch"
+                        placeholder="PINCODE"
+                        aria-label="PINCODE"
                         aria-describedby="basic-addon1"
-                        value={BankBranch}
-                        name="BankBranch"
+                        name="Pincode"
+                        value={Pincode}
                         onChange={changeHandler}
                       />
                     </InputGroup>
-                    {errors.BankBranch && (
+                    {errors.Pincode && (
                       <small className="text-danger">
-                        {errors.BankBranch.message}
+                        {errors.Pincode.message}
                       </small>
                     )}
                   </div>
-                </div>
-
-                {/*4th line */}
-
-                <div className="col-lg-12 md-4 sm-1">
-                  <h5>
-                    <u style={{ color: "#3fa2db" }}>ADDRESS:</u>
-                  </h5>
-                  <div className="d-flex">
-                    <div className="mb-3  ">
-                      <label htmlFor="mid" className="labelfrm">
-                        <b>ADDRESS 1:</b>
-                      </label>
-                      <InputGroup
-                        className="mb-3"
-                        {...register("Address", {
-                          required: "Please Enter Your Address",
-                          // pattern: {
-                          //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                          //   message: "Invalid address Number",
-                          // },
-                        })}
-                      >
-                        <FormControl
-                          placeholder="Address"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                          value={Address}
-                          name="Address"
-                          onChange={changeHandler}
-                        />
-                      </InputGroup>
-                      {errors.Address && (
-                        <small className="text-danger">
-                          {errors.Address.message}
-                        </small>
-                      )}
-                    </div>
-                    <div className="mb-3   form-check">
-                      <label htmlFor="mid" className="labelfrm">
-                        <b> ADDRESS 2:</b>
-                      </label>
-                      <InputGroup
-                        className="mb-3"
-                        {...register("Address", {
-                          required: "Please Enter Your Address",
-                          // pattern: {
-                          //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                          //   message: "Invalid address Number",
-                          // },
-                        })}
-                      >
-                        <FormControl
-                          placeholder="Alternate Address"
-                          aria-label="Username"
-                          aria-describedby="basic-addon1"
-                          value={AAddress}
-                          name="AAddress"
-                          onChange={changeHandler}
-                        />
-                      </InputGroup>
-                      {errors.Address && (
-                        <small className="text-danger">
-                          {errors.Address.message}
-                        </small>
-                      )}
-                    </div>
-                    <div className="mb-3 form-check">
-                      <label htmlFor="mid" className="labelfrm">
-                        <b>PINCODE:</b>
-                      </label>
-                      <InputGroup
-                        className="mb-3"
-                        {...register("Pincode", {
-                          required: "Please Enter Your Pincode",
-                          pattern: {
-                            value: /^[1-9][0-9]{5}$/,
-                            message: "Invalid Pincode",
-                          },
-                        })}
-                      >
-                        <FormControl
-                          placeholder="PINCODE"
-                          aria-label="PINCODE"
-                          aria-describedby="basic-addon1"
-                          name="Pincode"
-                          value={Pincode}
-                          onChange={changeHandler}
-                        />
-                      </InputGroup>
-                      {errors.Pincode && (
-                        <small className="text-danger">
-                          {errors.Pincode.message}
-                        </small>
-                      )}
-                    </div>
-                    {/*  */}
-                    <div className="mb-3 form-check">
-                      <label htmlFor="mid" className="labelfrm">
-                        <b>STATE:</b>
-                      </label>
-                      <InputGroup
-                        className="mb-3"
-                        {...register("state", {
-                          required: "Please Enter Your State Name",
-                          // pattern: {
-                          //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
-                          //   message: "Please Enter  A Valid state Name",
-                          // },
-                        })}
-                      >
-                        <FormControl
-                          aria-label="Default select example"
-                          placeholder="please Enter Your State"
-                          style={{ width: "212px" }}
-                          value={state}
-                          name="state"
-                          onChange={changeHandler}
-                        />
-                      </InputGroup>
-                      {errors.state && (
-                        <small className="text-danger">
-                          {errors.state.message}
-                        </small>
-                      )}
-                    </div>
+                </Col>
+                <Col md={3} lg={3} sm={12}>
+                  <div className="mb-3 ">
+                    <label htmlFor="mid">
+                      <b>STATE:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("state", {
+                        required: "Please Enter Your State Name",
+                        // pattern: {
+                        //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
+                        //   message: "Please Enter  A Valid state Name",
+                        // },
+                      })}
+                    >
+                      <FormControl
+                        aria-label="Default select example"
+                        placeholder="please Enter Your State"
+                        value={state}
+                        name="state"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.state && (
+                      <small className="text-danger">
+                        {errors.state.message}
+                      </small>
+                    )}
                   </div>
-                </div>
-                <div className="d-flex col-lg-12 md-4 sm-1 ">
+                </Col>
+              </Row>
+            </Container>
+            {/*  */}
+          </div>
+          {/*  */}
+          <div className="districtdiv">
+            <Container>
+              <Row>
+                <Col md={3} lg={6} sm={12}>
                   <div className="mb-3">
-                    <label htmlFor="mid" className="labelfrm">
+                    <label htmlFor="mid">
                       <b>DISTRICT:</b>
                     </label>
                     <InputGroup
@@ -611,8 +672,10 @@ const Crmfsfrm = () => {
                       </small>
                     )}
                   </div>
-                  <div className="mb-3 form-check">
-                    <label htmlFor="mid" className="labelfrm">
+                </Col>
+                <Col md={3} lg={6} sm={12}>
+                  <div className="mb-3 ">
+                    <label htmlFor="mid">
                       <b>CITY:</b>
                     </label>
                     <InputGroup
@@ -640,143 +703,159 @@ const Crmfsfrm = () => {
                       </small>
                     )}
                   </div>
-                </div>
-                {/* 5th line */}
-                {/*  */}
-              </div>
-              <h5>
-                <u style={{ color: "#3fa2db" }}>COMPANY DETAILS:</u>
-              </h5>
-              {/* 3rd line */}
-              <div className="col-lg-12 md-3 sm-12">
-                <div className="d-flex">
-                  <div className="mb-3">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>DESIGNATION:</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("designation", {
-                        required: "Please Enter Your Designation",
-                      })}
-                    >
-                      <FormControl
-                        placeholder="Designation"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                        name="designation"
-                        value={designation}
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.designation && (
-                      <small className="text-danger">
-                        {errors.designation.message}
-                      </small>
-                    )}
-                  </div>
-                  <div className="mb-3 form-check">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>ASSIGNED MANAGER:</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("AssignedManager", {
-                        required: "Please Enter Your assigned Manager",
-                        // pattern: {
-                        //   value:password.trim().length>4,
-                        //   message: "INVALIDE password",
-                        // },
-                      })}
-                    >
-                      <FormControl
-                        placeholder="Assigned Manager"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                        name="AssignedManager"
-                        value={AssignedManager}
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.AssignedManager && (
-                      <small className="text-danger">
-                        {errors.AssignedManager.message}
-                      </small>
-                    )}
-                  </div>
-                  <div className="mb-3  form-check">
-                    <label htmlFor="mid" className="labelfrm">
-                      <b>Branch Location</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("companylocation", {
-                        required: "Please Enter Your branch location",
-                        // pattern: {
-                        //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                        //   message: "Invalid address Number",
-                        // },
-                      })}
-                    >
-                      <FormControl
-                        placeholder="Company Location"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
-                        value={companylocation}
-                        name="companylocation"
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.companylocation && (
-                      <small className="text-danger">
-                        {errors.companylocation.message}
-                      </small>
-                    )}
-                  </div>
-                  {/*  */}
-                  <div className="mb-3 form-check">
-                    <label htmlFor="mid">
-                      <b> BRANCH NAME:</b>
-                    </label>
-                    <InputGroup
-                      className="mb-3"
-                      {...register("CBankBranch", {
-                        required: "Please Enter Your Branch Name ",
-                        pattern: {
-                          value: /[A-Za-z]/,
-                          message: "Invalid User Name",
-                        },
-                      })}
-                    >
-                      <FormControl
-                        placeholder="User Name"
-                        aria-label="CBankBranch"
-                        aria-describedby="basic-addon1"
-                        value={CBankBranch}
-                        name="CBankBranch"
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.CBankBranch && (
-                      <small className="text-danger">
-                        {errors.CBankBranch.message}
-                      </small>
-                    )}
-                  </div>
-                </div>
-              </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          {/*  */}
+          <div className="d-flex "></div>
+          {/* 5th line */}
+          {/*  */}
 
-              <div className="mb-3 form-check justify-content-center">
-                <Button
-                  style={{ backgroundColor: "#3fa2db", text: "white" }}
-                  type="submit"
-                >
-                  <b>SUBMIT</b>
-                </Button>
-              </div>
-            </div>
-          </Form>
-        </div>
+          <h5>
+            <u style={{ color: "white" }}>COMPANY DETAILS:</u>
+          </h5>
+          {/* 3rd line */}
+          <Container>
+            <Row>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3">
+                  <label htmlFor="mid">
+                    <b>DESIGNATION:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("designation", {
+                      required: "Please Enter Your Designation",
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Designation"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      name="designation"
+                      value={designation}
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.designation && (
+                    <small className="text-danger">
+                      {errors.designation.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
+                    <b>ASSIGNED MANAGER:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("AssignedManager", {
+                      required: "Please Enter Your assigned Manager",
+                      // pattern: {
+                      //   value:password.trim().length>4,
+                      //   message: "INVALIDE password",
+                      // },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Assigned Manager"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      name="AssignedManager"
+                      value={AssignedManager}
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.AssignedManager && (
+                    <small className="text-danger">
+                      {errors.AssignedManager.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3  ">
+                  <label htmlFor="mid">
+                    <b>Branch Location</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("companylocation", {
+                      required: "Please Enter Your branch location",
+                      // pattern: {
+                      //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
+                      //   message: "Invalid address Number",
+                      // },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Company Location"
+                      aria-label="Username"
+                      aria-describedby="basic-addon1"
+                      value={companylocation}
+                      name="companylocation"
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.companylocation && (
+                    <small className="text-danger">
+                      {errors.companylocation.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+              <Col md={3} lg={3} sm={12}>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
+                    <b> BRANCH NAME:</b>
+                  </label>
+                  <InputGroup
+                    className="mb-3"
+                    {...register("CBankBranch", {
+                      required: "Please Enter Your Branch Name ",
+                      pattern: {
+                        value: /[A-Za-z]/,
+                        message: "Invalid User Name",
+                      },
+                    })}
+                  >
+                    <FormControl
+                      placeholder="Company Branch"
+                      aria-label="CBankBranch"
+                      aria-describedby="basic-addon1"
+                      value={CBankBranch}
+                      name="CBankBranch"
+                      onChange={changeHandler}
+                    />
+                  </InputGroup>
+                  {errors.CBankBranch && (
+                    <small className="text-danger">
+                      {errors.CBankBranch.message}
+                    </small>
+                  )}
+                </div>
+              </Col>
+            </Row>
+          </Container>
+          {/*  */}
+          <div>
+            <div className="d-flex">{/*  */}</div>
+          </div>
+
+          <div className="mb-3  justify-content-center">
+            <Button
+              style={{ backgroundColor: "#3fa2da", text: "white" }}
+              type="submit"
+            >
+              <b>SUBMIT</b>
+            </Button>
+          </div>
+          {/* </div> */}
+        </Form>
+        {/* </div> */}
       </div>
     </>
   );
