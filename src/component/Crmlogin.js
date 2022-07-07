@@ -8,7 +8,7 @@ import logo from "./images/Lmv-fs-logo.jpg";
 
 const Crmlogin = () => {
   const navigate = useNavigate();
-
+const [otpVerify,setOtpVerify] = useState([])
   const {
     register,
     handleSubmit,
@@ -31,12 +31,35 @@ const Crmlogin = () => {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
+      
     });
+   const parseResponse =await response.json()
+      setOtpVerify(parseResponse.message)
+ 
+    navigate("/Otppage");
+
+
+   
+
+// const parseResponse =await response.json()
+//    setOtpVerify(parseResponse.message)
+
+ navigate("/Otppage");
+  
+  
     navigate("/Otppage");
   };
 
   return (
     <>
+{otpVerify.map((otp)=>{
+  return(<div>
+    {otp.pancard}{otp.state}
+  </div>)
+})}
+
+
+
       <div className="container">
         <div className="crmfrm">
           <img src={logo} alt="logo" />

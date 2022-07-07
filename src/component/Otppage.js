@@ -10,6 +10,7 @@ const Otp = () => {
     input3: "",
     input4: "",
   });
+  const [myOtp,setMyOtp ] = useState([])
   const navigation = useNavigate();
   const { input1, input2, input3, input4 } = otp;
   const changeHandler = (e) => {
@@ -20,7 +21,35 @@ const Otp = () => {
     console.log(otp);
     navigation("/employeeDetails  ");
   };
+
+//get otp from backend
+const otpHandle = async e => {
+const response = await fetch("http://localhost:8000/lmv/otp",{
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        }
+      });
+
+    const parseRes = await response.json();
+    console.log(parseRes);
+    alert(parseRes.otp)
+     setMyOtp(parseRes)
+    // if (parseRes.otp) {
+    //   localStorage.setItem("token", parseRes.otp);
+      
+    // } 
+
+  }
+
+
+
+
+
   return (
+<>
+<button onClick={otpHandle}>otp</button>
+
     <div className="logintab"style={{ backgroundColor: "#7f7f7f", text: "white" }}>
       <div className="login-con">
         {/* <img src={logo} alt="logo" /> */}
@@ -90,8 +119,12 @@ const Otp = () => {
             <h5 style={{ color: "#3fa2da" }}>Don't receive the code? Check your registered email for OTP.</h5>
           </div>
         </form>
+
+  
+    
       </div>
     </div>
+    </>
   );
 };
 

@@ -59,7 +59,8 @@ const Header = () => {
 
   return (
     <>
-           {/* <Logohead/>dont keep it here  */}
+           {/* <Logohead/>dont keep it here */}
+           
      <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? <FiAlignJustify /> : <FiAlignJustify />}
             </div>

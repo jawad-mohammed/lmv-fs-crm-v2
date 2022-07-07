@@ -67,7 +67,7 @@ const Crmfsfrm = () => {
 
   return (
     <>
-      {/* {<Logohead />} */}
+      {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
           <u style={{ color: "white", width: "100vw" }}>
