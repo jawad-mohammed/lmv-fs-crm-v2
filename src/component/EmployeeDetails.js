@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Logohead from "./Logohead";
 
 //import react pro sidebar components
 import {
@@ -58,7 +59,7 @@ const Header = () => {
 
   return (
     <>
-           
+           {/* <Logohead/>dont keep it here  */}
      <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? <FiAlignJustify /> : <FiAlignJustify />}
             </div>

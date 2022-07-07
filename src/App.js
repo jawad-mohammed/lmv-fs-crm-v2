@@ -8,6 +8,7 @@ import Crmfsfrm from "./component/Crmfsfrm";
 import ViewEmployee from "./component/ViewEmployee";
 import EmployeeDesignation from "./component/EmployeeDesignation";
 import Logohead from "./component/Logohead";
+import Otppage from "./component/Otppage";
 // import Crmform from "../src/component/crm-form/src/Component/Crmform";
 // import Crmform
 // import AddEmployee from "./component/addEmployee";
@@ -26,6 +27,8 @@ function App() {
           <Route path="Crmfsfrm" element={<Crmfsfrm />} />
           <Route path="ViewEmployee" element={<ViewEmployee />} />
           <Route path="EmployeeDesignation" element={<EmployeeDesignation />} />
+          <Route path="Otppage" element={<Otppage />} />
+
         </Routes>
       </BrowserRouter>
       {/* <Crmfsfrm/> */}

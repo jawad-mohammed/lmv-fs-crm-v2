@@ -1,5 +1,6 @@
 import React from "react";
 import EmployeeDetails from "./EmployeeDetails";
+import Logohead from "./Logohead";
 
 const EmployeeDesignation = () => {
 // const changeHandler=()=>{
@@ -7,6 +8,8 @@ const EmployeeDesignation = () => {
 // }
   return (
     <>
+      {<Logohead />}
+
       <div className="text-center">
         <h1 className="text-center mt-5" style={{ color: "#3fa2db" }}>
           VIEW EMPLOYEE

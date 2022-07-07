@@ -3,7 +3,6 @@ export const addEmployeeInitialValues = () => {
     Employeeid: "",
     userName: "",
     Address: "",
-    city: "",
     Pincode: "",
     MNumber: "",
     BankName: "",
@@ -13,12 +12,16 @@ export const addEmployeeInitialValues = () => {
     AdharCard: "",
     PanCard: "",
     AlternateNo: "",
-    MotherName: "",
     email: "",
     state: "",
-    password: "",
     designation: "",
     AssignedManager: "",
+    companylocation: "",
+    Status: "",
+    AAddress: "",
+    CBankBranch: "",
+    district: "",
+    city: "",
   };
   return initialValues
 };

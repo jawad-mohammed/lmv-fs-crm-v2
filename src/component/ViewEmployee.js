@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import EmployeeDetails from "./EmployeeDetails";
+import Logohead from "./Logohead";
 
 const ViewEmployee = () => {
 const [allUsers,setAllUsers] = useState([])
@@ -13,6 +14,8 @@ fetchData()
 },[])
   return (
     <>
+      {<Logohead />}
+
       <h1 className="text-center mt-5" style={{color:"#3fa2db"}}>VIEW EMPLOYEE</h1>
       
       <div className="container">
@@ -34,9 +37,9 @@ fetchData()
               <tr >
                 <td scope="col">{user.employeeid}</td>
                 <td scope="col">{user.username}</td>
-                <td scope="col">{user.MNumber}</td>
+                <td scope="col">{user.mnumber}</td>
                 <td scope="col">{user.designation}</td>
-                <td scope="col">{user.tatus}</td>
+                <td scope="col">{user.status}</td>
                 <td scope="col">
                   <button className="viewEmployeeBtn">EDIT</button>
                 </td>

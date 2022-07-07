@@ -19,36 +19,10 @@ const Crmfsfrm = () => {
     formState: { errors },
   } = useForm();
   // console.log(errors);
-  // const initialValues = addEmployeeInitialValues();
+  const initialValues = addEmployeeInitialValues();
 
-  // const navigate = useNavigate();
-
-  // const redirectToSignUp = () => {
-  //   navigate("/create-account");
-  // };
   const [userdata, setUserdata] = useState({
-    Employeeid: "",
-    userName: "",
-    Address: "",
-    Pincode: "",
-    MNumber: "",
-    BankName: "",
-    BankBranch: "",
-    IFSCCODE: "",
-    AccountNo: "",
-    AdharCard: "",
-    PanCard: "",
-    AlternateNo: "",
-    email: "",
-    state: "",
-    designation: "",
-    AssignedManager: "",
-    companylocation: "",
-    Status: "",
-    AAddress: "",
-    CBankBranch: "",
-    district: "",
-    city: "",
+    ...initialValues
   });
 
   const {
@@ -93,15 +67,11 @@ const Crmfsfrm = () => {
 
   return (
     <>
-      {<Logohead />}
-      <div style={{ background: "#00adff",}}>
+      {/* {<Logohead />} */}
+      <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
-          <u
-            style={{ color: "white", width: "100vw" }}
-          ><b>
-
-            Add Employee
-          </b>
+          <u style={{ color: "white", width: "100vw" }}>
+            <b>Add Employee</b>
           </u>
         </h3>
       </div>
@@ -110,7 +80,9 @@ const Crmfsfrm = () => {
         {/* <div > */}
         <Form onSubmit={handleSubmit(submitHandler)}>
           <h5>
-            <u style={{ color: "white" }}>Personal Details:</u>
+            <u style={{ color: "#3fa2da" }}>
+              <b>Personal Details:</b>
+            </u>
           </h5>
           {/*  */}
           <Container>
@@ -242,11 +214,7 @@ const Crmfsfrm = () => {
               </Col>
             </Row>
           </Container>
-          {/*  */}
 
-          {/* <div className> */}
-          {/* <div> */}
-          {/* 2nd  line */}
           <Container>
             <Row>
               <Col md={3} lg={3} sm={12}>
@@ -365,7 +333,9 @@ const Crmfsfrm = () => {
           </Container>
 
           <h5>
-            <u style={{ color: "white" }}>Bank Details:</u>
+            <u style={{ color: "#3fa2da" }}>
+              <b>Bank Details:</b>
+            </u>
           </h5>
           {/*  */}
           <Container>
@@ -496,17 +466,12 @@ const Crmfsfrm = () => {
               </Col>
             </Row>
           </Container>
-          {/* 2nd line end */}
-
-          {/* 3rd line */}
-
-          {/*  */}
-
-          {/*4th line */}
 
           <div>
             <h5>
-              <u style={{ color: "white" }}>ADDRESS:</u>
+              <u style={{ color: "#3fa2da" }}>
+                <b>ADDRESS:</b>
+              </u>
             </h5>
             {/*  */}
             <Container>
@@ -713,7 +678,9 @@ const Crmfsfrm = () => {
           {/*  */}
 
           <h5>
-            <u style={{ color: "white" }}>COMPANY DETAILS:</u>
+            <u style={{ color: "#3fa2da" }}>
+              <b>COMPANY DETAILS:</b>
+            </u>
           </h5>
           {/* 3rd line */}
           <Container>
@@ -853,9 +820,7 @@ const Crmfsfrm = () => {
               <b>SUBMIT</b>
             </Button>
           </div>
-          {/* </div> */}
         </Form>
-        {/* </div> */}
       </div>
     </>
   );
