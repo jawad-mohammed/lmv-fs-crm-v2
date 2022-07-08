@@ -28,7 +28,7 @@ const Crmregister = () => {
     if (!password) {
       alert("PLEASE ENTER THE PASSWORD");
     } else {
-      employyedetailsnav("/employeeDetails");
+      employyedetailsnav("/SideNav");
     }
    
   };

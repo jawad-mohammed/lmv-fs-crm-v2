@@ -8,7 +8,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import EmployeeDetails from "./EmployeeDetails";
+import SideNav from "./SideNav";
 import { addEmployeeInitialValues } from "../validations/initialValues";
 import Logohead from "./Logohead";
 
@@ -76,7 +76,7 @@ const Crmfsfrm = () => {
         </h3>
       </div>
       <div className="container-fluid d-flex">
-        <EmployeeDetails />
+        <SideNav />
         {/* <div > */}
         <Form onSubmit={handleSubmit(submitHandler)}>
           <h5>
@@ -812,9 +812,9 @@ const Crmfsfrm = () => {
             <div className="d-flex">{/*  */}</div>
           </div>
 
-          <div className="mb-3  justify-content-center">
+          <div className="mb-3  text-center">
             <Button
-              style={{ backgroundColor: "#3fa2da", text: "white" }}
+              style={{ backgroundColor: "#3fa2da", text: "white",width: "142px" }}
               type="submit"
             >
               <b>SUBMIT</b>

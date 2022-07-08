@@ -33,7 +33,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import Crmfsfrm from "./Crmfsfrm";
 // import "./Header.css";
 
-const Header = () => {
+const SideNav = () => {
   const [menuCollapse, setMenuCollapse] = useState(true);
   const addEmployee = useNavigate();
   const ViewEmployee=useNavigate()
@@ -59,15 +59,14 @@ const Header = () => {
 
   return (
     <>
-           {/* <Logohead/>dont keep it here */}
+    {/* its for general purpose and its just used as a home page untill home page is created */}
+           {/* <Logohead/>*/}
            
      <div className="closemenu" onClick={menuIconClick}>
               {menuCollapse ? <FiAlignJustify /> : <FiAlignJustify />}
             </div>
       <div id="header">
-          <SidebarHeader>
-           
-          </SidebarHeader>
+       
         <ProSidebar collapsed={menuCollapse}>
           <SidebarContent>
             <div className="sidebarcon">
@@ -80,17 +79,17 @@ const Header = () => {
                   <SubMenu title="USERS" icon={<FiUsers />} className="pro-inner-list-item">
                     <MenuItem>
                       <button onClick={addEmployeeForm} className="sidebtn">
-                        {menuCollapse ? "A" : "Add Employee"}
+                        {menuCollapse ? "Emp" : "Add Employee"}
                       </button>
                     </MenuItem>
                     <MenuItem>
                       <button onClick={employeeDesignation} className="sidebtn">
-                        {menuCollapse ? "R" : "EMPLOYEE DESIGNATION"}
+                        {menuCollapse ? "DES" : "EMPLOYEE DESIGNATION"}
                       </button>
                     </MenuItem>
                     <MenuItem>
                       <button onClick={ViewEmployeeForm}  className="sidebtn">
-                        {menuCollapse ? "E" : "EMPLOYEE VIEW EMPLOYEE"}
+                        {menuCollapse ? "EMPLOYEE VIEW EMPLOYEE" : "EMPLOYEE VIEW EMPLOYEE"}
                       </button>
                     </MenuItem>
                   </SubMenu>
@@ -105,4 +104,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default SideNav;

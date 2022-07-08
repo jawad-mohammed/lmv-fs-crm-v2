@@ -1,26 +1,34 @@
-import { useState,useEffect } from "react";
-import EmployeeDetails from "./EmployeeDetails";
+import { useState, useEffect } from "react";
+import SideNav from "./SideNav";
 import Logohead from "./Logohead";
+import { FaUserEdit } from "react-icons/fa";
+
 
 const ViewEmployee = () => {
-const [allUsers,setAllUsers] = useState([])
-const fetchData = async()=>{
-  const response = await fetch(`http://localhost:8000/lmv`)
-  const jsonData = await response.json()
-  setAllUsers(jsonData)
-}
-useEffect(()=>{
-fetchData()
-},[])
+  const [allUsers, setAllUsers] = useState([]);
+  const fetchData = async () => {
+    const response = await fetch(`http://localhost:8000/lmv`);
+    const jsonData = await response.json();
+    setAllUsers(jsonData);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       {<Logohead />}
 
-      <h1 className="text-center mt-5" style={{color:"#3fa2db"}}>VIEW EMPLOYEE</h1>
-      
-      <div className="container">
-        <EmployeeDetails />
-        <table className="table-bordered " id="tabled">
+      <div style={{ background: "#00adff" }}>
+        <h3 className="text-center">
+          <u style={{ color: "white", width: "100vw" }}>
+            <b>View Employee</b>
+          </u>
+        </h3>
+      </div>
+
+      <div className="d-flex">
+        <SideNav />
+        <table className="table-bordered " id="tabledid">
           <thead>
             <tr>
               <th scope="col"><b>Employee ID</b></th>
@@ -41,7 +49,7 @@ fetchData()
                 <td scope="col">{user.designation}</td>
                 <td scope="col">{user.status}</td>
                 <td scope="col">
-                  <button className="viewEmployeeBtn">EDIT</button>
+                  <button className="viewEmployeeBtn"><FaUserEdit/></button>
                 </td>
                 
               </tr>
@@ -49,6 +57,7 @@ fetchData()
           </tbody>
         </table>
       </div>
+      
     </>
   );
 };

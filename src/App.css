@@ -77,6 +77,25 @@ table {
   flex-direction: row;
   height: 100vh;
 }
+.dialog {
+  width: 100%;
+  height: 100vh;
+ background-color: #4c4c4c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dialog-content {
+  /* height: 400px; */
+  width: 471px;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #000;
+}
+#tabledid{
+  height: 16px;
+  margin-top: 21px;
+}
 #otpfrm{
   margin-top: 0px;
 }
@@ -105,13 +124,14 @@ img {
   background-color: whitesmoke;
   
   /* box-shadow: 4px 14px 9px 10px #E6E6E6; */
-  height: 100%;
-  justify-content: center;
-  text-align: center;
+  /* height: 100%; */
+  /* justify-content: center; */
+  /* text-align: center; */
   margin-top: 73PX;
   width: 503px;
   border-radius: 18px;
-  height: 518px;
+  
+  /* height: 518px; */
 }
 
 
@@ -145,7 +165,7 @@ Link {
 }
 
 form {
-  margin-top: 75px;
+  /* margin-top: 75px; */
   /* custom */
   /* padding-left: 248px; */
 }
@@ -254,7 +274,7 @@ tr:nth-child(even) {
 .closemenu {
   color: #000;
   position: absolute;
-  right: 0;
+  /* right: 0; */
   z-index: 9999;
   line-height: 20px;
   border-radius: 50%;
@@ -362,13 +382,14 @@ MenuItem {
     background-color: white;
     box-shadow: 0.5px 0.866px 2px 0px rgb(0 0 0 / 15%);
     position: absolute;
-    height: 310vh;
+    height: 100%;
+    width: 238px;
   }
 
   #header .pro-sidebar.collapsed {
     width: 80px;
     min-width: 80px;
-    margin-left: -180px;
+    margin-left: -252px;
     position: absolute
   }
 
@@ -383,6 +404,7 @@ MenuItem {
   border: none;
   border-radius: 12px;
   width: 100%;
+  font-size: 30px;
 }
 
 input[type=number]::-webkit-inner-spin-button,

@@ -8,7 +8,7 @@ import logo from "./images/Lmv-fs-logo.jpg";
 
 const Crmlogin = () => {
   const navigate = useNavigate();
-const [otpVerify,setOtpVerify] = useState([])
+  const [otpVerify, setOtpVerify] = useState([]);
   const {
     register,
     handleSubmit,
@@ -27,82 +27,95 @@ const [otpVerify,setOtpVerify] = useState([])
   const submitHandler = async (e) => {
     const body = data;
     console.log(data);
+    navigate("/Otppage");
     const response = await fetch(`http://localhost:8000/lmv/login`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
-      
     });
-   const parseResponse =await response.json()
-      setOtpVerify(parseResponse.message)
- 
-    navigate("/Otppage");
-
-
-   
-
-// const parseResponse =await response.json()
-//    setOtpVerify(parseResponse.message)
-
- navigate("/Otppage");
-  
-  
-    navigate("/Otppage");
+    const parseResponse = await response.json();
+    setOtpVerify(parseResponse.message);
   };
+
+  // const parseResponse =await response.json()
+  //    setOtpVerify(parseResponse.message)
 
   return (
     <>
-{otpVerify.map((otp)=>{
-  return(<div>
-    {otp.pancard}{otp.state}
-  </div>)
-})}
+      {otpVerify.map((otp) => {
+        return (
+          <div>
+            {otp.pancard}
+            {otp.state}
+          </div>
+        );
+      })}
 
-
-
-      <div className="container">
-        <div className="crmfrm">
-          <img src={logo} alt="logo" />
+      <div className="dialog">
+        <div className="dialog-content">
+          <h2>
+            <b className="m-3 mt-2">Login:</b>
+          </h2>
+          <div className="text-center">
+            <img src={logo} alt="logo" />
+          </div>
 
           <form
             autoComplete="off"
             onSubmit={handleSubmit(submitHandler)}
             method="POST"
           >
-            <div className="mb-3">
-              <label className="form-label">
-                <b>EMPLOYEE ID</b>
-              </label>
-              <br />
-              <div className="d-flex">
-                <div>
-                  <FaUserAlt />
+            <br />
+              <div className="mx-auto" style={{width:"200px"}}>
+                <div  className=" d-flex" >
+                  <div
+                    style={{
+                      fontsize: "25px",
+                      marginTop: "-6px",
+                      height: "12px",
+                      fontSize: "27px",
+                  
+                    }}
+                  >
+                    <FaUserAlt />
+                  </div>
+                  <span className="m-1"></span>
+                  <div>
+                    <input
+                      {...register("Employeeid", {
+                        required: "Please Enter Your Employee Id",
+                        pattern: {
+                          value: /(?<!\d)\d{5}(?!\d)/g,
+                          message: "Invalid  Employee Id",
+                        },
+                      })}
+                      type="number"
+                      placeholder="EMPLOYEE ID"
+                      className="form-control w-100"
+                      name="Employeeid"
+                      value={Employeeid}
+                      onChange={changeHandler}
+                    />
+                  </div>
                 </div>
-                <input
-                  {...register("Employeeid", {
-                    required: "Please Enter Your Employee Id",
-                    pattern: {
-                      value: /(?<!\d)\d{5}(?!\d)/g,
-                      message: "Invalid  Employee Id",
-                    },
-                  })}
-                  type="number"
-                  className="form-control"
-                  name="Employeeid"
-                  value={data.Employeeid}
-                  onChange={changeHandler}
-                />
-                {errors.Employeeid && (
-                  <small className="text-danger">
-                    {errors.Employeeid.message}
-                  </small>
-                )}
               </div>
+            <div className="text-center">
+              {errors.Employeeid && (
+                <small className="text-danger">
+                  {errors.Employeeid.message}
+                </small>
+              )}
             </div>
-
-            <button type="submit" className="sub-btn">
-              Log In
-            </button>
+            <hr></hr>
+            <div className="text-center mb-4">
+              <button
+                type="submit"
+                className="sub-btn"
+                style={{ background: "rgb(63, 162, 218)" }}
+              >
+                <b>Send Otp</b>
+              </button>
+            </div>
           </form>
         </div>
       </div>
