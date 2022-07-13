@@ -17,11 +17,19 @@ const EmployeeDesignation = () => {
   };
 
   //post req for designation handler
+  // EDIT MODAL
+  const [userDetails, setUserDetails] = useState([]);
+  const [designation,setDesignation]=useState(userDetails.designation)
+
   const submitHandler = async (e) => {
-    //   e.preventDefault();
+      e.preventDefault();
     const res = searchInput;
 
     console.log(res);
+
+
+  
+
 
     const newUser = await fetch(`http://localhost:8000/emp/designation`, {
       method: "POST",
@@ -29,7 +37,8 @@ const EmployeeDesignation = () => {
       body: JSON.stringify(res),
     });
   };
-  const [userDetails, setUserDetails] = useState([]);
+  /////////////////////////////////////////////////////////////
+  //@get request
 
   const fetchData = async () => {
     const response = await fetch(`http://localhost:8000/lmv`);
@@ -39,6 +48,10 @@ const EmployeeDesignation = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  ////////////////////////////////////////////////////////
+  //@update req
+  
+  
   return (
     <>
       {<Logohead />}
@@ -51,116 +64,132 @@ const EmployeeDesignation = () => {
             </u>
           </h3>
         </div>
-        <div className="align-item-center flex">
+          <div className="text-center mb-3">
+            <h5 className=" mt-3" id="empdeslabel" style={{ color: "#00adff" }}>
+              Add Designation
+            </h5>
+          </div>
           {/* this is form for posting designation req */}
           <form onSubmit={submitHandler}>
             <input
               type={"search"}
-              className="text-center"
+              className="text-center mb-2"
               name="searchInput"
               value={searchInput}
               onChange={changeHandler}
             />
-            <button>SUBMIT</button>
+            <br />
+            <button className="btn btn-primary b-border-3 ">SUBMIT</button>
           </form>
-        </div>
       </div>
-      <div className="d-flex">
+      <div className="d-flex text-center">
         <SideNav />
-        <table className="table-bordered" id="tabledid">
-          <thead>
-            <tr>
-              <th scope="col">
-                <b>S.NO:</b>
-              </th>
-              <th scope="col">
-                <b>Designation</b>
-              </th>
-              <th scope="col">
-                <b>Edit</b>
-              </th>
-              <th scope="col">
-                <b>Delete</b>
-              </th>
-            </tr>
-          </thead>
+        <div className="mx-auto">
+        <div className="text-center mb-3">
+            <h5 className=" mt-3" id="empdeslabel" style={{ color: "#00adff",marginLeft:"-3px" }}>
+              Designation Details
+            </h5>
+          </div>
+          <table className="table-white  table-striped w-auto ml-2  color-white ml-auto mr-auto" id="empdestable">
+            <thead>
+              <tr
+                class="table-info color-white"
+                style={{ background: "#00adff" }}
+              >
+                <th scope="row">
+                  <b>S.NO:</b>
+                </th>
+                <th>
+                  <b>Designation</b>
+                </th>
+                <th>
+                  <b>Edit</b>
+                </th>
+                <th>
+                  <b>Delete</b>
+                </th>
+              </tr>
+            </thead>
 
-          {userDetails.map((user) => {
-            return (
-              <tbody>
-                <tr>
-                  <td scope="col">{user.id}</td>
-                  <td scope="col">{user.designation}</td>
+            {userDetails.map((user) => {
+              return (
+                <tbody className="table-striped w-auto ml-2">
+                  <tr class="table-info">
+                    <td>{user.id}</td>
+                    <td>{user.designation}</td>
 
-                  <td scope="col">
-                    <button
-                      className="viewEmployeeBtn"
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                    >
-                      <FaUserEdit />
-                    </button>
-                  </td>
-                  <td scope="col">
-                    <button className="viewEmployeeBtn">
-                      <MdDeleteSweep />
-                    </button>
-                  </td>
-                </tr>
-                <tr></tr>
-              </tbody>
-            );
-          })}
-        </table>
+                    <td>
+                      <button
+                        className="viewEmployeeBtn"
+                        type="button"
+                        class="btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                        onClick={() => setDesignation(userDetails.designation)}
+                        
+                      >
+                        <FaUserEdit />
+                      </button>
+                    </td>
+                    <td>
+                      <button className="viewEmployeeBtn">
+                        <MdDeleteSweep />
+                      </button>
+                    </td>
+                  </tr>
+                  <tr></tr>
+                </tbody>
+              );
+            })}
+          </table>
+        </div>
         {/* <!-- Modal --> */}
+     
         {/* EDIT MODAL */}
-        {userDetails.map((user) => {
-
-          
-        })}
+      {/* pagination */}
+      
+      {/*  */}
 
         <div
-          class="modal fade"
+          className="modal fade"
           id="exampleModal"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">
                   Edit Designation
                 </h5>
                 <button
                   type="button"
-                  class="btn-close"
+                  className="btn-close"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">
+              <div className="modal-body">
                 <form>
                   <label>
                     <b>Designation:</b>
                   </label>
-                  <input type={"text"} name="" value={data.value}></input>
+                  <input type={"text"} name="" value={userDetails.designation} onChange={e => setDesignation(e.target.value)}></input>
                   <br />
                   {/* <label> <b>New Designation</b></label>
                   <input type={"text"} value={setData}></input> */}
                 </form>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
-                  class="btn btn-secondary"
+                  className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >
                   Close
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" className="btn btn-primary">
                   Save changes
                 </button>
               </div>

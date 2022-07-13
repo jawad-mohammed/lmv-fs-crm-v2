@@ -1,4 +1,10 @@
 /* header ,form are custom branch name */
+/* header */
+/* background: rgb(0, 173, 255);
+    position: fixed;
+    width: -webkit-fill-available;
+    z-index: 9999; */
+/*  */
 .App {
   text-align: center;
 }
@@ -13,20 +19,36 @@ body {
 }
 
 .brand {
-  background: url(./component/images/Lmv-fs-logo.jpg) 0 0 no-repeat;
+  /* background: url(./component/images/Lmv-fs-logo.jpg) 0 0 no-repeat; */
   background-size: contain;
+  background-position: fixed;
   height: 90px;
   margin: 5px;
+  width: 230px;
 }
-.brand button{
-  margin-left: 12px;
+
+.brand button {
+  /* margin-left: 12px; */
 }
-#logoutbtn{
-  float: right;
+/*  */
+h1, p {
+  font-family: Lato;
+}.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+
+#logoutbtn {
+  /* float: left; */
   margin-left: 12px;
   background-color: #00adff;
   margin-top: 25px;
   font-size: larger;
+  justify-content: end;
+  /* left:0; */
+  margin-left: auto;
+  height: 49px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -70,21 +92,24 @@ table {
   flex-direction: row;
 
 }
-.logintab{
+
+.logintab {
   justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: row;
   height: 100vh;
 }
+
 .dialog {
   width: 100%;
   height: 100vh;
- background-color: #4c4c4c;
+  background-color: #4c4c4c;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .dialog-content {
   /* height: 400px; */
   width: 471px;
@@ -92,11 +117,13 @@ table {
   border-radius: 10px;
   color: #000;
 }
-#tabledid{
+
+#tabledid {
   height: 16px;
   margin-top: 21px;
 }
-#otpfrm{
+
+#otpfrm {
   margin-top: 0px;
 }
 
@@ -109,7 +136,7 @@ img {
 .crmfrm {
   color: BLACK;
   /* background-color: whitesmoke; */
-  
+
   box-shadow: 4px 14px 9px 10px #E6E6E6;
   height: 100%;
   justify-content: center;
@@ -119,10 +146,11 @@ img {
   border-radius: 18px;
   height: 518px;
 }
-.login-con{
+
+.login-con {
   /* color: BLACK; */
   background-color: whitesmoke;
-  
+
   /* box-shadow: 4px 14px 9px 10px #E6E6E6; */
   /* height: 100%; */
   /* justify-content: center; */
@@ -130,7 +158,7 @@ img {
   margin-top: 73PX;
   width: 503px;
   border-radius: 18px;
-  
+
   /* height: 518px; */
 }
 
@@ -164,10 +192,11 @@ Link {
   list-style: none;
 }
 
-form {
-  /* margin-top: 75px; */
-  /* custom */
-  /* padding-left: 248px; */
+.addemployeefrm {
+  margin-top: 75px;
+    margin-left: auto;
+    margin-right: auto;
+  
 }
 
 .App-header {
@@ -283,13 +312,14 @@ tr:nth-child(even) {
   top: 55px;
   cursor: pointer;
 }
-.closemenu svg{
+
+.closemenu svg {
   margin-top: -74px;
   margin-top: -74px;
-    height: 41px;
-    width: 31px;
-    /* right side */
-    margin-top: 38px;
+  height: 41px;
+  width: 31px;
+  /* right side */
+  margin-top: 38px;
 }
 
 #header .pro-sidebar {
@@ -306,6 +336,7 @@ tr:nth-child(even) {
 #header .pro-sidebar-inner {
   background-color: white;
   box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
+  border-right: 1px solid;
 }
 
 #header .pro-sidebar-inner .pro-sidebar-layout {
@@ -347,6 +378,19 @@ tr:nth-child(even) {
   padding: 20px;
 }
 
+.viewEmptab {
+  margin: "auto" !important;
+  width: "50%" !important;
+  padding: "10px" !important;
+}
+
+#viewEmployetable {
+
+  margin-right: auto;
+
+  margin-left: auto;
+}
+
 /* width: 80px;
 min-width: 80px;
 margin-left: -89px; */
@@ -373,9 +417,14 @@ MenuItem {
   margin-left: -36vw;
 }
 
+
 @media only screen and (max-width: 720px) {
   .districtdiv {
     margin-left: 0vw;
+  }
+
+  #empdestable {
+    margin-right: -69px;
   }
 
   #header .pro-sidebar-inner {
@@ -400,15 +449,31 @@ MenuItem {
 }
 
 .viewEmployeeBtn {
-  background-color: #3fa2db;
+  /* background-color: #3fa2db; */
   border: none;
   border-radius: 12px;
   width: 100%;
-  font-size: 30px;
+  /* font-size: 30px; */
+}
+
+#empdestable {
+  margin-left: -74px;
 }
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+#empdeslabel {
+  border: 1px solid #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
+  font-weight: 600;
+  width: 202px;
+  margin-left: auto;
+  margin-right: auto;
 }

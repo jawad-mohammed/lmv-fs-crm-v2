@@ -1,19 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./images/Lmv-fs-logo.jpg";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Otp = () => {
+  useEffect(() => {
+    document.querySelector(`input[name="input1"]`).focus();
+  }, []);
   const [otp, setOtp] = useState({
     input1: "",
     input2: "",
     input3: "",
     input4: "",
   });
+  const { input1, input2, input3, input4 } = otp;
   const [myOtp, setMyOtp] = useState([]);
   const navigation = useNavigate();
-  const { input1, input2, input3, input4 } = otp;
+  // forward function for otp input
   const changeHandler = (e) => {
+    if (e.target.name === "input1") {
+      onFocusHandler(e, "input2");
+    }
+    if (e.target.name === "input2") {
+      onFocusHandler(e, "input3");
+    }
+    if (e.target.name === "input3") {
+      onFocusHandler(e, "input4");
+    }
+    if (e.target.name === "input4") {
+      onFocusHandler(e, "input4");
+    }
     setOtp({ ...otp, [e.target.name]: e.target.value });
+  };
+  const onFocusHandler = (e, focusOn) => {
+    if (e.target.value.length === 0 || e.target.value === 1) {
+      setOtp({ ...otp, [e.target.name]: e.target.value });
+    }
+    if (e.target.value.length === 1) {
+      document.querySelector(`input[name=${focusOn}]`).focus();
+      return;
+    }
+  };
+  // for backfunction of otp
+  const onKeyDownHandler = (e) => {
+    if (e.keyCode === 8) {
+      if (e.target.value === "") {
+        if (e.target.name === "input1") {
+          document.querySelector(`input[name="input1"]`).focus();
+        }
+        if (e.target.name === "input2") {
+          document.querySelector(`input[name="input1"]`).focus();
+        }
+        if (e.target.name === "input3") {
+          document.querySelector(`input[name="input2"]`).focus();
+        }
+        if (e.target.name === "input4") {
+          document.querySelector(`input[name="input3"]`).focus();
+        }
+      }
+    }
   };
   const otpHandle = async (e) => {
     const response = await fetch("http://localhost:8000/lmv/otp", {
@@ -33,21 +77,19 @@ const Otp = () => {
     // }
   };
   const submitHandler = (e) => {
-  
     console.log(otp);
     navigation("/SideNav  ");
-  }
+  };
   //   e.preventDefault();
-//     if(!otp){
-//       alert("PLease enter the valid otp")
-//     }else if(otp!==otpHandle.parseRes){
-// alert("Otp Dont Match")
-//     }else{
+  //     if(!otp){
+  //       alert("PLease enter the valid otp")
+  //     }else if(otp!==otpHandle.parseRes){
+  // alert("Otp Dont Match")
+  //     }else{
 
-//     }
+  //     }
 
   //get otp from backend
-  
 
   return (
     <>
@@ -77,6 +119,7 @@ const Otp = () => {
                   value={input1}
                   name="input1"
                   onChange={changeHandler}
+                  onKeyDown={onKeyDownHandler}
                 />
               </div>
               <div className="p-2">
@@ -90,6 +133,7 @@ const Otp = () => {
                   max="1"
                   value={input2}
                   onChange={changeHandler}
+                  onKeyDown={onKeyDownHandler}
                 />
               </div>
               <div className="p-2">
@@ -103,6 +147,7 @@ const Otp = () => {
                   max="1"
                   value={input3}
                   onChange={changeHandler}
+                  onKeyDown={onKeyDownHandler}
                 />
               </div>
               <div className="p-2">
@@ -116,6 +161,7 @@ const Otp = () => {
                   max="1"
                   value={input4}
                   onChange={changeHandler}
+                  onKeyDown={onKeyDownHandler}
                 />
               </div>
             </div>

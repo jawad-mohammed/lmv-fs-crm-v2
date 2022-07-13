@@ -1,6 +1,7 @@
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import logo from "./images/Lmv-fs-logo.jpg"
 
 const Logohead = () => {
   const navigate = useNavigate();
@@ -9,11 +10,18 @@ const Logohead = () => {
   };
   return (
     <>
-      <div className="brand">
-        <button className="log-btn btn " onClick={logoutfun} id="logoutbtn">
-          {<FiLogOut />}
-        </button>
-      </div>
+    <div className="d-fixed">
+
+
+        <div className="d-flex">
+          <div>
+            <img src={logo} alt={"LOGO IMAGE"} className="brand"/>
+          </div>
+          <button className="log-btn btn float-right" id="logoutbtn" onClick={logoutfun} >
+            {<FiLogOut />}
+          </button>
+        </div>
+    </div>
     </>
   );
 };

@@ -22,7 +22,7 @@ const Crmfsfrm = () => {
   const initialValues = addEmployeeInitialValues();
 
   const [userdata, setUserdata] = useState({
-    ...initialValues
+    ...initialValues,
   });
 
   const {
@@ -78,7 +78,7 @@ const Crmfsfrm = () => {
       <div className="container-fluid d-flex">
         <SideNav />
         {/* <div > */}
-        <Form onSubmit={handleSubmit(submitHandler)}>
+        <Form className="addemployeefr" onSubmit={handleSubmit(submitHandler)}>
           <h5>
             <u style={{ color: "#3fa2da" }}>
               <b>Personal Details:</b>
@@ -87,7 +87,7 @@ const Crmfsfrm = () => {
           {/*  */}
           <Container>
             <Row>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>EMPLOYEE ID:</b>
@@ -119,7 +119,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b> EMPLOYEE NAME:</b>
@@ -150,7 +150,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>MOBILE NUMBER:</b>
@@ -181,7 +181,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3">
                   <label htmlFor="mid">
                     <b> EMAIL:</b>
@@ -217,7 +217,7 @@ const Crmfsfrm = () => {
 
           <Container>
             <Row>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 {/* <div className="mb-3  "> */}
                 <label htmlFor="mid">
                   <b>ALTERNATE NUMBER:</b>
@@ -249,7 +249,7 @@ const Crmfsfrm = () => {
                 )}
                 {/* </div> */}
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>PANCARD NO:</b>
@@ -280,7 +280,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>ADHAR CARD NO:</b>
@@ -311,10 +311,10 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col>
+               <Col>
                 <div className="mb-3 form-check" id={"crmselect"}>
                   <label>
-                    <b>STATUS:</b>
+                    <b>Status</b>
                   </label>
                   <Form.Select
                     aria-label="Default select example"
@@ -322,10 +322,13 @@ const Crmfsfrm = () => {
                     name="Status"
                     onChange={changeHandler}
                   >
-                    <option value="Active">Active</option>
                     <option name={Status} value="In Active">
                       In Active
                     </option>
+                     <option name={Status} value="Active">
+                      Active
+                    </option>
+                   
                   </Form.Select>
                 </div>
               </Col>
@@ -340,7 +343,7 @@ const Crmfsfrm = () => {
           {/*  */}
           <Container>
             <Row>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 flex ">
                   <label htmlFor="mid">
                     <b>BANK NAME:</b>
@@ -371,7 +374,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 flex  ">
                   <label htmlFor="mid">
                     <b>ACCOUNT NUMBER</b>
@@ -402,7 +405,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>IFSC CODE:</b>
@@ -433,7 +436,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3">
                   <label htmlFor="mid">
                     <b> BRANCH NAME:</b>
@@ -476,7 +479,7 @@ const Crmfsfrm = () => {
             {/*  */}
             <Container>
               <Row>
-                <Col md={3} lg={3} sm={12}>
+                <Col md={4} lg={3} sm={12}>
                   <div className="mb-3  ">
                     <label htmlFor="mid">
                       <b>ADDRESS 1:</b>
@@ -507,7 +510,7 @@ const Crmfsfrm = () => {
                     )}
                   </div>
                 </Col>
-                <Col md={3} lg={3} sm={12}>
+                <Col md={4} lg={3} sm={12}>
                   <div className="mb-3   ">
                     <label htmlFor="mid">
                       <b> ADDRESS 2:</b>
@@ -538,7 +541,7 @@ const Crmfsfrm = () => {
                     )}
                   </div>
                 </Col>
-                <Col md={3} lg={3} sm={12}>
+                <Col md={4} lg={3} sm={12}>
                   <div className="mb-3 ">
                     <label htmlFor="mid">
                       <b>PINCODE:</b>
@@ -569,7 +572,7 @@ const Crmfsfrm = () => {
                     )}
                   </div>
                 </Col>
-                <Col md={3} lg={3} sm={12}>
+                <Col md={4} lg={3} sm={12}>
                   <div className="mb-3 ">
                     <label htmlFor="mid">
                       <b>STATE:</b>
@@ -607,7 +610,7 @@ const Crmfsfrm = () => {
           <div className="districtdiv">
             <Container>
               <Row>
-                <Col md={3} lg={6} sm={12}>
+                <Col md={4} lg={6} sm={12}>
                   <div className="mb-3">
                     <label htmlFor="mid">
                       <b>DISTRICT:</b>
@@ -638,7 +641,7 @@ const Crmfsfrm = () => {
                     )}
                   </div>
                 </Col>
-                <Col md={3} lg={6} sm={12}>
+                <Col md={4} lg={6} sm={12}>
                   <div className="mb-3 ">
                     <label htmlFor="mid">
                       <b>CITY:</b>
@@ -683,36 +686,39 @@ const Crmfsfrm = () => {
             </u>
           </h5>
           {/* 3rd line */}
+
           <Container>
             <Row>
-              <Col md={3} lg={3} sm={12}>
-                <div className="mb-3">
-                  <label htmlFor="mid">
-                    <b>DESIGNATION:</b>
+              <Col>
+                <div className="mb-3 form-check" id={"crmselect"}>
+                  <label>
+                    <b>Designation</b>
                   </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("designation", {
-                      required: "Please Enter Your Designation",
-                    })}
+                  <Form.Select
+                    aria-label="Default select example"
+                    placeholder="Select"
+                    name="designation"
+                    onChange={changeHandler}
                   >
-                    <FormControl
-                      placeholder="Designation"
-                      aria-label="Username"
-                      aria-describedby="basic-addon1"
-                      name="designation"
-                      value={designation}
-                      onChange={changeHandler}
-                    />
-                  </InputGroup>
-                  {errors.designation && (
-                    <small className="text-danger">
-                      {errors.designation.message}
-                    </small>
-                  )}
+                    <option name={designation} value="Managing Director">
+                      Managing Director
+                    </option>
+                    <option name={designation} value="Admin">
+                      Admin
+                    </option>
+                    <option name={designation} value="CEO">
+                      CEO
+                    </option>
+                    <option name={designation} value="Principle Manager">
+                      Principle Manager
+                    </option>
+                    <option name={designation} value="Full Stack Developer">
+                      Full Stack Developer
+                    </option>
+                  </Form.Select>
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b>ASSIGNED MANAGER:</b>
@@ -743,10 +749,10 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3  ">
                   <label htmlFor="mid">
-                    <b>Branch Location</b>
+                    <b>BRANCH LOCATION </b>
                   </label>
                   <InputGroup
                     className="mb-3"
@@ -774,7 +780,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-              <Col md={3} lg={3} sm={12}>
+              <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
                     <b> BRANCH NAME:</b>
@@ -814,7 +820,11 @@ const Crmfsfrm = () => {
 
           <div className="mb-3  text-center">
             <Button
-              style={{ backgroundColor: "#3fa2da", text: "white",width: "142px" }}
+              style={{
+                backgroundColor: "#3fa2da",
+                text: "white",
+                width: "142px",
+              }}
               type="submit"
             >
               <b>SUBMIT</b>
