@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logohead from "./Logohead";
 import { RiTeamFill } from "react-icons/ri";
@@ -47,7 +47,7 @@ const SideNav = () => {
   };
 
   const menuIconClick = () => {
-    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true)
   };
   const addEmployeeForm = (e) => {
     e.preventDefault();
@@ -60,6 +60,7 @@ const SideNav = () => {
     Empesignation("/EmployeeDesignation");
     window.location.reload();
   };
+
 
   return (
     <>
@@ -87,7 +88,7 @@ const SideNav = () => {
                       <MenuItem>
                         <button onClick={addEmployeeForm} className="sidebtn">
                           {/* {menuCollapse} */}
-                          {menuCollapse ? <FaUserPlus /> : "Add Employee"}
+                          {menuCollapse ? "Add Employee" : "Add Employee"}
                         </button>
                       </MenuItem>
                       <MenuItem>
@@ -96,18 +97,18 @@ const SideNav = () => {
                           className="sidebtn"
                         >
                           {menuCollapse ? (
-                            <FaUserCog />
+                            "Employee Designation"
                           ) : (
-                            "EMPLOYEE DESIGNATION"
+                            "Employee Designation"
                           )}
                         </button>
                       </MenuItem>
                       <MenuItem>
                         <button onClick={ViewEmployeeForm} className="sidebtn">
                           {menuCollapse ? (
-                            <RiTeamFill />
+                         "View Employee"
                           ) : (
-                            "EMPLOYEE VIEW EMPLOYEE"
+                            "View Employee"
                           )}
                         </button>
                       </MenuItem>

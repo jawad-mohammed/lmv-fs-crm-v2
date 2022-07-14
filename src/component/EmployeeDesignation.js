@@ -19,17 +19,13 @@ const EmployeeDesignation = () => {
   //post req for designation handler
   // EDIT MODAL
   const [userDetails, setUserDetails] = useState([]);
-  const [designation,setDesignation]=useState(userDetails.designation)
+  const [designation, setDesignation] = useState(userDetails.designation);
 
   const submitHandler = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
     const res = searchInput;
 
     console.log(res);
-
-
-  
-
 
     const newUser = await fetch(`http://localhost:8000/emp/designation`, {
       method: "POST",
@@ -50,8 +46,7 @@ const EmployeeDesignation = () => {
   }, []);
   ////////////////////////////////////////////////////////
   //@update req
-  
-  
+
   return (
     <>
       {<Logohead />}
@@ -63,37 +58,61 @@ const EmployeeDesignation = () => {
               <b>Employeee Designation</b>
             </u>
           </h3>
+          <SideNav />
         </div>
-          <div className="text-center mb-3">
-            <h5 className=" mt-3" id="empdeslabel" style={{ color: "#00adff" }}>
-              Add Designation
-            </h5>
-          </div>
+        <div className="text-center mb-3">
+          <h5 className=" mt-3" id="empdeslabel1" style={{ color: "#00adff" }}>
+            ADD DESIGNATION
+          </h5>
           {/* this is form for posting designation req */}
-          <form onSubmit={submitHandler}>
-            <input
-              type={"search"}
-              className="text-center mb-2"
-              name="searchInput"
-              value={searchInput}
-              onChange={changeHandler}
-            />
-            <br />
-            <button className="btn btn-primary b-border-3 ">SUBMIT</button>
+          <form onSubmit={submitHandler} className="mt-5">
+            <div className="text-center" id="ressearch">
+              <input
+                style={{
+                  width: "271px",
+                  borderRadius: "6px",
+                  marginLeft: "85px",
+                }}
+                type={"search"}
+                className="text-center mb-2"
+                name="searchInput"
+                value={searchInput}
+                onChange={changeHandler}
+                placeholder="Add Designation"
+              />
+              <br />
+              <button
+                className="btn b-border-3 mt-3"
+                style={{
+                  backgroundColor: "#00adff",
+                  color: "whitesmoke",
+                  marginLeft: "72px",
+                }}
+              >
+                Submit
+              </button>
+            </div>
           </form>
+        </div>
       </div>
       <div className="d-flex text-center">
-        <SideNav />
         <div className="mx-auto">
-        <div className="text-center mb-3">
-            <h5 className=" mt-3" id="empdeslabel" style={{ color: "#00adff",marginLeft:"-3px" }}>
-              Designation Details
+          <div className="text-center mb-3">
+            <h5
+              className=" mt-3"
+              id="empdeslabel2"
+              
+            >
+              DESIGNATION DETAILS
             </h5>
           </div>
-          <table className="table-white  table-striped w-auto ml-2  color-white ml-auto mr-auto" id="empdestable">
+          <table
+            className="table-white  table-bordered   color-white ml-auto mr-auto"
+            id="empdestable"
+          >
             <thead>
               <tr
-                class="table-info color-white"
+                className="table-info color-white"
                 style={{ background: "#00adff" }}
               >
                 <th scope="row">
@@ -113,26 +132,25 @@ const EmployeeDesignation = () => {
 
             {userDetails.map((user) => {
               return (
-                <tbody className="table-striped w-auto ml-2">
-                  <tr class="table-info">
-                    <td>{user.id}</td>
-                    <td>{user.designation}</td>
+                <tbody className="align-center">
+                  <tr className="table-info " key={user.id}>
+                    <td className="text-center">{user.id}</td>
+                    <td className="text-center">{user.designation}</td>
 
                     <td>
                       <button
-                        className="viewEmployeeBtn"
+                        className="viewEmployeeBtn text-center"
                         type="button"
                         class="btn"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
                         onClick={() => setDesignation(userDetails.designation)}
-                        
                       >
                         <FaUserEdit />
                       </button>
                     </td>
                     <td>
-                      <button className="viewEmployeeBtn">
+                      <button className="viewEmployeeBtn text-center">
                         <MdDeleteSweep />
                       </button>
                     </td>
@@ -144,11 +162,11 @@ const EmployeeDesignation = () => {
           </table>
         </div>
         {/* <!-- Modal --> */}
-     
+
         {/* EDIT MODAL */}
-      {/* pagination */}
-      
-      {/*  */}
+        {/* pagination */}
+
+        {/*  */}
 
         <div
           className="modal fade"
@@ -175,7 +193,12 @@ const EmployeeDesignation = () => {
                   <label>
                     <b>Designation:</b>
                   </label>
-                  <input type={"text"} name="" value={userDetails.designation} onChange={e => setDesignation(e.target.value)}></input>
+                  <input
+                    type={"text"}
+                    name=""
+                    value={userDetails.designation}
+                    onChange={(e) => setDesignation(e.target.value)}
+                  ></input>
                   <br />
                   {/* <label> <b>New Designation</b></label>
                   <input type={"text"} value={setData}></input> */}

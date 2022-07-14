@@ -193,9 +193,11 @@ Link {
 }
 
 .addemployeefrm {
-  margin-top: 75px;
+  /* margin-top: 75px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 17px;
+    margin-left: 125px; */
   
 }
 
@@ -287,9 +289,7 @@ tr:nth-child(even) {
 }
 
 #header .pro-sidebar {
-  height: 100vh;
-  height: 900px;
-
+  height: 92vh;
 }
 
 .sidebtn {
@@ -311,16 +311,10 @@ tr:nth-child(even) {
   font-size: 22px;
   top: 55px;
   cursor: pointer;
+  display: none;
 }
 
-.closemenu svg {
-  margin-top: -74px;
-  margin-top: -74px;
-  height: 41px;
-  width: 31px;
-  /* right side */
-  margin-top: 38px;
-}
+
 
 #header .pro-sidebar {
   width: 100%;
@@ -337,6 +331,7 @@ tr:nth-child(even) {
   background-color: white;
   box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
   border-right: 1px solid;
+  width: 212px;
 }
 
 #header .pro-sidebar-inner .pro-sidebar-layout {
@@ -422,10 +417,52 @@ MenuItem {
   .districtdiv {
     margin-left: 0vw;
   }
-
   #empdestable {
-    margin-right: -69px;
+    margin-left: 0px !important;
   }
+  #empdeslabel1{
+ 
+    margin-left: auto !important;
+  }
+  #empdeslabel2{
+    margin-left: 45px !important;
+  }
+  #empdeslabel3{
+    margin-left: 90px !important;
+  }
+  #ressearch{
+    margin-left: -78px;
+  }
+  #viewEmployeeTable{
+    margin-left: -25vw !important;
+  }
+  #viewEmployeeinput{
+    margin-left: -26vw !important;
+  }
+  #viewEmployeeres{
+    display: grid !important;
+  }
+  #viewEmployeeSearch{
+    margin-left: -25vw !important;
+  }
+
+ 
+  #addEmployeeFrom{
+      margin-left: -5px !important;
+  }
+  .closemenu svg {
+    margin-top: -74px;
+    margin-top: -74px;
+    height: 41px;
+    width: 31px;
+    /* right side */
+    margin-top: 38px;
+  }
+  .closemenu{
+    display: block;
+  }
+
+  
 
   #header .pro-sidebar-inner {
     background-color: white;
@@ -457,7 +494,8 @@ MenuItem {
 }
 
 #empdestable {
-  margin-left: -74px;
+  width: 50vw;
+  margin-left: 125px;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -476,4 +514,66 @@ input[type=number]::-webkit-outer-spin-button {
   width: 202px;
   margin-left: auto;
   margin-right: auto;
+}
+
+#empdeslabel1{
+  border: 1px solid #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
+  font-weight: 600;
+  width: 202px;
+  margin-left: 48vw;
+  margin-right: auto;
+}
+#empdeslabel3{
+  border: 1px solid #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
+  font-weight: 600;
+  width: 207px;
+  margin-left: 45vw;
+  margin-right: auto;
+}
+#viewEmployeeid{
+  width: "271px" !important;
+  border-radius: "6px" !important;
+  margin-left: "35vw" !important;
+}
+#viewEmployeesearch{
+  margin-left: "-30px";
+  font-size: "x-large";
+  margin-top: "6px";
+}
+
+#empdeslabel2{
+  border: 1px solid #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px 1px rgb(0 0 0 / 20%) !important;
+  font-weight: 600;
+  width: 237px;
+  margin-left: 302!important;
+  margin-right: auto;
+  color: #00adff;
+  margin-left: 312px;
+ 
+}
+#addEmployeeFrom{
+  border: 2px solid hsl(202,68%,55%);
+    padding: 45px;
+    margin-left: 153px;
+    border-radius: 11px;
+}
+
+#viewEmployeeSlct{
+  border: 2px solid black;
+    border-radius: 9px;
+    height: 28px;
+    width: 93px;
+    text-align: center;
 }

@@ -75,16 +75,22 @@ const Crmfsfrm = () => {
           </u>
         </h3>
       </div>
+     
       <div className="container-fluid d-flex">
         <SideNav />
         {/* <div > */}
-        <Form className="addemployeefr" onSubmit={handleSubmit(submitHandler)}>
+        <Form  id="addEmployeeFrom" onSubmit={handleSubmit(submitHandler)}>
+        <div className="text-center mb-3">
+            <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
+              ADD EMPLOYEE
+            </h5>
+          </div>
+          
           <h5>
-            <u style={{ color: "#3fa2da" }}>
-              <b>Personal Details:</b>
+            <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
+              <b>PERSONAL DETAILS:-</b>
             </u>
           </h5>
-          {/*  */}
           <Container>
             <Row>
               <Col md={4} lg={3} sm={12}>
@@ -314,7 +320,7 @@ const Crmfsfrm = () => {
                <Col>
                 <div className="mb-3 form-check" id={"crmselect"}>
                   <label>
-                    <b>Status</b>
+                    <b>STATUS:</b>
                   </label>
                   <Form.Select
                     aria-label="Default select example"
@@ -322,6 +328,7 @@ const Crmfsfrm = () => {
                     name="Status"
                     onChange={changeHandler}
                   >
+                    <option>Select Status</option>
                     <option name={Status} value="In Active">
                       In Active
                     </option>
@@ -336,11 +343,10 @@ const Crmfsfrm = () => {
           </Container>
 
           <h5>
-            <u style={{ color: "#3fa2da" }}>
-              <b>Bank Details:</b>
+            <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
+              <b>BANK DETAILS</b>
             </u>
           </h5>
-          {/*  */}
           <Container>
             <Row>
               <Col md={4} lg={3} sm={12}>
@@ -472,11 +478,10 @@ const Crmfsfrm = () => {
 
           <div>
             <h5>
-              <u style={{ color: "#3fa2da" }}>
+              <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
                 <b>ADDRESS:</b>
               </u>
             </h5>
-            {/*  */}
             <Container>
               <Row>
                 <Col md={4} lg={3} sm={12}>
@@ -604,9 +609,7 @@ const Crmfsfrm = () => {
                 </Col>
               </Row>
             </Container>
-            {/*  */}
           </div>
-          {/*  */}
           <div className="districtdiv">
             <Container>
               <Row>
@@ -675,19 +678,17 @@ const Crmfsfrm = () => {
               </Row>
             </Container>
           </div>
-          {/*  */}
           <div className="d-flex "></div>
-          {/* 5th line */}
-          {/*  */}
+ 
 
           <h5>
-            <u style={{ color: "#3fa2da" }}>
+            <u style={{ color: "#3fa2da",marginLeft:"6px"}}>
               <b>COMPANY DETAILS:</b>
             </u>
           </h5>
-          {/* 3rd line */}
+    
 
-          <Container>
+          <Container style={{marginLeft: "-12px"}}>
             <Row>
               <Col>
                 <div className="mb-3 form-check" id={"crmselect"}>
@@ -700,6 +701,7 @@ const Crmfsfrm = () => {
                     name="designation"
                     onChange={changeHandler}
                   >
+                    <option>Select Designation</option>
                     <option name={designation} value="Managing Director">
                       Managing Director
                     </option>
@@ -752,7 +754,7 @@ const Crmfsfrm = () => {
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3  ">
                   <label htmlFor="mid">
-                    <b>BRANCH LOCATION </b>
+                    <b>LOCATION:</b>
                   </label>
                   <InputGroup
                     className="mb-3"
@@ -783,7 +785,7 @@ const Crmfsfrm = () => {
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
-                    <b> BRANCH NAME:</b>
+                    <b> BRANCH:</b>
                   </label>
                   <InputGroup
                     className="mb-3"
@@ -813,17 +815,17 @@ const Crmfsfrm = () => {
               </Col>
             </Row>
           </Container>
-          {/*  */}
           <div>
             <div className="d-flex">{/*  */}</div>
           </div>
 
-          <div className="mb-3  text-center">
-            <Button
+          <div className=" text-center">
+            <Button 
               style={{
                 backgroundColor: "#3fa2da",
                 text: "white",
                 width: "142px",
+                marginTop: "40px"
               }}
               type="submit"
             >

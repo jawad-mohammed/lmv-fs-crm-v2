@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useMemo } from "react";
 import SideNav from "./SideNav";
 import Logohead from "./Logohead";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDeleteSweep } from "react-icons/md";
+import { FcSearch } from "react-icons/fc";
 
 //import Pagination from "./Pagination";
 import "./Pagination.css";
 import PaginateCrmFs from "./PaginateCrmFs";
 
 const ViewEmployee = () => {
-  //const [users, setUsers] = useState(.slice(0, 40));
   const [allUsers, setAllUsers] = useState([]);
-  const [search,setSearch]=useState("");
+  const [search, setSearch] = useState("");
 
   const fetchData = async () => {
     const response = await fetch(`http://localhost:8000/lmv`);
@@ -21,21 +21,20 @@ const ViewEmployee = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  
 
-  //pagination
 
-  // Get current posts
 
   // Change page
   const handleClick = async (id) => {
-    const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`,{
-       method:'DELETE'
+    const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
+      method: "DELETE",
     });
- setAllUsers(allUsers.filter((user)=>user.id !== id))
-
+    setAllUsers(allUsers.filter((user) => user.id !== id));
   };
+  // for searching
 
-  
+
   return (
     <>
       {<Logohead />}
@@ -49,83 +48,146 @@ const ViewEmployee = () => {
           </u>
         </h3>
       </div>
+      <SideNav />
+      <h5
+        className=" mt-5 mb-3 text-center"
+        id="empdeslabel3"
+        style={{ color: "#00adff" }}
+      >
+        VIEW DESIGNATION
+      </h5>
 
-      <div className=" d-flex text " style={{ overflowX: "auto" }}>
-        <SideNav />
-        <div id="viewEmployetable">
+      <div className=" d-flex text" style={{ overflowX: "auto" }}>
+        <div  className="mb-3 mt-3" style={{marginLeft:"110px"}}>
           {/* search Form */}
-            <div>
-             <input type="text" placeholder="Search.."
-             className="search"
-            //  value={search}
-             onChange={(e)=>setSearch(e.target.value)}
-             />
-              <button style={{ background: "#00adff", color: "whitesmoke" }}>
-                Search
-              </button>
+          <div className="d-flex mt-2 mb-2" id="viewEmployeeres">
+            <div
+              className="ml-5"
+              id="viewEmployeeinput"
+              style={{
+                marginLeft: "100px",
+                width: "144px",
+                borderRadius: "8px",
+                height: "33px",
+              }}
+            >
+              <label>
+                <b>Status:  </b>
+              </label>
+              <select id="viewEmployeeSlct">
+                <option value="Active">Active</option>
+                <option value="In Active">In Active</option>
+              </select>
             </div>
-            {/* <div className="ml-5"> */}
-            {/* <select style={{ marginLeft: "274px" }}>
-              <option value="Active">Active</option>
-              <option value="In Active">In Active</option>
-            </select> */}
-            {/* </div> */}
+            <div className="d-flex">
+              <form autoComplete="off">
+
+              <input  id="viewEmployeeSearch"
+                style={{
+                  width: "271px",
+                  borderRadius: "6px",
+                  marginLeft: "35vw",
+                  
+                }}
+                type="text"
+                placeholder="Search..🔍"
+                className="form-control"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                />
+              {}
+              
+                </form>
+            </div>
+          </div>
           {/* end of search Form */}
 
-          <table className=" table table-bordered mt-3 ">
+          <table className=" table table-bordered mt-3 "  id="viewEmployeeTable" style={{width: "68vw",
+    marginLeft:"100px"}}>
             <thead>
               <tr style={{ background: "#00adff" }}>
-                <th scope="col">
+                <th className="text-center" scope="col">
                   <b>Employee ID</b>
                 </th>
-                <th scope="col">
+                <th className="text-center" scope="col">
                   <b>Name</b>
                 </th>
-                <th scope="col">
+                <th className="text-center" scope="col">
                   <b>Mobile</b>
                 </th>
-                <th scope="col">
+                <th className="text-center" scope="col">
                   <b>Designation</b>
                 </th>
-                <th scope="col">
+                <th className="text-center" scope="col">
                   <b>Status</b>
                 </th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th className="text-center">Edit</th>
+                <th className="text-center">Delete</th>
               </tr>
             </thead>
             <tbody>
-              {allUsers
-                .filter((val) => {
-                  if (search === "") {
-                    return val;
-                  } if (
-                    val.employeeid===(search.value)
-                  ) {
-                    return val
-                  } 
-                }).map((user) => (
-                  <tr key={user.id}>
-                    <td scope="col">{user.employeeid}</td>
-                    <td scope="col">{user.username}</td>
-                    <td scope="col">{user.mnumber}</td>
-                    <td scope="col">{user.designation}</td>
-                    <td scope="col">{user.status}</td>
-                    {/* edit button */}
-                    <td scope="col">
-                      <button className="viewEmployeeBtn">
-                        <FaUserEdit />
-                      </button>
-                    </td>
-                    {/* delete button */}
+              {allUsers.filter((user)=>{
+                if (search === "") {
+                  return user;
+                }  if (
+                  user.employeeid.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                ) {
+                  return user;
+                }  if (
+                  user.username.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                ) {
+                  return user;
+                }  if (
+                  user.mnumber.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                ) {
+                  return user; 
+                }
+                if (
+                  user.designation.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                ) {
+                  return user; 
+                }
+                if (
+                  user.designation.toLocaleLowerCase().includes(search.toLocaleLowerCase()==user.status.active)
+                ) {
+                  return user.status; 
+                }
+                
+              }).map((user) => (
+                <tr key={user.id}>
+                  <td className="text-center" scope="col">
+                    {user.employeeid}
+                  </td>
+                  <td className="text-center" scope="col">
+                    {user.username}
+                  </td>
+                  <td className="text-center" scope="col">
+                    {user.mnumber}
+                  </td>
+                  <td className="text-center" scope="col">
+                    {user.designation}
+                  </td>
+                  <td className="text-center" scope="col">
+                    {user.status}
+                  </td>
+                  {/* edit button */}
+                  <td className="text-center" scope="col">
+                    <button className="viewEmployeeBtn">
+                      <FaUserEdit />
+                    </button>
+                  </td>
+                  {/* delete button */}
 
-                    <td scope="col">
-                      <button className="viewEmployeeBtn" onClick={()=>handleClick(user.id)}>
-                        <MdDeleteSweep />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                  <td className="text-center" scope="col">
+                    <button
+                      className="viewEmployeeBtn"
+                      onClick={() => handleClick(user.id)}
+                    >
+                      <MdDeleteSweep />
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
