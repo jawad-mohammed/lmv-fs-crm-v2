@@ -27,10 +27,10 @@ const ViewEmployee = () => {
 
   // Change page
   const handleClick = async (id) => {
-    const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
-      method: "DELETE",
-    });
-    setAllUsers(allUsers.filter((user) => user.id !== id));
+    // const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
+    //   method: "DELETE",
+    // });
+    // setAllUsers(allUsers.filter((user) => user.id !== id));
   };
   // for searching
 

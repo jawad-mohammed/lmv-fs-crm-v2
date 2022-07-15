@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logohead from "./Logohead";
 import { RiTeamFill } from "react-icons/ri";
@@ -37,36 +37,41 @@ import Crmfsfrm from "./Crmfsfrm";
 
 const SideNav = () => {
   const [menuCollapse, setMenuCollapse] = useState(true);
-  const addEmployee = useNavigate();
-  const ViewEmployee = useNavigate();
+  const navigate = useNavigate();
+
   const Empesignation = useNavigate();
   const ViewEmployeeForm = (e) => {
     e.preventDefault();
-    addEmployee("/ViewEmployee");
+    navigate("/ViewEmployee");
     window.location.reload();
   };
 
   const menuIconClick = () => {
-    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true)
+    menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
   const addEmployeeForm = (e) => {
     e.preventDefault();
-    addEmployee("/Crmfsfrm");
+    navigate("/Crmfsfrm");
+    // window.navigate.load()
+    window.location.reload();
+  };
+  const AddBranchForm = (e) => {
+    e.preventDefault();
+    navigate("/AddBranch");
     // window.navigate.load()
     window.location.reload();
   };
   const employeeDesignation = (e) => {
     e.preventDefault();
-    Empesignation("/EmployeeDesignation");
+    navigate("/EmployeeDesignation");
     window.location.reload();
   };
-
 
   return (
     <>
       {/* its for general purpose and its just used as a home page untill home page is created */}
       {/* <Logohead/>*/}
-      <div >
+      <div>
         <div className="closemenu" onClick={menuIconClick}>
           {menuCollapse ? <FiAlignJustify /> : <FiAlignJustify />}
         </div>
@@ -96,20 +101,19 @@ const SideNav = () => {
                           onClick={employeeDesignation}
                           className="sidebtn"
                         >
-                          {menuCollapse ? (
-                            "Employee Designation"
-                          ) : (
-                            "Employee Designation"
-                          )}
+                          {menuCollapse
+                            ? "Employee Designation"
+                            : "Employee Designation"}
                         </button>
                       </MenuItem>
                       <MenuItem>
                         <button onClick={ViewEmployeeForm} className="sidebtn">
-                          {menuCollapse ? (
-                         "View Employee"
-                          ) : (
-                            "View Employee"
-                          )}
+                          {menuCollapse ? "View Employee" : "View Employee"}
+                        </button>
+                      </MenuItem>
+                      <MenuItem>
+                        <button onClick={AddBranchForm} className="sidebtn">
+                          {menuCollapse ? "Branch Location" : "Branch Location"}
                         </button>
                       </MenuItem>
                     </SubMenu>

@@ -4,12 +4,19 @@ import Logohead from "./Logohead";
 import { MdDeleteSweep } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import Modal from "react-bootstrap/Modal";
+import { useForm } from "react-hook-form";
+
 
 const EmployeeDesignation = () => {
   //
   const [data, setData] = useState({
     searchInput: "",
   });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { searchInput } = data;
   //change handler
   const changeHandler = (e) => {
@@ -23,6 +30,7 @@ const EmployeeDesignation = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(data)
     const res = searchInput;
 
     console.log(res);
@@ -46,6 +54,20 @@ const EmployeeDesignation = () => {
   }, []);
   ////////////////////////////////////////////////////////
   //@update req
+ const handleEdit=async(id)=>{
+const body = userDetails
+console.log(body);
+
+
+}
+const handleDelete =async(id)=>{
+  const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
+    method: "DELETE",
+  });
+  setUserDetails(userDetails.filter((user) => user.id !== id));
+}
+
+
 
   return (
     <>
@@ -60,11 +82,14 @@ const EmployeeDesignation = () => {
           </h3>
           <SideNav />
         </div>
+        {/* add Designation form for the table */}
         <div className="text-center mb-3">
           <h5 className=" mt-3" id="empdeslabel1" style={{ color: "#00adff" }}>
             ADD DESIGNATION
           </h5>
           {/* this is form for posting designation req */}
+        
+        {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
           <form onSubmit={submitHandler} className="mt-5">
             <div className="text-center" id="ressearch">
               <input
@@ -79,7 +104,9 @@ const EmployeeDesignation = () => {
                 value={searchInput}
                 onChange={changeHandler}
                 placeholder="Add Designation"
+                required
               />
+             
               <br />
               <button
                 className="btn b-border-3 mt-3"
@@ -88,12 +115,13 @@ const EmployeeDesignation = () => {
                   color: "whitesmoke",
                   marginLeft: "72px",
                 }}
+                type="submit"
               >
                 Submit
               </button>
             </div>
           </form>
-        </div>
+</div>
       </div>
       <div className="d-flex text-center">
         <div className="mx-auto">
@@ -138,19 +166,21 @@ const EmployeeDesignation = () => {
                     <td className="text-center">{user.designation}</td>
 
                     <td>
+
+                      {/* <button onClick={()=>handleEdit(user.id)}>edit</button> */}
                       <button
                         className="viewEmployeeBtn text-center"
                         type="button"
                         class="btn"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModal"
-                        onClick={() => setDesignation(userDetails.designation)}
+                        // onClick={() =>handleEdit(user.id) }
                       >
                         <FaUserEdit />
                       </button>
                     </td>
                     <td>
-                      <button className="viewEmployeeBtn text-center">
+                      <button className="viewEmployeeBtn text-center" onClick={()=>handleDelete(user.id)}>
                         <MdDeleteSweep />
                       </button>
                     </td>
@@ -212,7 +242,7 @@ const EmployeeDesignation = () => {
                 >
                   Close
                 </button>
-                <button type="button" className="btn btn-primary">
+                <button type="button" className="btn btn-primary" >
                   Save changes
                 </button>
               </div>

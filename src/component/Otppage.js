@@ -72,11 +72,12 @@ const Otp = () => {
     alert(parseRes.otp);
     // setMyOtp(parseRes)
     // if (parseRes.otp) {
-    //   localStorage.setItem("token", parseRes.otp);
-
-    // }
-  };
-  const submitHandler = (e) => {
+      //   localStorage.setItem("token", parseRes.otp);
+      
+      // }
+    };
+    const submitHandler = (e) => {
+    e.preventDefault()
     console.log(otp);
     navigation("/SideNav  ");
   };
@@ -120,6 +121,7 @@ const Otp = () => {
                   name="input1"
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
+                   required
                 />
               </div>
               <div className="p-2">
@@ -134,6 +136,7 @@ const Otp = () => {
                   value={input2}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
+                   required
                 />
               </div>
               <div className="p-2">
@@ -148,6 +151,7 @@ const Otp = () => {
                   value={input3}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
+                   required
                 />
               </div>
               <div className="p-2">
@@ -162,6 +166,7 @@ const Otp = () => {
                   value={input4}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
+                   required
                 />
               </div>
             </div>

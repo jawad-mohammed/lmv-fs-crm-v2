@@ -30,10 +30,14 @@ body {
 .brand button {
   /* margin-left: 12px; */
 }
+
 /*  */
-h1, p {
+h1,
+p {
   font-family: Lato;
-}.App {
+}
+
+.App {
   font-family: sans-serif;
   text-align: center;
 }
@@ -198,7 +202,7 @@ Link {
     margin-right: auto;
     border-radius: 17px;
     margin-left: 125px; */
-  
+
 }
 
 .App-header {
@@ -408,48 +412,97 @@ MenuItem {
   margin-top: 68px;
 }
 
+.addBranchErr {
+  margin-left: 9rem;
+  color: red
+}
+
+
+
+#addbranchForm {
+  margin-left: 42px
+}
+
 .districtdiv {
   margin-left: -36vw;
 }
+
 
 
 @media only screen and (max-width: 720px) {
   .districtdiv {
     margin-left: 0vw;
   }
+
   #empdestable {
     margin-left: 0px !important;
   }
-  #empdeslabel1{
- 
+
+  #EmployeeDesignationadd {
+    width: "271px";
+      border-radius: "6px";
+      margin-left:"45vw";
+      padding: "7px",
+  }
+
+  #empdeslabel1 {
+
     margin-left: auto !important;
   }
-  #empdeslabel2{
+
+  #empdeslabel2 {
     margin-left: 45px !important;
   }
-  #empdeslabel3{
+
+  #empdeslabel3 {
     margin-left: 90px !important;
   }
-  #ressearch{
+
+  #ressearch {
     margin-left: -78px;
   }
-  #viewEmployeeTable{
-    margin-left: -25vw !important;
-  }
-  #viewEmployeeinput{
-    margin-left: -26vw !important;
-  }
-  #viewEmployeeres{
-    display: grid !important;
-  }
-  #viewEmployeeSearch{
+
+  #viewEmployeeTable {
     margin-left: -25vw !important;
   }
 
- 
-  #addEmployeeFrom{
-      margin-left: -5px !important;
+  #viewEmployeeinput {
+    margin-left: -26vw !important;
   }
+
+  #viewEmployeeres {
+    display: grid !important;
+  }
+
+  #viewEmployeeSearch {
+    margin-left: -25vw !important;
+  }
+
+  #empdeslabel4 {
+    margin-left: 6rem !important;
+  }
+
+  #addbranchInput {
+    margin-left: 32vw !important;
+  }
+
+  #addLocationInput {
+    margin-left: 32vw !important;
+  }
+
+  .addBranchErr {
+    margin-left: 8rem;
+  }
+
+  #addbranchForm {
+    margin-left: -16px
+  }
+
+
+  #addEmployeeFrom {
+    margin-left: -5px !important;
+  }
+
   .closemenu svg {
     margin-top: -74px;
     margin-top: -74px;
@@ -458,11 +511,12 @@ MenuItem {
     /* right side */
     margin-top: 38px;
   }
-  .closemenu{
+
+  .closemenu {
     display: block;
   }
 
-  
+
 
   #header .pro-sidebar-inner {
     background-color: white;
@@ -516,7 +570,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-right: auto;
 }
 
-#empdeslabel1{
+#empdeslabel1 {
   border: 1px solid #f8f8f8;
   padding: 10px;
   text-align: center;
@@ -527,7 +581,8 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 48vw;
   margin-right: auto;
 }
-#empdeslabel3{
+
+#empdeslabel3 {
   border: 1px solid #f8f8f8;
   padding: 10px;
   text-align: center;
@@ -538,18 +593,32 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 45vw;
   margin-right: auto;
 }
-#viewEmployeeid{
+
+#empdeslabel4 {
+  border: 1px solid #f8f8f8;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
+  font-weight: 600;
+  width: 207px;
+  margin-left: 48vw;
+  margin-right: auto;
+}
+
+#viewEmployeeid {
   width: "271px" !important;
   border-radius: "6px" !important;
   margin-left: "35vw" !important;
 }
-#viewEmployeesearch{
+
+#viewEmployeesearch {
   margin-left: "-30px";
   font-size: "x-large";
   margin-top: "6px";
 }
 
-#empdeslabel2{
+#empdeslabel2 {
   border: 1px solid #f8f8f8;
   padding: 10px;
   text-align: center;
@@ -557,23 +626,24 @@ input[type=number]::-webkit-outer-spin-button {
   box-shadow: 2px 3px 6px 1px rgb(0 0 0 / 20%) !important;
   font-weight: 600;
   width: 237px;
-  margin-left: 302!important;
+  margin-left: 302 !important;
   margin-right: auto;
   color: #00adff;
   margin-left: 312px;
- 
-}
-#addEmployeeFrom{
-  border: 2px solid hsl(202,68%,55%);
-    padding: 45px;
-    margin-left: 153px;
-    border-radius: 11px;
+
 }
 
-#viewEmployeeSlct{
+#addEmployeeFrom {
+  border: 2px solid hsl(202, 68%, 55%);
+  padding: 45px;
+  margin-left: 153px;
+  border-radius: 11px;
+}
+
+#viewEmployeeSlct {
   border: 2px solid black;
-    border-radius: 9px;
-    height: 28px;
-    width: 93px;
-    text-align: center;
+  border-radius: 9px;
+  height: 28px;
+  width: 93px;
+  text-align: center;
 }
