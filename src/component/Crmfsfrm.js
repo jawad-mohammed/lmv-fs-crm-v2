@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 // import "../App.css";
@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 import SideNav from "./SideNav";
 import { addEmployeeInitialValues } from "../validations/initialValues";
 import Logohead from "./Logohead";
+import AllRoles from "./AllRoles";
 
 const Crmfsfrm = () => {
   const {
@@ -25,6 +26,7 @@ const Crmfsfrm = () => {
     ...initialValues,
   });
 
+  
   const {
     Employeeid,
     userName,
@@ -58,15 +60,24 @@ const Crmfsfrm = () => {
     // e.preventDefault();
     const body = userdata;
     console.log(body);
-    const response = await fetch(`http://localhost:8000/lmv/register`, {
+    const response = await fetch(`http://localhost:8001/lmv/register`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     });
   };
 
+//getting role req from backend
+
+
+
+
+
+
   return (
     <>
+
+
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
@@ -82,7 +93,7 @@ const Crmfsfrm = () => {
         <Form  id="addEmployeeFrom" onSubmit={handleSubmit(submitHandler)}>
         <div className="text-center mb-3">
             <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
-              ADD EMPLOYEE
+              ADD EMPLOYEE DETAILS
             </h5>
           </div>
           
@@ -289,7 +300,7 @@ const Crmfsfrm = () => {
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
-                    <b>ADHAR CARD NO:</b>
+                    <b>AADHAR CARD NO:</b>
                   </label>
                   <InputGroup
                     className="mb-3"
@@ -302,7 +313,7 @@ const Crmfsfrm = () => {
                     })}
                   >
                     <FormControl
-                      placeholder="Adhard Card Number"
+                      placeholder="AAdhard Card Number"
                       aria-label="AdharCard"
                       aria-describedby="basic-addon1"
                       name="AdharCard"
@@ -834,6 +845,9 @@ const Crmfsfrm = () => {
           </div>
         </Form>
       </div>
+
+gfg
+
     </>
   );
 };

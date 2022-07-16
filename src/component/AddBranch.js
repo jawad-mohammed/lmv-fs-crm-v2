@@ -31,20 +31,45 @@ const AddBranch = () => {
     formState: { errors },
   } = useForm();
 
- 
+//get req from backend
+const getRequest = async()=>{
+const res = await fetch(`http://localhost:8001/branchloc`)
+const jsonData = await res.json()
+setAllUsers(jsonData)
+}
+useEffect(()=>{
+getRequest()
+},[])  
+//////////////////////////////////////////////////////////////
 
-  // Change page
-  const handleClick = async (id) => {
-    // const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
-    //   method: "DELETE",
-    // });
-    // setAllUsers(allUsers.filter((user) => user.id !== id));
+  // delete req
+  const handleDelete = async (id) => {
+  const confirm = window.confirm('Are you sure')
+if(confirm){
+
+ const deleteItem = await fetch(`http://localhost:8001/branchloc/${id}`, {
+    method: "DELETE",
+  });
+  setAllUsers(allUsers.filter((user) => user.id !== id));
+
+}};
+  /////////////////////////////////////////////////////////////////////////////////
+  // @Post req
+  const submitHandle = async (e) => {
+  //  e.preventDefault()
+    const body = data
+     console.log(body);
+
+     const res  = await fetch(`http://localhost:8001/branchloc`,{
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify(body)
+})
+window.location.reload()
+
   };
-  // for adding Bank Location The data
-  const submitHandler = async (e) => {
-    // e.preventDefault();
-    console.log(data);
-  };
+
+  //////////////////////////////////////////////////////////////////
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -64,13 +89,13 @@ const AddBranch = () => {
       </div>
       <SideNav />
       <div className="text-center mb-3">
-        <h6 className=" mt-5" id="empdeslabel1" style={{ color: "#00adff" }}>
-          BRANCH & LOCATION
-        </h6>
+        <h5 className=" mt-5" id="empdeslabel1" style={{ color: "#00adff" }}>
+         ADD BRANCH & LOCATION
+        </h5>
         {/* this is form for posting designation req */}
 
         {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
-        <form onSubmit={handleSubmit(submitHandler)} className="mt-5" id="addbranchForm">
+        <form onSubmit={handleSubmit(submitHandle)} className="mt-3" id="addbranchForm">
        
           <div className="text-center" id="ressearch">
             {/*  */}
@@ -103,7 +128,7 @@ const AddBranch = () => {
                   onChange={changeHandler}
                 />
               </InputGroup>
-              <div >
+              <div>
                 {errors.CBankBranch && (
                   <small className="addBranchErr">
                     {errors.CBankBranch.message}
@@ -124,7 +149,7 @@ const AddBranch = () => {
                   padding: "7px",
                 }}
                 {...register("companylocation", {
-                  required: "Please Enter Your Location Name ",
+                  required: "Please Enter Your Location",
                   pattern: {
                     value: /[A-Za-z]/,
                     message: "Invalid User Name",
@@ -171,13 +196,13 @@ const AddBranch = () => {
         id="empdeslabel4"
         style={{ color: "#00adff" }}
       >
-        Branch & Location
+       BRANCH & LOCATION
       </h5>
 
       <div className=" d-flex text" style={{ overflowX: "auto" }}>
         <div className="mb-3 mt-3" style={{ marginLeft: "110px" }}>
           {/* search Form */}
-          <div className="d-flex mt-2 mb-2" id="viewEmployeeres">
+          <div className="d-flex mt-2" id="viewEmployeeres">
             <div
               className="ml-5"
               id="viewEmployeeinput"
@@ -238,7 +263,7 @@ const AddBranch = () => {
                     return user;
                   }
                   if (
-                    user.employeeid
+                    user.id
                       .toLocaleLowerCase()
                       .includes(search.toLocaleLowerCase())
                   ) {
@@ -266,11 +291,11 @@ const AddBranch = () => {
                     </td>
 
                     <td className="text-center" scope="col">
-                      {user.cbankbranch}
+                      {user.companybranch}
                     </td>
 
                     <td className="text-center" scope="col">
-                      {user.companylocation}
+                      {user.location}
                     </td>
 
                     {/* edit button */}
@@ -284,7 +309,7 @@ const AddBranch = () => {
                     <td className="text-center" scope="col">
                       <button
                         className="viewEmployeeBtn"
-                        onClick={() => handleClick(user.id)}
+                        onClick={() => handleDelete(user.id)}
                       >
                         <MdDeleteSweep />
                       </button>

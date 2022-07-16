@@ -12,7 +12,7 @@ const Otp = () => {
     input3: "",
     input4: "",
   });
-  const { input1, input2, input3, input4 } = otp;
+  const { input1,input2, input3, input4 } = otp;
   const [myOtp, setMyOtp] = useState([]);
   const navigation = useNavigate();
   // forward function for otp input

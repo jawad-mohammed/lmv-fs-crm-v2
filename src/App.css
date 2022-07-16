@@ -476,10 +476,11 @@ MenuItem {
 
   #viewEmployeeSearch {
     margin-left: -25vw !important;
+    margin-top: -49px;
   }
 
   #empdeslabel4 {
-    margin-left: 6rem !important;
+    margin-left: 5rem !important;
   }
 
   #addbranchInput {
@@ -565,7 +566,7 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 20px;
   box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
   font-weight: 600;
-  width: 202px;
+  width: 261px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -577,7 +578,7 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 20px;
   box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
   font-weight: 600;
-  width: 202px;
+  width: 274px;
   margin-left: 48vw;
   margin-right: auto;
 }
@@ -601,7 +602,8 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 20px;
   box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
   font-weight: 600;
-  width: 207px;
+  font-weight: 600;
+  width: 226px;
   margin-left: 48vw;
   margin-right: auto;
 }

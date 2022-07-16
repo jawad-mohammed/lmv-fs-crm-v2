@@ -28,24 +28,30 @@ const EmployeeDesignation = () => {
   const [userDetails, setUserDetails] = useState([]);
   const [designation, setDesignation] = useState(userDetails.designation);
 
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(data)
-    const res = searchInput;
+ const res = searchInput;
+ console.log(res);
 
-    console.log(res);
-
-    const newUser = await fetch(`http://localhost:8000/emp/designation`, {
+    const newUser = await fetch(`http://localhost:8001/designation/post`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(res),
+      body: JSON.stringify(res)
+      
     });
+   
   };
+
+
+
+
+  
   /////////////////////////////////////////////////////////////
   //@get request
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:8000/lmv`);
+    const response = await fetch(`http://localhost:8001/designation/post`);
     const jsonData = await response.json();
     setUserDetails(jsonData);
   };
@@ -61,7 +67,7 @@ console.log(body);
 
 }
 const handleDelete =async(id)=>{
-  const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
+  const deleteItem = await fetch(`http://localhost:8001/designation/${id}`, {
     method: "DELETE",
   });
   setUserDetails(userDetails.filter((user) => user.id !== id));
@@ -90,7 +96,7 @@ const handleDelete =async(id)=>{
           {/* this is form for posting designation req */}
         
         {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
-          <form onSubmit={submitHandler} className="mt-5">
+          <form  className="mt-5" onSubmit={submitHandler}>
             <div className="text-center" id="ressearch">
               <input
                 style={{
@@ -108,7 +114,7 @@ const handleDelete =async(id)=>{
               />
              
               <br />
-              <button
+              <button 
                 className="btn b-border-3 mt-3"
                 style={{
                   backgroundColor: "#00adff",
@@ -161,7 +167,7 @@ const handleDelete =async(id)=>{
             {userDetails.map((user) => {
               return (
                 <tbody className="align-center">
-                  <tr className="table-info " key={user.id}>
+                  <tr className="table-info " key={user.EmployeeDesignation}>
                     <td className="text-center">{user.id}</td>
                     <td className="text-center">{user.designation}</td>
 

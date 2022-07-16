@@ -14,7 +14,7 @@ const ViewEmployee = () => {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:8000/lmv`);
+    const response = await fetch(`http://localhost:8001/lmv`);
     const jsonData = await response.json();
     setAllUsers(jsonData);
   };
