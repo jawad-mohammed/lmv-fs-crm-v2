@@ -14,7 +14,7 @@ const ViewEmployee = () => {
   const [search, setSearch] = useState("");
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:8001/lmv`);
+    const response = await fetch(`http://localhost:8001/viewEmployee/lmv`);
     const jsonData = await response.json();
     setAllUsers(jsonData);
   };
@@ -27,10 +27,14 @@ const ViewEmployee = () => {
 
   // Change page
   const handleClick = async (id) => {
-    // const deleteItem = await fetch(`http://localhost:8000/lmv/${id}`, {
-    //   method: "DELETE",
-    // });
-    // setAllUsers(allUsers.filter((user) => user.id !== id));
+    const confirm = window.confirm(`Are you sure to delete`)
+    if(confirm){
+      const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${id}`, {
+        method: "DELETE",
+      });
+      setAllUsers(allUsers.filter((user) => user.id !== id));
+    }
+    alert(`deleted your record`)
   };
   // for searching
 

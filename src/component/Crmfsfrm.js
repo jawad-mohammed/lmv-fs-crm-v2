@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 // import "../App.css";
@@ -14,6 +14,8 @@ import Logohead from "./Logohead";
 import AllRoles from "./AllRoles";
 
 const Crmfsfrm = () => {
+  const [show, SetShow] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,12 +23,12 @@ const Crmfsfrm = () => {
   } = useForm();
   // console.log(errors);
   const initialValues = addEmployeeInitialValues();
+  // for disabbling the assigned Manager
 
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
 
-  
   const {
     Employeeid,
     userName,
@@ -54,30 +56,29 @@ const Crmfsfrm = () => {
 
   const changeHandler = (e) => {
     setUserdata({ ...userdata, [e.target.name]: e.target.value });
+    // disabling the assigned Manager
+    // if (designation === "HR" || "CEO") {
+    //   SetShow(true);
+    // } 
   };
+
+  
 
   const submitHandler = async (e) => {
     // e.preventDefault();
     const body = userdata;
     console.log(body);
-    const response = await fetch(`http://localhost:8001/lmv/register`, {
+    const response = await fetch(`http://localhost:8001/viewEmployee/lmv/register`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     });
   };
 
-//getting role req from backend
-
-
-
-
-
+  //getting role req from backend
 
   return (
     <>
-
-
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
@@ -86,19 +87,18 @@ const Crmfsfrm = () => {
           </u>
         </h3>
       </div>
-     
       <div className="container-fluid d-flex">
         <SideNav />
         {/* <div > */}
-        <Form  id="addEmployeeFrom" onSubmit={handleSubmit(submitHandler)}>
-        <div className="text-center mb-3">
+        <Form id="addEmployeeFrom" onSubmit={handleSubmit(submitHandler)}>
+          <div className="text-center mb-3">
             <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
               ADD EMPLOYEE DETAILS
             </h5>
           </div>
-          
+
           <h5>
-            <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
+            <u style={{ color: "#3fa2da", marginLeft: "13px" }}>
               <b>PERSONAL DETAILS:-</b>
             </u>
           </h5>
@@ -328,7 +328,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-               <Col>
+              <Col>
                 <div className="mb-3 form-check" id={"crmselect"}>
                   <label>
                     <b>STATUS:</b>
@@ -343,10 +343,9 @@ const Crmfsfrm = () => {
                     <option name={Status} value="In Active">
                       In Active
                     </option>
-                     <option name={Status} value="Active">
+                    <option name={Status} value="Active">
                       Active
                     </option>
-                   
                   </Form.Select>
                 </div>
               </Col>
@@ -354,7 +353,7 @@ const Crmfsfrm = () => {
           </Container>
 
           <h5>
-            <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
+            <u style={{ color: "#3fa2da", marginLeft: "13px" }}>
               <b>BANK DETAILS</b>
             </u>
           </h5>
@@ -489,7 +488,7 @@ const Crmfsfrm = () => {
 
           <div>
             <h5>
-              <u style={{ color: "#3fa2da",marginLeft:"13px" }}>
+              <u style={{ color: "#3fa2da", marginLeft: "13px" }}>
                 <b>ADDRESS:</b>
               </u>
             </h5>
@@ -690,45 +689,58 @@ const Crmfsfrm = () => {
             </Container>
           </div>
           <div className="d-flex "></div>
- 
 
           <h5>
-            <u style={{ color: "#3fa2da",marginLeft:"6px"}}>
+            <u style={{ color: "#3fa2da", marginLeft: "6px" }}>
               <b>COMPANY DETAILS:</b>
             </u>
           </h5>
-    
 
-          <Container style={{marginLeft: "-12px"}}>
+          <Container style={{ marginLeft: "-12px" }}>
             <Row>
-              <Col>
-                <div className="mb-3 form-check" id={"crmselect"}>
+              <Col className="wrapper">
+                <div className="mb-3 form-check"  id={"crmselect"}>
                   <label>
                     <b>Designation</b>
                   </label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    placeholder="Select"
+                  <InputGroup 
+                    className="mb-3"
                     name="designation"
                     onChange={changeHandler}
                   >
-                    <option>Select Designation</option>
-                    <option name={designation} value="Managing Director">
-                      Managing Director
-                    </option>
-                    <option name={designation} value="Admin">
-                      Admin
-                    </option>
-                    <option name={designation} value="CEO">
-                      CEO
-                    </option>
-                    <option name={designation} value="Principle Manager">
-                      Principle Manager
-                    </option>
-                    <option name={designation} value="Full Stack Developer">
-                      Full Stack Developer
-                    </option>
-                  </Form.Select>
+                    <FormControl
+                      aria-label="Default select example"
+                      placeholder="Designation"
+                      // style={{ width: "212px" }}
+                      name="designation"
+                      onChange={changeHandler}
+                      list="datalistOptions"
+                      id="exampleDataList"
+                      
+                    
+                    />
+                    <datalist id="datalistOptions"  className="wrapper" >
+                      <option>Select Designation</option>
+                      <option name={designation} value="Managing Director">
+                        Managing Director
+                      </option>
+                      <option name={designation} value="Admin">
+                        Admin
+                      </option>
+                      <option name={designation} value="HR">
+                        HR
+                      </option>
+                      <option name={designation} value="CEO">
+                        CEO
+                      </option>
+                      <option name={designation} value="Principle Manager">
+                        Principle Manager
+                      </option>
+                      <option name={designation} value="Full Stack Developer">
+                        Full Stack Developer
+                      </option>
+                    </datalist>
+                  </InputGroup>
                 </div>
               </Col>
               <Col md={4} lg={3} sm={12}>
@@ -753,6 +765,7 @@ const Crmfsfrm = () => {
                       name="AssignedManager"
                       value={AssignedManager}
                       onChange={changeHandler}
+                      disabled={show}
                     />
                   </InputGroup>
                   {errors.AssignedManager && (
@@ -831,12 +844,12 @@ const Crmfsfrm = () => {
           </div>
 
           <div className=" text-center">
-            <Button 
+            <Button
               style={{
                 backgroundColor: "#3fa2da",
                 text: "white",
                 width: "142px",
-                marginTop: "40px"
+                marginTop: "40px",
               }}
               type="submit"
             >
@@ -845,9 +858,6 @@ const Crmfsfrm = () => {
           </div>
         </Form>
       </div>
-
-gfg
-
     </>
   );
 };

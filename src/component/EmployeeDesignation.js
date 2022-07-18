@@ -3,12 +3,14 @@ import SideNav from "./SideNav";
 import Logohead from "./Logohead";
 import { MdDeleteSweep } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
-import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-
+import axios from "axios";
 
 const EmployeeDesignation = () => {
-  //
+  // EDIT MODAL
+  const [userDetails, setUserDetails] = useState([]);
+  const [editData, setEditData] = useState("");
+
   const [data, setData] = useState({
     searchInput: "",
   });
@@ -18,62 +20,75 @@ const EmployeeDesignation = () => {
     formState: { errors },
   } = useForm();
   const { searchInput } = data;
+  //edit modal
+
   //change handler
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   //post req for designation handler
-  // EDIT MODAL
-  const [userDetails, setUserDetails] = useState([]);
-  const [designation, setDesignation] = useState(userDetails.designation);
 
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
- const res = searchInput;
- console.log(res);
-
-    const newUser = await fetch(`http://localhost:8001/designation/post`, {
-      method: "POST",
-      headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(res)
-      
-    });
-   
+  var body = {
+    searchInput,
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
 
+    axios({
+      method: "post",
+      url: "http://localhost:8001/designation/post",
+      data: body,
+    });
+    console.log(data);
+  };
 
-
-  
   /////////////////////////////////////////////////////////////
   //@get request
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:8001/designation/post`);
+    const response = await fetch(`http://localhost:8001/designation/api/v1`);
     const jsonData = await response.json();
     setUserDetails(jsonData);
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [userDetails]);
   ////////////////////////////////////////////////////////
   //@update req
- const handleEdit=async(id)=>{
-const body = userDetails
-console.log(body);
+  const handleEdit = async (id) => {
+    try {
+      const data = body;
 
+      const response = await fetch(
+        `http://localhost:8001/designation/put/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      );
+      console.log("edited");
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
-}
-const handleDelete =async(id)=>{
-  const deleteItem = await fetch(`http://localhost:8001/designation/${id}`, {
-    method: "DELETE",
-  });
-  setUserDetails(userDetails.filter((user) => user.id !== id));
-}
-
-
+  //delete record
+  const handleDelete = async (id) => {
+    const confirm = window.confirm(`Are You Sure You Want To Delete`);
+    if (confirm) {
+      const deleteItem = await fetch(
+        `http://localhost:8001/designation/api/v1/role/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      setUserDetails(userDetails.filter((user) => user.id !== id));
+      alert("Successfully Deleted ");
+    }
+  };
 
   return (
     <>
@@ -94,9 +109,9 @@ const handleDelete =async(id)=>{
             ADD DESIGNATION
           </h5>
           {/* this is form for posting designation req */}
-        
-        {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
-          <form  className="mt-5" onSubmit={submitHandler}>
+
+          {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
+          <form className="mt-5" onSubmit={submitHandler}>
             <div className="text-center" id="ressearch">
               <input
                 style={{
@@ -104,7 +119,7 @@ const handleDelete =async(id)=>{
                   borderRadius: "6px",
                   marginLeft: "85px",
                 }}
-                type={"search"}
+                type={"text"}
                 className="text-center mb-2"
                 name="searchInput"
                 value={searchInput}
@@ -112,9 +127,9 @@ const handleDelete =async(id)=>{
                 placeholder="Add Designation"
                 required
               />
-             
+
               <br />
-              <button 
+              <button
                 className="btn b-border-3 mt-3"
                 style={{
                   backgroundColor: "#00adff",
@@ -127,16 +142,12 @@ const handleDelete =async(id)=>{
               </button>
             </div>
           </form>
-</div>
+        </div>
       </div>
       <div className="d-flex text-center">
         <div className="mx-auto">
           <div className="text-center mb-3">
-            <h5
-              className=" mt-3"
-              id="empdeslabel2"
-              
-            >
+            <h5 className=" mt-3" id="empdeslabel2">
               DESIGNATION DETAILS
             </h5>
           </div>
@@ -166,97 +177,90 @@ const handleDelete =async(id)=>{
 
             {userDetails.map((user) => {
               return (
-                <tbody className="align-center">
-                  <tr className="table-info " key={user.EmployeeDesignation}>
+                <tbody className="align-center" key={user.id}>
+                  <tr className="table-info ">
                     <td className="text-center">{user.id}</td>
                     <td className="text-center">{user.designation}</td>
 
                     <td>
-
-                      {/* <button onClick={()=>handleEdit(user.id)}>edit</button> */}
                       <button
                         className="viewEmployeeBtn text-center"
                         type="button"
-                        class="btn"
                         data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        // onClick={() =>handleEdit(user.id) }
+                        data-bs-target={`#id${user.id}`}
+                        onClick={() => user.id}
                       >
                         <FaUserEdit />
                       </button>
                     </td>
                     <td>
-                      <button className="viewEmployeeBtn text-center" onClick={()=>handleDelete(user.id)}>
+                      <button
+                        className="viewEmployeeBtn text-center"
+                        onClick={() => handleDelete(user.id)}
+                      >
                         <MdDeleteSweep />
                       </button>
                     </td>
                   </tr>
                   <tr></tr>
+                  {/* Modal form*/}
+                  <div className="modal" id={`id${user.id}`}>
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Edit Designation
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          {/* //////modal form */}
+
+                          <form>
+                            <label>
+                              <b>Designation::</b>
+                            </label>
+                            <input
+                              type="text"
+                              name={user.designation}
+                              value={user.designation}
+                              // id={`id${user.id}`}
+                              onChange={(e) => setEditData(e.target.value)}
+                            ></input>
+                            <br />
+                          </form>
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => handleEdit(user.id)}
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </tbody>
               );
             })}
           </table>
         </div>
-        {/* <!-- Modal --> */}
-
-        {/* EDIT MODAL */}
-        {/* pagination */}
-
-        {/*  */}
-
-        <div
-          className="modal fade"
-          id="exampleModal"
-          tabIndex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLabel">
-                  Edit Designation
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <label>
-                    <b>Designation:</b>
-                  </label>
-                  <input
-                    type={"text"}
-                    name=""
-                    value={userDetails.designation}
-                    onChange={(e) => setDesignation(e.target.value)}
-                  ></input>
-                  <br />
-                  {/* <label> <b>New Designation</b></label>
-                  <input type={"text"} value={setData}></input> */}
-                </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary" >
-                  Save changes
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      {/*  */}
     </>
   );
 };
