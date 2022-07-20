@@ -26,15 +26,19 @@ const Crmlogin = () => {
 
   const submitHandler = async (e) => {
     const body = data;
-    console.log(data);
-    navigate("/Otppage");
-    const response = await fetch(`http://localhost:8001/lmv/login`, {
-      method: "POST",
-      headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(body),
-    });
-    const parseResponse = await response.json();
-    setOtpVerify(parseResponse.message);
+    console.log(body.Employeeid);
+     navigate("/Otppage");
+
+  
+
+    // const response = await fetch(`http://localhost:8001/lmv/login`, {
+    //   method: "POST",
+    //   headers: { "Content-Type": "Application/json" },
+    //   body: JSON.stringify(body),
+    // });
+
+    // const parseResponse = await response.json();
+    // setOtpVerify(parseResponse.message);
   };
 
   // const parseResponse =await response.json()

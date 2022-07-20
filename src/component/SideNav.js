@@ -32,7 +32,7 @@ import { RiPencilLine } from "react-icons/ri";
 import { BiCog, BiWindows } from "react-icons/bi";
 
 import "react-pro-sidebar/dist/css/styles.css";
-import Crmfsfrm from "./Crmfsfrm";
+import Crmfsfrm from "./AddEmployee";
 // import "./Header.css";
 
 const SideNav = () => {
@@ -51,7 +51,7 @@ const SideNav = () => {
   };
   const addEmployeeForm = (e) => {
     e.preventDefault();
-    navigate("/Crmfsfrm");
+    navigate("/AddEmployee");
     // window.navigate.load()
     window.location.reload();
   };

@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import { useNavigate } from "react-router-dom";
-// import "../App.css";
-
 import { Container, Row, Col } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+import Select from "react-bootstrap/FormSelect";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SideNav from "./SideNav";
 import { addEmployeeInitialValues } from "../validations/initialValues";
+import Modal from "./Modal";
+// import {AddEmployeeValidation} from '../validations/AddEmployeeValidation'
 import Logohead from "./Logohead";
 import AllRoles from "./AllRoles";
 
 const Crmfsfrm = () => {
+  // console.log(EmployeeValidation)
   const [show, SetShow] = useState(false);
 
   const {
@@ -23,6 +24,7 @@ const Crmfsfrm = () => {
   } = useForm();
   // console.log(errors);
   const initialValues = addEmployeeInitialValues();
+  // const EmployeeValidation = AddEmployeeValidation();
   // for disabbling the assigned Manager
 
   const [userdata, setUserdata] = useState({
@@ -52,27 +54,35 @@ const Crmfsfrm = () => {
     CBankBranch,
     district,
     city,
+    officialNum,
+    officialEmail,
+    officialState,
   } = userdata;
 
   const changeHandler = (e) => {
-    setUserdata({ ...userdata, [e.target.name]: e.target.value });
+    setUserdata({ ...userdata, [e.target.name]: e.target.value.toUpperCase() });
     // disabling the assigned Manager
     // if (designation === "HR" || "CEO") {
     //   SetShow(true);
-    // } 
+    // }
   };
-
-  
 
   const submitHandler = async (e) => {
     // e.preventDefault();
     const body = userdata;
     console.log(body);
-    const response = await fetch(`http://localhost:8001/viewEmployee/lmv/register`, {
-      method: "POST",
-      headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `http://localhost:8001/viewEmployee/lmv/register`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "Application/json" },
+        body: JSON.stringify(body),
+      }
+    );
+    //alert(`Registered ${ userName}`)
+    const parseRes = await response.json();
+    //console.log(parseRes.message);
+    alert(parseRes.message);
   };
 
   //getting role req from backend
@@ -90,7 +100,11 @@ const Crmfsfrm = () => {
       <div className="container-fluid d-flex">
         <SideNav />
         {/* <div > */}
-        <Form id="addEmployeeFrom" onSubmit={handleSubmit(submitHandler)}>
+        <Form
+          noValidate
+          id="addEmployeeFrom"
+          onSubmit={handleSubmit(submitHandler)}
+        >
           <div className="text-center mb-3">
             <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
               ADD EMPLOYEE DETAILS
@@ -126,7 +140,6 @@ const Crmfsfrm = () => {
                       name="Employeeid"
                       value={Employeeid}
                       onChange={changeHandler}
-                      // helper={error}
                     />
                   </InputGroup>
                   {errors.Employeeid && (
@@ -329,29 +342,56 @@ const Crmfsfrm = () => {
                 </div>
               </Col>
               <Col>
+              {/*  */}
+
+
+
+              <Col className="wrapper">
                 <div className="mb-3 form-check" id={"crmselect"}>
-                  <label>
+                   <label>
                     <b>STATUS:</b>
                   </label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    placeholder="Select"
+                  <InputGroup
+                    className="mb-3"
                     name="Status"
                     onChange={changeHandler}
                   >
-                    <option>Select Status</option>
-                    <option name={Status} value="In Active">
-                      In Active
-                    </option>
-                    <option name={Status} value="Active">
-                      Active
-                    </option>
-                  </Form.Select>
+                    <FormControl
+                      className="MentorList_DropdownMenu"
+                      aria-label="Default select example"
+                      placeholder="Select Status"
+                      // style={{ width: "212px" }}
+                      name="Status"
+                      onChange={changeHandler}
+                      list="datalistOptions1"
+                      id="exampleDataList"
+                      {...register("Status", {
+                        required: "Please Select Your Status",
+                      })}
+                    />
+
+                    <datalist id="datalistOptions1" class="overflowY-scroll">
+                      <option>Select Status</option>
+                      <option name={Status} value="Active">
+                        Active
+                      </option>
+                      <option name={Status} value="In Active">
+                        In Active
+                      </option>   
+                      </datalist>
+                  </InputGroup>
+                  
+                  {errors.Status && (
+                    <small className="text-danger">
+                      {errors.Status.message}
+                    </small>
+                  )}
                 </div>
+              </Col>
+             
               </Col>
             </Row>
           </Container>
-
           <h5>
             <u style={{ color: "#3fa2da", marginLeft: "13px" }}>
               <b>BANK DETAILS</b>
@@ -468,7 +508,7 @@ const Crmfsfrm = () => {
                     })}
                   >
                     <FormControl
-                      placeholder="User Name"
+                      placeholder="Branch Name"
                       aria-label="BankBranch"
                       aria-describedby="basic-addon1"
                       value={BankBranch}
@@ -503,10 +543,6 @@ const Crmfsfrm = () => {
                       className="mb-3"
                       {...register("Address", {
                         required: "Please Enter Your Address",
-                        // pattern: {
-                        //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                        //   message: "Invalid address Number",
-                        // },
                       })}
                     >
                       <FormControl
@@ -534,10 +570,6 @@ const Crmfsfrm = () => {
                       className="mb-3"
                       {...register("Address", {
                         required: "Please Enter Your Address",
-                        // pattern: {
-                        //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                        //   message: "Invalid address Number",
-                        // },
                       })}
                     >
                       <FormControl
@@ -604,7 +636,7 @@ const Crmfsfrm = () => {
                     >
                       <FormControl
                         aria-label="Default select example"
-                        placeholder="please Enter Your State"
+                        placeholder="Please Enter Your State"
                         value={state}
                         name="state"
                         onChange={changeHandler}
@@ -640,7 +672,7 @@ const Crmfsfrm = () => {
                     >
                       <FormControl
                         aria-label="Default select example"
-                        placeholder="please Enter Your State"
+                        placeholder="Please Enter Your State"
                         // style={{ width: "212px" }}
                         value={district}
                         name="district"
@@ -671,7 +703,7 @@ const Crmfsfrm = () => {
                     >
                       <FormControl
                         aria-label="Default select example"
-                        placeholder="please Enter Your State"
+                        placeholder="Please Enter Your State"
                         // style={{ width: "212px" }}
                         value={city}
                         name="city"
@@ -699,16 +731,17 @@ const Crmfsfrm = () => {
           <Container style={{ marginLeft: "-12px" }}>
             <Row>
               <Col className="wrapper">
-                <div className="mb-3 form-check"  id={"crmselect"}>
+                <div className="mb-3 form-check" id={"crmselect"}>
                   <label>
                     <b>Designation</b>
                   </label>
-                  <InputGroup 
+                  <InputGroup
                     className="mb-3"
                     name="designation"
                     onChange={changeHandler}
                   >
                     <FormControl
+                      className="MentorList_DropdownMenu"
                       aria-label="Default select example"
                       placeholder="Designation"
                       // style={{ width: "212px" }}
@@ -716,10 +749,16 @@ const Crmfsfrm = () => {
                       onChange={changeHandler}
                       list="datalistOptions"
                       id="exampleDataList"
-                      
-                    
+                      {...register("designation", {
+                        required: "Please Select Your designation",
+                        // pattern: {
+                        //   value:password.trim().length>4,
+                        //   message: "INVALIDE password",
+                        // },
+                      })}
                     />
-                    <datalist id="datalistOptions"  className="wrapper" >
+
+                    <datalist id="datalistOptions" class="overflowY-scroll">
                       <option>Select Designation</option>
                       <option name={designation} value="Managing Director">
                         Managing Director
@@ -739,10 +778,25 @@ const Crmfsfrm = () => {
                       <option name={designation} value="Full Stack Developer">
                         Full Stack Developer
                       </option>
+            {/* {options.map((option) => (
+              <option name={option.designation}>{option.designation}</option>
+            ))} */}
+                   <option>
+                
+                   </option>
+        
                     </datalist>
+                    
                   </InputGroup>
+                  
+                  {errors.designation && (
+                    <small className="text-danger">
+                      {errors.designation.message}
+                    </small>
+                  )}
                 </div>
               </Col>
+     
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
@@ -842,6 +896,107 @@ const Crmfsfrm = () => {
           <div>
             <div className="d-flex">{/*  */}</div>
           </div>
+          {/*  */}
+          <div className="companydetails">
+            <Container>
+              <Row>
+                <Col md={4} lg={4} sm={12}>
+                  <div className="mb-3 ">
+                    <label htmlFor="mid">
+                      <b> OFFICIAL NUMBER:</b>
+                    </label>
+                    <InputGroup
+                      {...register("officialNum", {
+                        required: "Please Enter The Official Number",
+                        pattern: {
+                          value: /^[6-9]\d{9}$/,
+                          message: "Invalid Mobile Number",
+                        },
+                      })}
+                    >
+                      <FormControl
+                        placeholder=" Official Mobile Number"
+                        aria-label="Mobile Number"
+                        aria-describedby="basic-addon1"
+                        name="officialNum"
+                        type="number"
+                        value={officialNum}
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.officialNum && (
+                      <small className="text-danger">
+                        {errors.officialNum.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
+                <Col md={4} lg={4} sm={12}>
+                  <div className="mb-3">
+                    <label htmlFor="mid">
+                      <b>OFFICIAL EMAIL:</b>
+                    </label>
+                    <InputGroup
+                      {...register("officialEmail", {
+                        required: "Please Enter Your  Official Email",
+                        pattern: {
+                          value: /\S+@\S+\.\S+/,
+                          message: "Invalid Email",
+                        },
+                      })}
+                      style={{ marginLeft: "-10px" }}
+                    >
+                      <Form.Control
+                        type="officialEmail"
+                        placeholder="Official  Email"
+                        id="officialEmailid"
+                        name="officialEmail"
+                        value={officialEmail}
+                        onChange={changeHandler}
+                      />
+                      {/* /> */}
+                    </InputGroup>
+                    {errors.officialEmail && (
+                      <small className="text-danger">
+                        {errors.officialEmail.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
+                <Col md={4} lg={4} sm={12}>
+                  <div className="mb-3 ">
+                    <label htmlFor="mid">
+                      <b>STATE:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
+                      {...register("officialState", {
+                        required: "Please Enter Company State ",
+                        // pattern: {
+                        //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
+                        //   message: "Please Enter  A Valid officialState Name",
+                        // },
+                      })}
+                    >
+                      <FormControl
+                        aria-label="Default select example"
+                        placeholder="Please Enter Your State"
+                        value={officialState}
+                        name="officialState"
+                        onChange={changeHandler}
+                      />
+                    </InputGroup>
+                    {errors.officialState && (
+                      <small className="text-danger">
+                        {errors.officialState.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
+              </Row>
+            </Container>
+          </div>
+          {/*  */}
 
           <div className=" text-center">
             <Button
@@ -856,7 +1011,11 @@ const Crmfsfrm = () => {
               <b>SUBMIT</b>
             </Button>
           </div>
+        {/* modal for Jounal mannerger */}
+  
         </Form>
+        
+        
       </div>
     </>
   );

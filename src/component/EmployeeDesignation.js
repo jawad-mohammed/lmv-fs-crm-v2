@@ -2,30 +2,36 @@ import { useState, useEffect } from "react";
 import SideNav from "./SideNav";
 import Logohead from "./Logohead";
 import { MdDeleteSweep } from "react-icons/md";
-import { FaUserEdit } from "react-icons/fa";
+import { FaUserEdit, FaWindowMinimize } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const EmployeeDesignation = () => {
   // EDIT MODAL
   const [userDetails, setUserDetails] = useState([]);
-  const [editData, setEditData] = useState("");
 
   const [data, setData] = useState({
     searchInput: "",
   });
+  // const [editData, setEditData] = useState({
+  //   edit:''
+  // });
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { searchInput } = data;
+  // const { edit } = editData;
   //edit modal
 
   //change handler
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  // const editeHandler = (e) => {
+  //   setEditData({ ...editData, [e.target.name]: e.target.value });
+  // };
 
   //post req for designation handler
 
@@ -33,15 +39,14 @@ const EmployeeDesignation = () => {
     searchInput,
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    axios({
-      method: "post",
-      url: "http://localhost:8001/designation/post",
-      data: body,
-    });
-    console.log(data);
+    axios
+      .post(`http://localhost:8001/designation/post`, body)
+      .then((res) => alert(`user ${body.searchInput} registered`))
+      .catch((err) => alert(`user ${body.searchInput} already exists`));
+    setData({ searchInput: "" });
   };
 
   /////////////////////////////////////////////////////////////
@@ -70,9 +75,12 @@ const EmployeeDesignation = () => {
         }
       );
       console.log("edited");
+      const parseRes = await response.json();
+      alert(`${parseRes} designation ${body.searchInput}`);
     } catch (err) {
       console.error(err.message);
     }
+    // window.location.reload()
   };
 
   //delete record
@@ -138,7 +146,7 @@ const EmployeeDesignation = () => {
                 }}
                 type="submit"
               >
-                Submit
+                Submit1
               </button>
             </div>
           </form>
@@ -179,7 +187,7 @@ const EmployeeDesignation = () => {
               return (
                 <tbody className="align-center" key={user.id}>
                   <tr className="table-info ">
-                    <td className="text-center">{user.id}</td>
+                    <td className="text-center"></td>
                     <td className="text-center">{user.designation}</td>
 
                     <td>
@@ -202,7 +210,6 @@ const EmployeeDesignation = () => {
                       </button>
                     </td>
                   </tr>
-                  <tr></tr>
                   {/* Modal form*/}
                   <div className="modal" id={`id${user.id}`}>
                     <div className="modal-dialog">
@@ -225,13 +232,22 @@ const EmployeeDesignation = () => {
                             <label>
                               <b>Designation::</b>
                             </label>
+                            {/* designation edit modal */}
                             <input
-                              type="text"
-                              name={user.designation}
-                              value={user.designation}
-                              // id={`id${user.id}`}
-                              onChange={(e) => setEditData(e.target.value)}
-                            ></input>
+                              style={{
+                                width: "271px",
+                                borderRadius: "6px",
+                                marginLeft: "85px",
+                              }}
+                              type={"text"}
+                              className="text-center mb-2"
+                              name="searchInput"
+                              value={searchInput}
+                              onChange={changeHandler}
+                              placeholder="Edit designation"
+                              required
+                            />
+
                             <br />
                           </form>
                         </div>

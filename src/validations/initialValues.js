@@ -22,6 +22,9 @@ export const addEmployeeInitialValues = () => {
     CBankBranch: "",
     district: "",
     city: "",
+    officialNum:"",
+    officialEmail:"",
+    officialState:"",
   };
   return initialValues
 };

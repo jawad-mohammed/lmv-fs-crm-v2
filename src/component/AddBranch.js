@@ -31,42 +31,46 @@ const AddBranch = () => {
     formState: { errors },
   } = useForm();
 
-//get req from backend
-const getRequest = async()=>{
-const res = await fetch(`http://localhost:8001/branchloc`)
-const jsonData = await res.json()
-setAllUsers(jsonData)
-}
-useEffect(()=>{
-getRequest()
-},[])  
-//////////////////////////////////////////////////////////////
+  //get req from backend
+  const getRequest = async () => {
+    const res = await fetch(`http://localhost:8001/branchloc/api/v1/get`);
+    const jsonData = await res.json();
+    setAllUsers(jsonData);
+  };
+  useEffect(() => {
+    getRequest();
+  }, []);
+  //////////////////////////////////////////////////////////////
 
+  const handleEdit = () => {};
+
+  //////////////////////
   // delete req
   const handleDelete = async (id) => {
-  const confirm = window.confirm('Are you sure')
-if(confirm){
-
- const deleteItem = await fetch(`http://localhost:8001/branchloc/${id}`, {
-    method: "DELETE",
-  });
-  setAllUsers(allUsers.filter((user) => user.id !== id));
-
-}};
+    const confirm = window.confirm(`Are you sure to delete`);
+    if (confirm) {
+      const deleteItem = await fetch(
+        `http://localhost:8001/branchloc/api/v1/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      setAllUsers(allUsers.filter((user) => user.id !== id));
+    }
+  };
   /////////////////////////////////////////////////////////////////////////////////
   // @Post req
   const submitHandle = async (e) => {
-  //  e.preventDefault()
-    const body = data
-     console.log(body);
+     e.preventDefault()
+    const body = data;
+    console.log(body);
 
-     const res  = await fetch(`http://localhost:8001/branchloc`,{
+    const res = await fetch(`http://localhost:8001/branchloc/api/v1/post`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(body)
-})
-window.location.reload()
-
+      body: JSON.stringify(body),
+    });
+    // window.location.reload();
   };
 
   //////////////////////////////////////////////////////////////////
@@ -90,102 +94,60 @@ window.location.reload()
       <SideNav />
       <div className="text-center mb-3">
         <h5 className=" mt-5" id="empdeslabel1" style={{ color: "#00adff" }}>
-         ADD BRANCH & LOCATION
+          ADD BRANCH & LOCATION
         </h5>
         {/* this is form for posting designation req */}
 
         {/* ////<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>></> */}
-        <form onSubmit={handleSubmit(submitHandle)} className="mt-3" id="addbranchForm">
-       
+        <form onSubmit={submitHandle} className="mt-3" id="addbranchForm">
           <div className="text-center" id="ressearch">
-            {/*  */}
-            <div>
-              <label >
-                <b className=""> BRANCH:</b>
-              </label>
-              <InputGroup
-                className="align-center"
-                style={{
-                  width: "271px",
-                  borderRadius: "6px",
-                  marginLeft: "45vw",
-                  padding: "7px",
-                }}
-                {...register("CBankBranch", {
-                  required: "Please Enter Your Branch Name ",
-                  pattern: {
-                    value: /[A-Za-z]/,
-                    message: "Invalid User Name",
-                  },
-                })}
-              >
-                <FormControl
-                  placeholder="Company Branch"
-                  aria-label="CBankBranch"
-                  aria-describedby="basic-addon1"
-                  value={CBankBranch}
-                  name="CBankBranch"
-                  onChange={changeHandler}
-                />
-              </InputGroup>
-              <div>
-                {errors.CBankBranch && (
-                  <small className="addBranchErr">
-                    {errors.CBankBranch.message}
-                  </small>
-                )}
-              </div>
-            </div>
-            <div>
-              <label htmlFor="mid">
-                <b> LOCATION:</b>
-              </label>
-              <InputGroup
-                className="align-center"
-                style={{
-                  width: "271px",
-                  borderRadius: "6px",
-                  marginLeft: "45vw",
-                  padding: "7px",
-                }}
-                {...register("companylocation", {
-                  required: "Please Enter Your Location",
-                  pattern: {
-                    value: /[A-Za-z]/,
-                    message: "Invalid User Name",
-                  },
-                })}
-              >
-                <FormControl
-                  placeholder="Company Location"
-                  aria-label="companylocation"
-                  aria-describedby="basic-addon1"
-                  value={companylocation}
-                  name="companylocation"
-                  onChange={changeHandler}
-                />
-              </InputGroup>
-              <div className="align-center">
+            <b>Add Branch:</b>
+            <br />
+            <input
+              style={{
+                width: "271px",
+                borderRadius: "6px",
+                // marginLeft: "45vw",
+                padding: "7px",
+              }}
+              type={"text"}
+              className="text-center mb-2"
+              name="CBankBranch"
+              value={CBankBranch}
+              onChange={changeHandler}
+              placeholder="Add Branch"
+              required
+            />
+            <br />
+            <b>Add Location:</b>
+            <br />
+            <input
+              style={{
+                width: "271px",
+                borderRadius: "6px",
+                // marginLeft: "45vw",
+                padding: "7px",
+              }}
+              type={"text"}
+              className="text-center mb-2"
+              name="companylocation"
+              value={companylocation}
+              onChange={changeHandler}
+              placeholder="Add Branch"
+              required
+            />
 
-              {errors.companylocation && (
-                <small className="addBranchErr">
-                  {errors.companylocation.message}
-                </small>
-              )}
-              </div>
-            </div>
+            <br />
             <button
               className="btn b-border-3 mt-3"
               style={{
                 backgroundColor: "#00adff",
                 color: "whitesmoke",
-                marginLeft: "72px",
-                padding: "7px",
-                width: "127px"
+                // marginLeft: "72px",
               }}
               type="submit"
             >
-              Submit
+              Submit1
             </button>
           </div>
         </form>
@@ -196,7 +158,7 @@ window.location.reload()
         id="empdeslabel4"
         style={{ color: "#00adff" }}
       >
-       BRANCH & LOCATION
+        BRANCH & LOCATION
       </h5>
 
       <div className=" d-flex text" style={{ overflowX: "auto" }}>
@@ -213,30 +175,12 @@ window.location.reload()
                 height: "33px",
               }}
             ></div>
-            <div className="d-flex">
-              <form autoComplete="off">
-                <input
-                  id="viewEmployeeSearch"
-                  style={{
-                    width: "271px",
-                    borderRadius: "6px",
-                    marginLeft: "35vw",
-                    padding: "7px",
-                  }}
-                  type="text"
-                  placeholder="Search..🔍"
-                  className="form-control"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                {}
-              </form>
-            </div>
+            
           </div>
           {/* end of search Form */}
 
           <table
-            className=" table table-bordered mt-3 "
+            className="table-bordered mt-3 "
             id="viewEmployeeTable"
             style={{ width: "68vw", marginLeft: "100px" }}
           >
@@ -256,67 +200,128 @@ window.location.reload()
                 <th className="text-center">Delete</th>
               </tr>
             </thead>
-            <tbody>
-              {allUsers
-                .filter((user) => {
-                  if (search === "") {
-                    return user;
-                  }
-                  if (
-                    user.id
-                      .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase())
-                  ) {
-                    return user;
-                  }
-                  if (
-                    user.cbankbranch
-                      .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase())
-                  ) {
-                    return user;
-                  }
-                  if (
-                    user.companylocation
-                      .toLocaleLowerCase()
-                      .includes(search.toLocaleLowerCase())
-                  ) {
-                    return user;
-                  }
-                })
-                .map((user) => (
-                  <tr key={user.id}>
-                    <td className="text-center" scope="col">
-                      {user.id}
-                    </td>
+            {allUsers.map((user) => {
+                return (
+                  <tbody className="align-center" key={user.id}>
+                    <tr className="table-info ">
+                      <td className="text-center" scope="col">
+                        {user.id}
+                      </td>
+                      <td className="text-center" scope="col">
+                        {user.companybranch}
+                      </td>
+                      <td className="text-center" scope="col">
+                        {user.location}
+                      </td>
 
-                    <td className="text-center" scope="col">
-                      {user.companybranch}
-                    </td>
+                      <td>
+                        <button
+                          className="viewEmployeeBtn text-center"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target={`#id${user.id}`}
+                          onClick={() => user.id}
+                        >
+                          <FaUserEdit />
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="viewEmployeeBtn text-center"
+                          onClick={() => handleDelete(user.id)}
+                        >
+                          <MdDeleteSweep />
+                        </button>
+                      </td>
+                    </tr>
+                    {/* Modal form*/}
+                    <div className="modal" id={`id${user.id}`}>
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Edit Designation
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            {/* //////modal form */}
 
-                    <td className="text-center" scope="col">
-                      {user.location}
-                    </td>
+                            <form
+                              onSubmit={submitHandle}
+                              className="mt-3"
+                              id="addbranchForm"
+                            >
+                              <div className="text-center" id="ressearch">
+                                <b>Add Branch:</b>
+                                <br />
+                                <input
+                                  style={{
+                                    width: "271px",
+                                    borderRadius: "6px",
+                                    // marginLeft: "45vw",
+                                    padding: "7px",
+                                  }}
+                                  type={"text"}
+                                  className="text-center mb-2"
+                                  name="CBankBranch"
+                                  value={CBankBranch}
+                                  onChange={changeHandler}
+                                  placeholder="Add Branch"
+                                  required
+                                />
+                                <br />
+                                <b>Add Location:</b>
+                                <br />
+                                <input
+                                  style={{
+                                    width: "271px",
+                                    borderRadius: "6px",
+                                    // marginLeft: "45vw",
+                                    padding: "7px",
+                                  }}
+                                  type={"text"}
+                                  className="text-center mb-2"
+                                  name="companylocation"
+                                  value={companylocation}
+                                  onChange={changeHandler}
+                                  placeholder="Add Branch"
+                                  required
+                                />
 
-                    {/* edit button */}
-                    <td className="text-center" scope="col">
-                      <button className="viewEmployeeBtn">
-                        <FaUserEdit />
-                      </button>
-                    </td>
-                    {/* delete button */}
+                                <br />
+                              </div>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              Close
+                            </button>
 
-                    <td className="text-center" scope="col">
-                      <button
-                        className="viewEmployeeBtn"
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        <MdDeleteSweep />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
+                            <button
+                              type="button"
+                              className="btn btn-primary"
+                              onClick={() => handleEdit(user.id)}
+                            >
+                              Edit
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <tr></tr>
+                  </tbody>
+                );
+              })}
           </table>
         </div>
       </div>

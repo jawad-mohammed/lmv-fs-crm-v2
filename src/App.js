@@ -5,15 +5,13 @@ import SideNav from "./component/SideNav";
 import Crmregister from "./component/Crmregister";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Crmfsfrm from "./component/Crmfsfrm";
+import AddEmployee from './component/AddEmployee'
 import ViewEmployee from "./component/ViewEmployee";
 import EmployeeDesignation from "./component/EmployeeDesignation";
 import Logohead from "./component/Logohead";
 import Otppage from "./component/Otppage";
 import AddBranch from "./component/AddBranch";
-// import Crmform from "../src/component/crm-form/src/Component/Crmform";
-// import Crmform
-// import AddEmployee from "./component/addEmployee";
+import EmployeeValidation from './validations/AddEmployeeValidation'
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
@@ -28,20 +26,15 @@ function App() {
           <Route path="Logohead" element={<Logohead />} />
           <Route path="SideNav" element={<SideNav />} />
           <Route path="Crmregister" element={<Crmregister />} />
-          <Route path="Crmfsfrm" element={<Crmfsfrm />} />
-          <Route path="ViewEmployee" element={<ViewEmployee  show={modalShow}
-        onHide={() => setModalShow(false)} />} />
+          <Route path="AddEmployee" element={<AddEmployee />} />
+          <Route path="ViewEmployee" element={<ViewEmployee/>} />
           <Route path="EmployeeDesignation" element={<EmployeeDesignation />} />
           <Route path="Otppage" element={<Otppage />} />
           <Route path="AddBranch" element={<AddBranch />} />
-
-
+          <Route path="EmployeeValidation" element={<EmployeeValidation />} />
 
         </Routes>
       </BrowserRouter>
-      
-      {/* <Crmfsfrm/> */}
-      {/* {<AddEmployee/>} */}
     </>
   );
 }

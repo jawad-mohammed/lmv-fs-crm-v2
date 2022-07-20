@@ -23,18 +23,16 @@ const ViewEmployee = () => {
   }, []);
   
 
-
-
   // Change page
   const handleClick = async (id) => {
-    const confirm = window.confirm(`Are you sure to delete`)
-    if(confirm){
-      const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${id}`, {
-        method: "DELETE",
-      });
-      setAllUsers(allUsers.filter((user) => user.id !== id));
-    }
-    alert(`deleted your record`)
+     const confirm = window.confirm(`Are you sure to delete`)
+     if(confirm){
+       const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${id}`, {
+         method: "DELETE",
+       });
+       setAllUsers(allUsers.filter((user) => user.id !== id));
+     }
+     alert(`deleted your record`)
   };
   // for searching
 
@@ -130,7 +128,8 @@ const ViewEmployee = () => {
               </tr>
             </thead>
             <tbody>
-              {allUsers.filter((user)=>{
+              {allUsers
+              .filter((user)=>{
                 if (search === "") {
                   return user;
                 }  if (

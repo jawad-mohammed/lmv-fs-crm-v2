@@ -430,11 +430,17 @@ MenuItem {
 .districtdiv {
   margin-left: -36vw;
 }
+.companydetails {
+  margin-left: -18vw;
+}
 
 
 
 @media only screen and (max-width: 720px) {
   .districtdiv {
+    margin-left: 0vw;
+  }
+  .companydetails {
     margin-left: 0vw;
   }
 
@@ -463,7 +469,7 @@ MenuItem {
   }
 
   #ressearch {
-    margin-left: -78px;
+    /* margin-left: -78px; */
   }
 
   #viewEmployeeTable {
@@ -583,7 +589,7 @@ input[type=number]::-webkit-outer-spin-button {
   box-shadow: 2px 3px 6px 1px rgba(0, 0, 0, .2) !important;
   font-weight: 600;
   width: 274px;
-  margin-left: 48vw;
+  margin-left: 43vw;
   margin-right: auto;
 }
 
@@ -608,7 +614,7 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: 600;
   font-weight: 600;
   width: 226px;
-  margin-left: 48vw;
+  margin-left: 43vw;
   margin-right: auto;
 }
 

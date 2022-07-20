@@ -70,11 +70,11 @@ const Otp = () => {
     const parseRes = await response.json();
     console.log(parseRes);
     alert(parseRes.otp);
-    // setMyOtp(parseRes)
-    // if (parseRes.otp) {
-      //   localStorage.setItem("token", parseRes.otp);
+    setMyOtp(parseRes)
+    if (parseRes.otp) {
+        localStorage.setItem("token", parseRes.otp);
       
-      // }
+      }
     };
     const submitHandler = (e) => {
     e.preventDefault()
