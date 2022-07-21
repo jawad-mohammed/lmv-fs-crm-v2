@@ -13,7 +13,7 @@ import Modal from "./Modal";
 import Logohead from "./Logohead";
 import AllRoles from "./AllRoles";
 
-const Crmfsfrm = () => {
+const EditEmployee = () => {
   // console.log(EmployeeValidation)
   const [show, SetShow] = useState(false);
 
@@ -92,7 +92,9 @@ const Crmfsfrm = () => {
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
-            <b className="text-white">Add Employee</b>
+          <u style={{ color: "white", width: "100vw" }}>
+            <b>Edit Employee</b>
+          </u>
         </h3>
       </div>
       <div className="container-fluid d-flex">
@@ -105,7 +107,7 @@ const Crmfsfrm = () => {
         >
           <div className="text-center mb-3">
             <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
-              ADD EMPLOYEE DETAILS
+              EDIT EMPLOYEE DETAILS
             </h5>
           </div>
 
@@ -368,7 +370,7 @@ const Crmfsfrm = () => {
                       })}
                     />
 
-                    <datalist id="datalistOptions1" class="overflowY-scroll">
+                    <datalist id="datalistOptions1" className="overflowY-scroll">
                       
                       <option name={Status} value="Active">
                         Active
@@ -756,7 +758,7 @@ const Crmfsfrm = () => {
                       })}
                     />
 
-                    <datalist id="datalistOptions" class="overflowY-scroll">
+                    <datalist id="datalistOptions" className="overflowY-scroll">
                      
                       <option name={designation} value="Managing Director">
                         Managing Director
@@ -1043,7 +1045,7 @@ const Crmfsfrm = () => {
               }}
               type="submit"
             >
-              <b>SUBMIT</b>
+              <b>Edit</b>
             </Button>
           </div>
         {/* modal for Jounal mannerger */}
@@ -1056,4 +1058,13 @@ const Crmfsfrm = () => {
   );
 };
 
-export default Crmfsfrm;
+export default EditEmployee;
+
+
+
+
+
+
+
+
+

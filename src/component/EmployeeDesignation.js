@@ -47,6 +47,7 @@ const EmployeeDesignation = () => {
       .then((res) => alert(`user ${body.searchInput} registered`))
       .catch((err) => alert(`user ${body.searchInput} already exists`));
     setData({ searchInput: "" });
+    // window.location.reload()
   };
 
   /////////////////////////////////////////////////////////////
@@ -59,7 +60,7 @@ const EmployeeDesignation = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [userDetails]);
+  }, []);
   ////////////////////////////////////////////////////////
   //@update req
   const handleEdit = async (id) => {
@@ -80,7 +81,7 @@ const EmployeeDesignation = () => {
     } catch (err) {
       console.error(err.message);
     }
-    // window.location.reload()
+    window.location.reload()
   };
 
   //delete record
@@ -105,9 +106,7 @@ const EmployeeDesignation = () => {
       <div className="text-center">
         <div style={{ background: "#00adff" }}>
           <h3 className="text-center">
-            <u style={{ color: "white", width: "100vw" }}>
-              <b>Employeee Designation</b>
-            </u>
+              <b className="text-white">Employeee Designation</b>
           </h3>
           <SideNav />
         </div>
@@ -146,7 +145,7 @@ const EmployeeDesignation = () => {
                 }}
                 type="submit"
               >
-                Submit1
+               <b> Submit</b>
               </button>
             </div>
           </form>
@@ -168,26 +167,24 @@ const EmployeeDesignation = () => {
                 className="table-info color-white"
                 style={{ background: "#00adff" }}
               >
-                <th scope="row">
-                  <b>S.NO:</b>
+                
+                <th>
+                  <b className="text-white">Designation</b>
                 </th>
                 <th>
-                  <b>Designation</b>
+                  <b className="text-white">Edit</b>
                 </th>
                 <th>
-                  <b>Edit</b>
-                </th>
-                <th>
-                  <b>Delete</b>
+                  <b className="text-white">Delete</b>
                 </th>
               </tr>
             </thead>
 
             {userDetails.map((user) => {
               return (
-                <tbody className="align-center" key={user.id}>
+                <tbody className="align-center " key={user.id}>
                   <tr className="table-info ">
-                    <td className="text-center"></td>
+                    
                     <td className="text-center">{user.designation}</td>
 
                     <td>
@@ -230,12 +227,11 @@ const EmployeeDesignation = () => {
 
                           <form>
                             <label>
-                              <b>Designation::</b>
+                              <b>Designation:</b>
                             </label>
                             {/* designation edit modal */}
                             <input
                               style={{
-                                width: "271px",
                                 borderRadius: "6px",
                                 marginLeft: "85px",
                               }}

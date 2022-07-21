@@ -469,7 +469,7 @@ MenuItem {
   }
 
   #ressearch {
-    /* margin-left: -78px; */
+    margin-left: auto;
   }
 
   #viewEmployeeTable {
@@ -486,7 +486,7 @@ MenuItem {
 
   #viewEmployeeSearch {
     margin-left: -25vw !important;
-    margin-top: -49px;
+    margin-top: 6px;
   }
 
   #empdeslabel4 {
@@ -520,7 +520,7 @@ MenuItem {
     height: 41px;
     width: 31px;
     /* right side */
-    margin-top: 38px;
+    margin-top: 62px;
   }
 
   .closemenu {
@@ -551,7 +551,7 @@ MenuItem {
 }
 
 .viewEmployeeBtn {
-  /* background-color: #3fa2db; */
+  background-color: #dddddd;
   border: none;
   border-radius: 12px;
   width: 100%;
@@ -560,7 +560,7 @@ MenuItem {
 
 #empdestable {
   width: 50vw;
-  margin-left: 125px;
+  margin-left: auto !important;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -641,7 +641,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin-left: 302 !important;
   margin-right: auto;
   color: #00adff;
-  margin-left: 312px;
+  margin-left: 220px;
 
 }
 

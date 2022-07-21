@@ -1,7 +1,10 @@
 import { useState, useEffect,useMemo } from "react";
 import SideNav from "./SideNav";
 import Logohead from "./Logohead";
+import EditEmployee from "./EditEmployee";
 import { FaUserEdit } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 import { MdDeleteSweep } from "react-icons/md";
 import { FcSearch } from "react-icons/fc";
 
@@ -13,7 +16,12 @@ const ViewEmployee = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [search, setSearch] = useState("");
 
-  const fetchData = async () => {
+// const [selectedUser,setSelectedUser] = useState([])
+//testing purpose ///////////////////////////
+const [userList,setUserList] = useState([])  
+/////////////////////////////////////////////////////////
+
+const fetchData = async () => {
     const response = await fetch(`http://localhost:8001/viewEmployee/lmv`);
     const jsonData = await response.json();
     setAllUsers(jsonData);
@@ -21,9 +29,11 @@ const ViewEmployee = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  // for navigation
+  const navigation=useNavigate()
   
 
-  // Change page
+  // delete page
   const handleClick = async (id) => {
      const confirm = window.confirm(`Are you sure to delete`)
      if(confirm){
@@ -34,15 +44,26 @@ const ViewEmployee = () => {
      }
      alert(`deleted your record`)
   };
-  // for searching
+  ////////////////////////////////////////
 
 
+  // for editing
+  const editHandler=async(employeeid)=>{
+  // navigation("/EditEmployee")
+   const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
+const  jsonData = await deleteItem.json()
+  setUserList(jsonData)
+  const selectedUser = jsonData
+console.log(selectedUser);
+
+
+
+}
   return (
     <>
-      {<Logohead />}
-
+{/* //////////////////////////////////// */}
+{<Logohead />}
       {/* pagination */}
-
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
           <u style={{ color: "white", width: "100vw" }}>
@@ -97,7 +118,7 @@ const ViewEmployee = () => {
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 />
-              {}
+         
               
                 </form>
             </div>
@@ -106,25 +127,25 @@ const ViewEmployee = () => {
 
           <table className=" table table-bordered mt-3 "  id="viewEmployeeTable" style={{width: "68vw",
     marginLeft:"100px"}}>
-            <thead>
+            <thead className=" table table-bordered">
               <tr style={{ background: "#00adff" }}>
                 <th className="text-center" scope="col">
-                  <b>Employee ID</b>
+                  <b className="text-white">Employee ID</b>
                 </th>
                 <th className="text-center" scope="col">
-                  <b>Name</b>
+                  <b className="text-white">Name</b>
                 </th>
                 <th className="text-center" scope="col">
-                  <b>Mobile</b>
+                  <b className="text-white">Mobile</b>
                 </th>
                 <th className="text-center" scope="col">
-                  <b>Designation</b>
+                  <b className="text-white">Designation</b>
                 </th>
                 <th className="text-center" scope="col">
-                  <b>Status</b>
+                  <b className="text-white">Status</b>
                 </th>
-                <th className="text-center">Edit</th>
-                <th className="text-center">Delete</th>
+                <th className="text-center text-white">Edit</th>
+                <th className="text-center text-white">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -176,17 +197,24 @@ const ViewEmployee = () => {
                   {/* edit button */}
                   <td className="text-center" scope="col">
                     <button className="viewEmployeeBtn">
-                      <FaUserEdit />
+                      <FaUserEdit  onClick={()=>editHandler(user.employeeid)}/>
+
                     </button>
                   </td>
                   {/* delete button */}
 
                   <td className="text-center" scope="col">
-                    <button
+                    {/* <button
                       className="viewEmployeeBtn"
                       onClick={() => handleClick(user.id)}
                     >
                       <MdDeleteSweep />
+                    </button> */}
+                    <button
+                      className="viewEmployeeBtn"
+                      onClick={() => handleClick(user.id)}
+                    >
+                      <MdDeleteSweep/>
                     </button>
                   </td>
                 </tr>
@@ -195,6 +223,7 @@ const ViewEmployee = () => {
           </table>
         </div>
       </div>
+    
     </>
   );
 };

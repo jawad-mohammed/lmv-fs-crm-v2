@@ -12,6 +12,7 @@ import Logohead from "./component/Logohead";
 import Otppage from "./component/Otppage";
 import AddBranch from "./component/AddBranch";
 import EmployeeValidation from './validations/AddEmployeeValidation'
+import EditEmployee from './component/EditEmployee'
 
 function App() {
   const [modalShow, setModalShow] = useState(false);
@@ -32,6 +33,9 @@ function App() {
           <Route path="Otppage" element={<Otppage />} />
           <Route path="AddBranch" element={<AddBranch />} />
           <Route path="EmployeeValidation" element={<EmployeeValidation />} />
+          <Route path="EmployeeValidation" element={<EmployeeValidation />} />
+          <Route path="EditEmployee" element={<EditEmployee />} />
+
 
         </Routes>
       </BrowserRouter>

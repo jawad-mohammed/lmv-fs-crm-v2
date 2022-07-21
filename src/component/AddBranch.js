@@ -42,7 +42,9 @@ const AddBranch = () => {
   }, []);
   //////////////////////////////////////////////////////////////
 
-  const handleEdit = () => {};
+  const handleEdit = async(id) => {
+
+  };
 
   //////////////////////
   // delete req
@@ -61,7 +63,7 @@ const AddBranch = () => {
   /////////////////////////////////////////////////////////////////////////////////
   // @Post req
   const submitHandle = async (e) => {
-     e.preventDefault()
+    e.preventDefault();
     const body = data;
     console.log(body);
 
@@ -70,7 +72,7 @@ const AddBranch = () => {
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     });
-    // window.location.reload();
+    window.location.reload();
   };
 
   //////////////////////////////////////////////////////////////////
@@ -86,9 +88,7 @@ const AddBranch = () => {
 
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
-          <u style={{ color: "white", width: "100vw" }}>
-            <b>Branch & Location</b>
-          </u>
+            <b className="text-white">Branch & Location</b>
         </h3>
       </div>
       <SideNav />
@@ -147,7 +147,7 @@ const AddBranch = () => {
               }}
               type="submit"
             >
-              Submit1
+              Submit
             </button>
           </div>
         </form>
@@ -175,153 +175,158 @@ const AddBranch = () => {
                 height: "33px",
               }}
             ></div>
-            
           </div>
           {/* end of search Form */}
 
           <table
-            className="table-bordered mt-3 "
+            className="table table-bordered mt-3 "
             id="viewEmployeeTable"
             style={{ width: "68vw", marginLeft: "100px" }}
           >
             <thead>
               <tr style={{ background: "#00adff" }}>
                 <th className="text-center" scope="col">
-                  <b>S.no</b>
+                  <b className="text-white">Company Branch</b>
                 </th>
                 <th className="text-center" scope="col">
-                  <b>Company Branch</b>
+                  <b className="text-white">Location</b>
                 </th>
-                <th className="text-center" scope="col">
-                  <b>Location</b>
-                </th>
-
-                <th className="text-center">Edit</th>
-                <th className="text-center">Delete</th>
+                <th className="text-center text-white">Edit</th>
+                <th className="text-center  text-white">Delete</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr >
+       
               </tr>
             </thead>
             {allUsers.map((user) => {
-                return (
-                  <tbody className="align-center" key={user.id}>
-                    <tr className="table-info ">
-                      <td className="text-center" scope="col">
-                        {user.id}
-                      </td>
-                      <td className="text-center" scope="col">
-                        {user.companybranch}
-                      </td>
-                      <td className="text-center" scope="col">
-                        {user.location}
-                      </td>
+              return (
+                <tbody className="align-center" >
+                  {/*  */}
+                  <tr key={user.id}>
+                </tr >
+                  {/*  */}
+                  <tr  >
+                    <td class="text-center" scope="col">
+                      {user.companybranch}
+                    </td>
+                    <td className="text-center" scope="col">
+                      {user.location}
+                    </td>
 
-                      <td>
-                        <button
-                          className="viewEmployeeBtn text-center"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target={`#id${user.id}`}
-                          onClick={() => user.id}
-                        >
-                          <FaUserEdit />
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          className="viewEmployeeBtn text-center"
-                          onClick={() => handleDelete(user.id)}
-                        >
-                          <MdDeleteSweep />
-                        </button>
-                      </td>
-                    </tr>
-                    {/* Modal form*/}
-                    <div className="modal" id={`id${user.id}`}>
-                      <div className="modal-dialog">
-                        <div className="modal-content">
-                          <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                              Edit Designation
-                            </h5>
-                            <button
-                              type="button"
-                              className="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div className="modal-body">
-                            {/* //////modal form */}
+                    <td>
+                  {/* edit button */}
 
-                            <form
-                              onSubmit={submitHandle}
-                              className="mt-3"
-                              id="addbranchForm"
-                            >
-                              <div className="text-center" id="ressearch">
-                                <b>Add Branch:</b>
-                                <br />
-                                <input
-                                  style={{
-                                    width: "271px",
-                                    borderRadius: "6px",
-                                    // marginLeft: "45vw",
-                                    padding: "7px",
-                                  }}
-                                  type={"text"}
-                                  className="text-center mb-2"
-                                  name="CBankBranch"
-                                  value={CBankBranch}
-                                  onChange={changeHandler}
-                                  placeholder="Add Branch"
-                                  required
-                                />
-                                <br />
-                                <b>Add Location:</b>
-                                <br />
-                                <input
-                                  style={{
-                                    width: "271px",
-                                    borderRadius: "6px",
-                                    // marginLeft: "45vw",
-                                    padding: "7px",
-                                  }}
-                                  type={"text"}
-                                  className="text-center mb-2"
-                                  name="companylocation"
-                                  value={companylocation}
-                                  onChange={changeHandler}
-                                  placeholder="Add Branch"
-                                  required
-                                />
+                      <button
+                        className="viewEmployeeBtn text-center"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target={`#id${user.id}`}
+                        onClick={() => handleEdit(user.id)}
+                      >
+                        <FaUserEdit />
+                      </button>
+                    </td>
+                  {/* delete button */}
 
-                                <br />
-                              </div>
-                            </form>
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-bs-dismiss="modal"
-                            >
-                              Close
-                            </button>
+                    <td>
+                      <button
+                        className="viewEmployeeBtn text-center"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        <MdDeleteSweep />
+                      </button>
+                    </td>
+                  </tr>
+                  {/* Modal form*/}
+                  <div className="modal" id={`id${user.id}`}>
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLabel">
+                            Edit Designation
+                          </h5>
+                          <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></button>
+                        </div>
+                        <div className="modal-body">
+                          {/* //////modal form */}
 
-                            <button
-                              type="button"
-                              className="btn btn-primary"
-                              onClick={() => handleEdit(user.id)}
-                            >
-                              Edit
-                            </button>
-                          </div>
+                          <form
+                            onSubmit={submitHandle}
+                            className="mt-3"
+                            id="addbranchForm"
+                          >
+                            <div className="text-center" id="ressearch">
+                              <b>Add Branch:</b>
+                              <br />
+                              <input
+                                style={{
+                                  width: "271px",
+                                  borderRadius: "6px",
+                                  // marginLeft: "45vw",
+                                  padding: "7px",
+                                }}
+                                type={"text"}
+                                className="text-center mb-2"
+                                name="CBankBranch"
+                                value={CBankBranch}
+                                onChange={changeHandler}
+                                placeholder="Add Branch"
+                                required
+                              />
+                              <br />
+                              <b>Add Location:</b>
+                              <br />
+                              <input
+                                style={{
+                                  width: "271px",
+                                  borderRadius: "6px",
+                                  // marginLeft: "45vw",
+                                  padding: "7px",
+                                }}
+                                type={"text"}
+                                className="text-center mb-2"
+                                name="companylocation"
+                                value={companylocation}
+                                onChange={changeHandler}
+                                placeholder="Add Branch"
+                                required
+                              />
+
+                              <br />
+                            </div>
+                          </form>
+                        </div>
+                        <div className="modal-footer">
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Close
+                          </button>
+
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => handleEdit(user.id)}
+                          >
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <tr></tr>
-                  </tbody>
-                );
-              })}
+                  </div>
+                  <tr></tr>
+                </tbody>
+              );
+            })}
           </table>
         </div>
       </div>
