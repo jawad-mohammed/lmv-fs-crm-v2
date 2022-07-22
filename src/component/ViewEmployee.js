@@ -192,7 +192,7 @@ console.log(selectedUser);
                     {user.designation}
                   </td>
                   <td className="text-center" scope="col">
-                    {user.status}
+                    {user.status==="active"}
                   </td>
                   {/* edit button */}
                   <td className="text-center" scope="col">

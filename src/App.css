@@ -26,9 +26,10 @@ body {
   margin: 5px;
   width: 230px;
 }
-.wrapper{
-    max-height: 280px;
-    overflow-y: auto;
+
+.wrapper {
+  max-height: 280px;
+  overflow-y: auto;
 }
 
 .brand button {
@@ -430,16 +431,20 @@ MenuItem {
 .districtdiv {
   margin-left: -36vw;
 }
+
 .companydetails {
   margin-left: -18vw;
 }
-
+#zonalmodal {
+margin-top: -3.5rem;
+}
 
 
 @media only screen and (max-width: 720px) {
   .districtdiv {
     margin-left: 0vw;
   }
+
   .companydetails {
     margin-left: 0vw;
   }
@@ -448,11 +453,16 @@ MenuItem {
     margin-left: 0px !important;
   }
 
+  #zonalmodal {
+    margin-top: 10rem;
+    margin-left: -20.3rem;
+  }
+
   #EmployeeDesignationadd {
     width: "271px";
-      border-radius: "6px";
-      margin-left:"45vw";
-      padding: "7px",
+    border-radius: "6px";
+    margin-left: "45vw";
+    padding: "7px",
   }
 
   #empdeslabel1 {

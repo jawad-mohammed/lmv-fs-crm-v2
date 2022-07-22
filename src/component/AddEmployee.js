@@ -8,14 +8,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SideNav from "./SideNav";
 import { addEmployeeInitialValues } from "../validations/initialValues";
-import Modal from "./Modal";
 // import {AddEmployeeValidation} from '../validations/AddEmployeeValidation'
 import Logohead from "./Logohead";
 import AllRoles from "./AllRoles";
+import Modal from "react-bootstrap/Modal";
 
-const Crmfsfrm = () => {
+const AddEmployee = () => {
   // console.log(EmployeeValidation)
-  const [show, SetShow] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const {
     register,
@@ -63,6 +66,11 @@ const Crmfsfrm = () => {
     setUserdata({ ...userdata, [e.target.name]: e.target.value.toUpperCase() });
     // disabling the assigned Manager
     // if (designation === "HR" || "CEO") {
+    if (designation.value === "Zonal Manager") {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
     //   SetShow(true);
     // }
   };
@@ -92,7 +100,7 @@ const Crmfsfrm = () => {
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
-            <b className="text-white">Add Employee</b>
+          <b className="text-white">Add Employee</b>
         </h3>
       </div>
       <div className="container-fluid d-flex">
@@ -340,53 +348,52 @@ const Crmfsfrm = () => {
                 </div>
               </Col>
               <Col>
-              {/*  */}
+                {/*  */}
 
-
-
-              <Col className="wrapper">
-                <div className="mb-3 form-check" id={"crmselect"}>
-                   <label>
-                    <b>STATUS:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    name="Status"
-                    onChange={changeHandler}
-                  >
-                    <FormControl
-                      className="MentorList_DropdownMenu"
-                      aria-label="Default select example"
-                      placeholder="Select Status"
-                      // style={{ width: "212px" }}
+                <Col className="wrapper">
+                  <div className="mb-3 form-check" id={"crmselect"}>
+                    <label>
+                      <b>STATUS:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
                       name="Status"
                       onChange={changeHandler}
-                      list="datalistOptions1"
-                      id="exampleDataList"
-                      {...register("Status", {
-                        required: "Please Select Your Status",
-                      })}
-                    />
+                    >
+                      <FormControl
+                        className="MentorList_DropdownMenu"
+                        aria-label="Default select example"
+                        placeholder="Select Status"
+                        // style={{ width: "212px" }}
+                        name="Status"
+                        onChange={changeHandler}
+                        list="datalistOptions1"
+                        id="exampleDataList"
+                        {...register("Status", {
+                          required: "Please Select Your Status",
+                        })}
+                      />
 
-                    <datalist id="datalistOptions1" class="overflowY-scroll">
-                      
-                      <option name={Status} value="Active">
-                        Active
-                      </option>
-                      <option name={Status} value="In Active">
-                        In Active
-                      </option>   
+                      <datalist
+                        id="datalistOptions1"
+                        className="overflowY-scroll"
+                      >
+                        <option name={Status} value="Active">
+                          Active
+                        </option>
+                        <option name={Status} value="In Active">
+                          In Active
+                        </option>
                       </datalist>
-                  </InputGroup>
-                  
-                  {errors.Status && (
-                    <small className="text-danger">
-                      {errors.Status.message}
-                    </small>
-                  )}
-                </div>
-              </Col>
-             
+                    </InputGroup>
+
+                    {errors.Status && (
+                      <small className="text-danger">
+                        {errors.Status.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
               </Col>
             </Row>
           </Container>
@@ -756,8 +763,7 @@ const Crmfsfrm = () => {
                       })}
                     />
 
-                    <datalist id="datalistOptions" class="overflowY-scroll">
-                     
+                    <datalist id="datalistOptions" className="overflowY-scroll">
                       <option name={designation} value="Managing Director">
                         Managing Director
                       </option>
@@ -776,16 +782,12 @@ const Crmfsfrm = () => {
                       <option name={designation} value="Full Stack Developer">
                         Full Stack Developer
                       </option>
-                      <option name={designation} value="Zonal Manager">
-                        Zonal Manager
-                      </option>
-            {/* {options.map((option) => (
+                      {/* modal */}
+                      {/* {options.map((option) => (
               <option name={option.designation}>{option.designation}</option>
             ))} */}
-
-            
-            {/* for enabiling and diabling Assigned manager */}
-            {/* {designation === 'Admin' ? null : (
+                      {/* for enabiling and diabling Assigned manager */}
+                      {/* {designation === 'Admin' ? null : (
               <div className="mb-3 ">
               <label htmlFor="mid">
                 <b>ASSIGNED MANAGER:</b>
@@ -816,14 +818,86 @@ const Crmfsfrm = () => {
                 </small>
               )}
             </div>
-            )} */}
-
-              
-        
+            )} */}{" "}
                     </datalist>
-                    
+                    <select
+                      name={designation}
+                      value="Zonal Manager"
+                      data-toggle="modal"
+                      data-target="#exampleModal"
+                      onChange={changeHandler}
+                      onClick={(e) => setShow(true)}
+                    >
+                      Zonal Manager
+                    </select>
                   </InputGroup>
-                  
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>PERMISSIONS FOR ZONAL MANAGER </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <form>
+                        <h6>SELECT ONLY FOR ZONAL MANAGER</h6>
+                        <h5>STATE:</h5>
+                        <Col
+                          className=" d-flex align-items-center ml-25"
+                          lg={4}
+                          sm={12}
+                        >
+                          <br />
+                          <div className="d-grid">
+                            <div className="d-flex p-3 sm-grid">
+                              <input type={"checkbox"} className="ml-1" />
+                              <label style={{ marginLeft: "3px" }}>
+                                TELANGANA
+                              </label>
+                            </div>
+                            <div className="d-flex p-3 w-100">
+                              <input type={"checkbox"} />
+                              <label style={{ marginLeft: "3px",width:"max-content" }}>
+                                ANDHRA PRADESH
+                              </label>
+                            </div>
+                          </div>
+                          <div className="d-grid">
+                            <div className="d-flex p-3 sm-grid">
+                              <input type={"checkbox"} className="ml-1" />
+                              <label style={{ marginLeft: "3px" }}>
+                                KARNATAKA
+                              </label>
+                            </div>
+                            <div className="d-flex p-3">
+                              <input type={"checkbox"} />
+                              <label style={{ marginLeft: "3px",width:"max-content" }}>
+                                TAMIL NADU
+                              </label>
+                            </div>
+                          </div>
+                          <div className="d-flex p-3 sm-grid" id="zonalmodal">
+                            <input type={"checkbox"} className="ml-1" />
+                            <label style={{ marginLeft: "3px" }} >
+                              MAHARASTRA
+                            </label>
+                          </div>
+                        </Col>
+                        <Col className="d-flex w-100 mt-3 " lg={4} sm={12}>
+                          <br />
+                        </Col>
+                      </form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Close
+                      </Button>
+                      <Button variant="primary">SUBMIT</Button>
+                    </Modal.Footer>
+                  </Modal>
+
                   {errors.designation && (
                     <small className="text-danger">
                       {errors.designation.message}
@@ -831,7 +905,7 @@ const Crmfsfrm = () => {
                   )}
                 </div>
               </Col>
-     
+
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
@@ -1046,14 +1120,11 @@ const Crmfsfrm = () => {
               <b>SUBMIT</b>
             </Button>
           </div>
-        {/* modal for Jounal mannerger */}
-  
+          {/* modal for Jounal mannerger */}
         </Form>
-        
-        
       </div>
     </>
   );
 };
 
-export default Crmfsfrm;
+export default AddEmployee;
