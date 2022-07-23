@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
 
-import logo from "./images/Lmv-fs-logo.jpg";
+import logo from "../images/Lmv-fs-logo.jpg";
 
 const Crmlogin = () => {
   const navigate = useNavigate();

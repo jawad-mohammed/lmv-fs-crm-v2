@@ -32,7 +32,7 @@ import { RiPencilLine } from "react-icons/ri";
 import { BiCog, BiWindows } from "react-icons/bi";
 
 import "react-pro-sidebar/dist/css/styles.css";
-import Crmfsfrm from "./AddEmployee";
+import Crmfsfrm from "../USERS/AddEmployee";
 // import "./Header.css";
 
 const SideNav = () => {

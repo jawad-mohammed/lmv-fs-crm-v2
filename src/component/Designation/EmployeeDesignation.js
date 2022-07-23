@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import SideNav from "./SideNav";
-import Logohead from "./Logohead";
+import SideNav from "../UIDesign/SideNav";
+import Logohead from "../UIDesign/Logohead";
 import { MdDeleteSweep } from "react-icons/md";
 import { FaUserEdit, FaWindowMinimize } from "react-icons/fa";
 import { useForm } from "react-hook-form";

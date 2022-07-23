@@ -1,6 +1,6 @@
 import { useState, useEffect,useMemo } from "react";
-import SideNav from "./SideNav";
-import Logohead from "./Logohead";
+import SideNav from "../UIDesign/SideNav";
+import Logohead from "../UIDesign/Logohead";
 import EditEmployee from "./EditEmployee";
 import { FaUserEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,13 @@ import axios from 'axios'
 import { MdDeleteSweep } from "react-icons/md";
 import { FcSearch } from "react-icons/fc";
 
-//import Pagination from "./Pagination";
-import "./Pagination.css";
-import PaginateCrmFs from "./PaginateCrmFs";
 
 const ViewEmployee = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [search, setSearch] = useState("");
+  // TEST
+  const [editUsers, seteditUsers] = useState("");
+
 
 // const [selectedUser,setSelectedUser] = useState([])
 //testing purpose ///////////////////////////
@@ -49,19 +49,25 @@ const fetchData = async () => {
 
   // for editing
   const editHandler=async(employeeid)=>{
-  // navigation("/EditEmployee")
-   const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
-const  jsonData = await deleteItem.json()
-  setUserList(jsonData)
-  const selectedUser = jsonData
-console.log(selectedUser);
-
-
+    const editItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
+    const  responseJson = await editItem.json()
+    seteditUsers(responseJson)
+    navigation("/EditEmployee",{})
+    
 
 }
-  return (
+
+
+return (
     <>
 {/* //////////////////////////////////// */}
+{/* {editUsers.map((editdata)=>{
+  return(
+  <ul>
+    <li>{editdata.mnumber}</li>
+  </ul>
+  )
+})} */}
 {<Logohead />}
       {/* pagination */}
       <div style={{ background: "#00adff" }}>
@@ -192,13 +198,12 @@ console.log(selectedUser);
                     {user.designation}
                   </td>
                   <td className="text-center" scope="col">
-                    {user.status==="active"}
+                    {user.status}
                   </td>
                   {/* edit button */}
                   <td className="text-center" scope="col">
                     <button className="viewEmployeeBtn">
                       <FaUserEdit  onClick={()=>editHandler(user.employeeid)}/>
-
                     </button>
                   </td>
                   {/* delete button */}

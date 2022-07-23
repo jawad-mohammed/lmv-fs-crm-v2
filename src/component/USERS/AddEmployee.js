@@ -6,11 +6,9 @@ import FormControl from "react-bootstrap/FormControl";
 import Select from "react-bootstrap/FormSelect";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import SideNav from "./SideNav";
-import { addEmployeeInitialValues } from "../validations/initialValues";
-// import {AddEmployeeValidation} from '../validations/AddEmployeeValidation'
-import Logohead from "./Logohead";
-import AllRoles from "./AllRoles";
+import SideNav from "../UIDesign/SideNav";
+import { addEmployeeInitialValues } from "../../validations/initialValues";
+import Logohead from "../UIDesign/Logohead";
 import Modal from "react-bootstrap/Modal";
 
 const AddEmployee = () => {
@@ -33,6 +31,7 @@ const AddEmployee = () => {
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
+  // for checkbox
 
   const {
     Employeeid,
@@ -60,10 +59,13 @@ const AddEmployee = () => {
     officialNum,
     officialEmail,
     officialState,
+    ZonalManager,
   } = userdata;
+  // const
 
   const changeHandler = (e) => {
     setUserdata({ ...userdata, [e.target.name]: e.target.value.toUpperCase() });
+    console.log(userdata.ZonalManager);
     // disabling the assigned Manager
     // if (designation === "HR" || "CEO") {
     if (designation.value === "Zonal Manager") {
@@ -92,8 +94,48 @@ const AddEmployee = () => {
     //console.log(parseRes.message);
     alert(parseRes.message);
   };
+  // for zonal manager
 
   //getting role req from backend
+  // for checkboxes
+  const [userinfo, setUserInfo] = useState({
+    languages: [],
+    response: [],
+  });
+
+  const handleChange = (e) => {
+    // Destructuring
+    const { value, checked } = e.target;
+    const { languages } = userinfo;
+
+    console.log(value);
+
+    // Case 1 : The user checks the box
+    if (checked) {
+      setUserInfo({
+        languages: [...languages, value],
+        response: [...languages, value],
+      });
+    }
+
+    // Case 2  : The user unchecks the box
+    else {
+      setUserInfo({
+        languages: languages.filter((e) => e !== value),
+        response: languages.filter((e) => e !== value),
+      });
+    }
+  };
+  const submitHandler1 = async (e) => {
+    e.preventDefault()
+    // const body = userinfo.response;
+    console.log(userinfo.response);
+    const response = await fetch(`http://localhost:8001/permission/api/post`, {
+      method: "POST",
+      headers: { "Content-Type": "Application/json" },
+      body: JSON.stringify(userinfo.response),
+    });
+  };
 
   return (
     <>
@@ -782,6 +824,9 @@ const AddEmployee = () => {
                       <option name={designation} value="Full Stack Developer">
                         Full Stack Developer
                       </option>
+                      <option name={designation} value="ZonalManager">
+                        ZonalManager
+                      </option>
                       {/* modal */}
                       {/* {options.map((option) => (
               <option name={option.designation}>{option.designation}</option>
@@ -822,7 +867,7 @@ const AddEmployee = () => {
                     </datalist>
                     <select
                       name={designation}
-                      value="Zonal Manager"
+                      value="ZonalManager"
                       data-toggle="modal"
                       data-target="#exampleModal"
                       onChange={changeHandler}
@@ -831,72 +876,6 @@ const AddEmployee = () => {
                       Zonal Manager
                     </select>
                   </InputGroup>
-                  <Modal
-                    show={show}
-                    onHide={handleClose}
-                    backdrop="static"
-                    keyboard={false}
-                  >
-                    <Modal.Header closeButton>
-                      <Modal.Title>PERMISSIONS FOR ZONAL MANAGER </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <form>
-                        <h6>SELECT ONLY FOR ZONAL MANAGER</h6>
-                        <h5>STATE:</h5>
-                        <Col
-                          className=" d-flex align-items-center ml-25"
-                          lg={4}
-                          sm={12}
-                        >
-                          <br />
-                          <div className="d-grid">
-                            <div className="d-flex p-3 sm-grid">
-                              <input type={"checkbox"} className="ml-1" />
-                              <label style={{ marginLeft: "3px" }}>
-                                TELANGANA
-                              </label>
-                            </div>
-                            <div className="d-flex p-3 w-100">
-                              <input type={"checkbox"} />
-                              <label style={{ marginLeft: "3px",width:"max-content" }}>
-                                ANDHRA PRADESH
-                              </label>
-                            </div>
-                          </div>
-                          <div className="d-grid">
-                            <div className="d-flex p-3 sm-grid">
-                              <input type={"checkbox"} className="ml-1" />
-                              <label style={{ marginLeft: "3px" }}>
-                                KARNATAKA
-                              </label>
-                            </div>
-                            <div className="d-flex p-3">
-                              <input type={"checkbox"} />
-                              <label style={{ marginLeft: "3px",width:"max-content" }}>
-                                TAMIL NADU
-                              </label>
-                            </div>
-                          </div>
-                          <div className="d-flex p-3 sm-grid" id="zonalmodal">
-                            <input type={"checkbox"} className="ml-1" />
-                            <label style={{ marginLeft: "3px" }} >
-                              MAHARASTRA
-                            </label>
-                          </div>
-                        </Col>
-                        <Col className="d-flex w-100 mt-3 " lg={4} sm={12}>
-                          <br />
-                        </Col>
-                      </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                        Close
-                      </Button>
-                      <Button variant="primary">SUBMIT</Button>
-                    </Modal.Footer>
-                  </Modal>
 
                   {errors.designation && (
                     <small className="text-danger">
@@ -1120,8 +1099,185 @@ const AddEmployee = () => {
               <b>SUBMIT</b>
             </Button>
           </div>
-          {/* modal for Jounal mannerger */}
+          {/* modal for zonal mannerger */}
+          <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>PERMISSIONS FOR ZONAL MANAGER </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/*  */}
+              {/* persmission form handler */}
+              <form onSubmit={submitHandler1}>
+                <div className="row">
+                  <div className="col-md-6">
+                    {/* <div className="form-check m-3">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="ZonalManager"
+                        value="Telangana"
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        Telangana
+                      </label>
+                    </div> */}
+                    
+                    
+                    
+                  </div>
+                  <div className="col-md-6">
+                    
+                  </div>
+                </div>
+
+                <div className="form-floating mt-3 mb-3 text-center">
+                  <label htmlFor="exampleFormControlTextarea1"></label>
+                  <textarea
+                    className="form-control text"
+                    name="response"
+                    value={userinfo.response}
+                    placeholder="The checkbox values will be displayed here "
+                    id="floatingTextarea2"
+                    style={{ height: "150px" }}
+                    onChange={handleChange}
+                  ></textarea>
+                </div>
+                <button type="submit">Submit</button>
+              </form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              {/* <Button variant="primary" onSubmit={submitHandler1}>SUBMIT</Button> */}
+            </Modal.Footer>
+          </Modal>
         </Form>
+        {/*  */}
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>PERMISSIONS FOR ZONAL MANAGER </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={submitHandler1}>
+              <h6>SELECT ONLY FOR ZONAL MANAGER</h6>
+              <h5>STATE:</h5>
+              <Col className=" d-flex align-items-center ml-25" lg={4} sm={12}>
+                <br />
+                <div className="d-grid">
+                  <div className="form-check m-3">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name="ZonalManager"
+                      value="Telangana"
+                      id="flexCheckDefault"
+                      onChange={handleChange}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      Telangana
+                    </label>
+                  </div>
+                  <div className="form-check m-3">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="ZonalManager"
+                        value="ANDHRAPRADESH"
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        ANDHRAPRADESH
+                      </label>
+                    </div>
+                </div>
+                <div className="d-grid">
+                <div className="form-check m-3">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="ZonalManager"
+                        value="KARNATAKA"
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        KARNATAKA
+                      </label>
+                    </div>
+                    <div className="form-check m-3">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="ZonalManager"
+                        value="TAMILNADU"
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        TAMILNADU
+                      </label>
+                    </div>
+                </div>
+                <div className="form-check m-3" id="zonalmodal">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="ZonalManager"
+                        value="MAHARASTRA"
+                        id="flexCheckDefault"
+                        onChange={handleChange}
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="flexCheckDefault"
+                      >
+                        MAHARASTRA
+                      </label>
+                    </div>
+               
+              </Col>
+              <Col className="d-flex w-100 mt-3 " lg={4} sm={12}>
+                <br />
+              </Col>
+            <button variant="primary">SUBMIT</button>
+
+            </form >
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

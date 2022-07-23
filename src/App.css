@@ -436,7 +436,7 @@ MenuItem {
   margin-left: -18vw;
 }
 #zonalmodal {
-margin-top: -3.5rem;
+margin-top: -2.5rem !important;
 }
 
 
@@ -454,8 +454,8 @@ margin-top: -3.5rem;
   }
 
   #zonalmodal {
-    margin-top: 10rem;
-    margin-left: -20.3rem;
+    margin-top: 11rem !important;
+    margin-left: -19.7rem !important;
   }
 
   #EmployeeDesignationadd {

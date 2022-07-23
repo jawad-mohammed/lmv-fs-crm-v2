@@ -1,7 +1,7 @@
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import logo from "./images/Lmv-fs-logo.jpg"
+import logo from "../images/Lmv-fs-logo.jpg"
 
 const Logohead = () => {
   const navigate = useNavigate();

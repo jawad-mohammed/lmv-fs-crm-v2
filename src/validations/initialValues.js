@@ -25,6 +25,7 @@ export const addEmployeeInitialValues = () => {
     officialNum:"",
     officialEmail:"",
     officialState:"",
+    ZonalManager:""
   };
   return initialValues
 };

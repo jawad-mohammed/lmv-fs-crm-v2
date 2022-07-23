@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
-import SideNav from "./SideNav";
-import Logohead from "./Logohead";
+// import SideNav from "../SideNav";
+import SideNav from "../UIDesign/SideNav";
+import Logohead from "../UIDesign/Logohead";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDeleteSweep } from "react-icons/md";
 import { FcSearch } from "react-icons/fc";
@@ -14,8 +15,6 @@ import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 
 //import Pagination from "./Pagination";
-import "./Pagination.css";
-import PaginateCrmFs from "./PaginateCrmFs";
 
 const AddBranch = () => {
   const [allUsers, setAllUsers] = useState([]);
@@ -43,7 +42,15 @@ const AddBranch = () => {
   //////////////////////////////////////////////////////////////
 
   const handleEdit = async(id) => {
-
+    const response = await fetch(
+      `http://localhost:8001/branchloc/api/v1/put/${id}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }
+    );
+    console.log("edited");
   };
 
   //////////////////////
@@ -72,7 +79,7 @@ const AddBranch = () => {
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     });
-    window.location.reload();
+    //window.location.reload();
   };
 
   //////////////////////////////////////////////////////////////////

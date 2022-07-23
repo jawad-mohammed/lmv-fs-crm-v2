@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./images/Lmv-fs-logo.jpg";
 import { Navigate, useNavigate } from "react-router-dom";
 
 const Otp = () => {

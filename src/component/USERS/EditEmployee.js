@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect  } from "react";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Select from "react-bootstrap/FormSelect";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import SideNav from "./SideNav";
-import { addEmployeeInitialValues } from "../validations/initialValues";
-import Modal from "./Modal";
-// import {AddEmployeeValidation} from '../validations/AddEmployeeValidation'
-import Logohead from "./Logohead";
-import AllRoles from "./AllRoles";
+import SideNav from "../UIDesign/SideNav";
+import { addEmployeeInitialValues } from "../../validations/initialValues";
+import Logohead from "../UIDesign/Logohead";
 
-const EditEmployee = () => {
+const EditEmployee = (editHandler) => {
   // console.log(EmployeeValidation)
   const [show, SetShow] = useState(false);
 
@@ -22,14 +20,15 @@ const EditEmployee = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const location = useLocation();
   // console.log(errors);
   const initialValues = addEmployeeInitialValues();
-  // const EmployeeValidation = AddEmployeeValidation();
   // for disabbling the assigned Manager
 
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
+  console.log(editHandler)
 
   const {
     Employeeid,
@@ -86,9 +85,27 @@ const EditEmployee = () => {
   };
 
   //getting role req from backend
+//testing
+// const editHandler=async(employeeid)=>{
+//   // navigation("/EditEmployee")
+//    const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
+// const  jsonData = await deleteItem.json()
+//   setUserList(jsonData)
+//   const selectedUser = jsonData
+// console.log(selectedUser);
+
+
+
+
+
+console.log(location.nation)
+
+
 
   return (
     <>
+     {/* <div>{location.nation.name}</div> */}
+
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
