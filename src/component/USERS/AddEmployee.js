@@ -92,7 +92,7 @@ const AddEmployee = () => {
     //alert(`Registered ${ userName}`)
     const parseRes = await response.json();
     //console.log(parseRes.message);
-    alert(parseRes.message);
+    alert(parseRes.created);
   };
   // for zonal manager
 
@@ -100,7 +100,7 @@ const AddEmployee = () => {
   // for checkboxes
   const [userinfo, setUserInfo] = useState({
     languages: [],
-    response: [],
+    // response: [],
   });
 
   const handleChange = (e) => {
@@ -114,7 +114,7 @@ const AddEmployee = () => {
     if (checked) {
       setUserInfo({
         languages: [...languages, value],
-        response: [...languages, value],
+        // response: [...languages, value],
       });
     }
 
@@ -129,11 +129,11 @@ const AddEmployee = () => {
   const submitHandler1 = async (e) => {
     e.preventDefault()
     // const body = userinfo.response;
-    console.log(userinfo.response);
+    console.log(userinfo);
     const response = await fetch(`http://localhost:8001/permission/api/post`, {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(userinfo.response),
+      body: JSON.stringify(userinfo),
     });
   };
 
@@ -583,7 +583,7 @@ const AddEmployee = () => {
               <Row>
                 <Col md={4} lg={3} sm={12}>
                   <div className="mb-3  ">
-                    <label htmlFor="mid">
+                    <label >
                       <b>ADDRESS 1:</b>
                     </label>
                     <InputGroup
@@ -595,7 +595,7 @@ const AddEmployee = () => {
                       <FormControl
                         placeholder="Address"
                         aria-label="Username"
-                        aria-describedby="basic-addon1"
+                      
                         value={Address}
                         name="Address"
                         onChange={changeHandler}
@@ -615,7 +615,7 @@ const AddEmployee = () => {
                     </label>
                     <InputGroup
                       className="mb-3"
-                      {...register("Address", {
+                      {...register("AAddress", {
                         required: "Please Enter Your Address",
                       })}
                     >
@@ -1184,8 +1184,8 @@ const AddEmployee = () => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      name="ZonalManager"
-                      value="Telangana"
+                      name="telengana"
+                      value="telengana"
                       id="flexCheckDefault"
                       onChange={handleChange}
                     />
@@ -1200,8 +1200,8 @@ const AddEmployee = () => {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        name="ZonalManager"
-                        value="ANDHRAPRADESH"
+                        name="ap"
+                        value="ap"
                         id="flexCheckDefault"
                         onChange={handleChange}
                       />
@@ -1218,8 +1218,8 @@ const AddEmployee = () => {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        name="ZonalManager"
-                        value="KARNATAKA"
+                        name="karnataka"
+                        value="karnataka"
                         id="flexCheckDefault"
                         onChange={handleChange}
                       />
@@ -1234,8 +1234,8 @@ const AddEmployee = () => {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        name="ZonalManager"
-                        value="TAMILNADU"
+                        name="TN"
+                        value="TN"
                         id="flexCheckDefault"
                         onChange={handleChange}
                       />
@@ -1251,8 +1251,8 @@ const AddEmployee = () => {
                       <input
                         className="form-check-input"
                         type="checkbox"
-                        name="ZonalManager"
-                        value="MAHARASTRA"
+                        name="maharastra  "
+                        value="maharastra"
                         id="flexCheckDefault"
                         onChange={handleChange}
                       />
@@ -1276,6 +1276,7 @@ const AddEmployee = () => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
+            
           </Modal.Footer>
         </Modal>
       </div>

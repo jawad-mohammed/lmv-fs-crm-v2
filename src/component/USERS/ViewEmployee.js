@@ -9,16 +9,17 @@ import { MdDeleteSweep } from "react-icons/md";
 import { FcSearch } from "react-icons/fc";
 
 
+
 const ViewEmployee = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [search, setSearch] = useState("");
   // TEST
-  const [editUsers, seteditUsers] = useState("");
-
+  const [editUsers, seteditUsers] = useState(null);
+  const navigation = useNavigate()
 
 // const [selectedUser,setSelectedUser] = useState([])
 //testing purpose ///////////////////////////
-const [userList,setUserList] = useState([])  
+// const [userList,setUserList] = useState([])  
 /////////////////////////////////////////////////////////
 
 const fetchData = async () => {
@@ -30,7 +31,7 @@ const fetchData = async () => {
     fetchData();
   }, []);
   // for navigation
-  const navigation=useNavigate()
+
   
 
   // delete page
@@ -52,8 +53,11 @@ const fetchData = async () => {
     const editItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
     const  responseJson = await editItem.json()
     seteditUsers(responseJson)
-    navigation("/EditEmployee",{})
-    
+    // navigation("/EditEmployee",{editUsers:editUsers})
+   console.log(responseJson)
+  if(responseJson){
+    navigation("/EditEmployee",{state:responseJson})
+  }
 
 }
 
@@ -68,6 +72,9 @@ return (
   </ul>
   )
 })} */}
+{/* { console.log(editUsers)} */}
+
+
 {<Logohead />}
       {/* pagination */}
       <div style={{ background: "#00adff" }}>
@@ -85,6 +92,15 @@ return (
       >
         VIEW DESIGNATION
       </h5>
+      {/* {
+ editUsers && Object.keys(editUsers).length>0 && editUsers?.map((user)=>{
+  return(
+<ul><li>{user.username}</li></ul>
+
+  )
+ })
+} */}
+
 
       <div className=" d-flex text" style={{ overflowX: "auto" }}>
         <div  className="mb-3 mt-3" style={{marginLeft:"110px"}}>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
@@ -28,7 +28,7 @@ const EditEmployee = (editHandler) => {
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
-  console.log(editHandler)
+  console.log(editHandler);
 
   const {
     Employeeid,
@@ -59,7 +59,7 @@ const EditEmployee = (editHandler) => {
   } = userdata;
 
   const changeHandler = (e) => {
-    setUserdata({ ...userdata, [e.target.name]: e.target.value.toUpperCase() });
+    setUserdata({ ...userdata, [e.target.name]: e.target.value});
     // disabling the assigned Manager
     // if (designation === "HR" || "CEO") {
     //   SetShow(true);
@@ -85,27 +85,27 @@ const EditEmployee = (editHandler) => {
   };
 
   //getting role req from backend
-//testing
-// const editHandler=async(employeeid)=>{
-//   // navigation("/EditEmployee")
-//    const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
-// const  jsonData = await deleteItem.json()
-//   setUserList(jsonData)
-//   const selectedUser = jsonData
-// console.log(selectedUser);
+  //testing
+  // const editHandler=async(employeeid)=>{
+  //   // navigation("/EditEmployee")
+  //    const deleteItem = await fetch(`http://localhost:8001/viewEmployee/lmv/${employeeid}`);
+  // const  jsonData = await deleteItem.json()
+  //   setUserList(jsonData)
+  //   const selectedUser = jsonData
+  // console.log(selectedUser);
 
+  // console.log(location.nation)
 
-
-
-
-console.log(location.nation)
-
-
-
+  const test = useParams();
+  const test1 = useLocation();
   return (
     <>
-     {/* <div>{location.nation.name}</div> */}
+      {/* <div>{location.nation.name}</div> */}
 
+      {/* {editUsers:editUsers} */}
+      {/* {console.log(test.state.userName)} */}
+      {/* value={test1.state.employeeid} */}
+      {/* {console.log()} */}
       {<Logohead />}
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
@@ -142,20 +142,20 @@ console.log(location.nation)
                   </label>
                   <InputGroup
                     className="mb-3"
-                    {...register("Employeeid", {
-                      required: "Please Enter Your Employee Id",
-                      pattern: {
-                        value: /(?<!\d)\d{5}(?!\d)/g,
-                        message: "Invalid  Employee Id",
-                      },
-                    })}
+                    // {...register("Employeeid", {
+                    //   required: "Please Enter Your Employee Id",
+                    //   pattern: {
+                    //     value: /(?<!\d)\d{5}(?!\d)/g,
+                    //     message: "Invalid  Employee Id",
+                    //   },
+                    // })}
                   >
                     <FormControl
                       placeholder="EmployeeId"
                       aria-label="Employeeid"
                       aria-describedby="basic-addon1"
-                      name="Employeeid"
-                      value={Employeeid}
+                      name="test1.state.employeeid"
+                      defaultValue={test1.state.employeeid}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -173,28 +173,29 @@ console.log(location.nation)
                   </label>
                   <InputGroup
                     className="mb-3"
-                    {...register("userName", {
-                      required: "Please Enter Your User Name ",
-                      pattern: {
-                        value: /[A-Za-z]/,
-                        message: "Invalid User Name",
-                      },
-                    })}
+                    // {...register("userName", {
+                    //   required: "Please Enter Your User Name ",
+                    //   pattern: {
+                    //     value: /[A-Za-z]/,
+                    //     message: "Invalid User Name",
+                    //   },
+                    // })}
                   >
                     <FormControl
                       placeholder="User Name"
                       aria-label="userName"
-                      aria-describedby="basic-addon1"
-                      value={userName}
                       name="userName"
+                      defaultValue={test1.state.username}
+                      // value={test1.state.username}
+                      aria-describedby="basic-addon1"
                       onChange={changeHandler}
                     />
                   </InputGroup>
-                  {errors.userName && (
+                  {/* {errors.userName && (
                     <small className="text-danger">
                       {errors.userName.message}
-                    </small>
-                  )}
+                    </small> */}
+                  {/* )} */}
                 </div>
               </Col>
               <Col md={4} lg={3} sm={12}>
@@ -215,10 +216,11 @@ console.log(location.nation)
                       placeholder="Mobile Number"
                       aria-label="Mobile Number"
                       aria-describedby="basic-addon1"
-                      name="MNumber"
                       type="number"
-                      value={MNumber}
-                      onChange={changeHandler}
+                      name="Mnumber"
+                      defaultValue={test1.state.mnumber}
+                      onChange={(e)=>changeHandler(e)}
+                      // defaultValue={MNumber}
                     />
                   </InputGroup>
                   {errors.MNumber && (
@@ -246,8 +248,9 @@ console.log(location.nation)
                       type="email"
                       placeholder="Enter email"
                       id="emailid"
+                      // defaultValue={email}
                       name="email"
-                      value={email}
+                      defaultValue={test1.state.email}
                       onChange={changeHandler}
                     />
                     {/* /> */}
@@ -284,8 +287,10 @@ console.log(location.nation)
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     type="number"
+                    // value={AlternateNo}
+                   
                     name="AlternateNo"
-                    value={AlternateNo}
+                      defaultValue={test1.state.alternateno}
                     onChange={changeHandler}
                   />
                 </InputGroup>
@@ -316,7 +321,7 @@ console.log(location.nation)
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                       name="PanCard"
-                      value={PanCard}
+                      defaultValue={test1.state.pancard}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -347,7 +352,7 @@ console.log(location.nation)
                       aria-label="AdharCard"
                       aria-describedby="basic-addon1"
                       name="AdharCard"
-                      value={AdharCard}
+                      defaultValue={test1.state.adharcard}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -359,53 +364,53 @@ console.log(location.nation)
                 </div>
               </Col>
               <Col>
-              {/*  */}
+                {/*  */}
 
-
-
-              <Col className="wrapper">
-                <div className="mb-3 form-check" id={"crmselect"}>
-                   <label>
-                    <b>STATUS:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    name="Status"
-                    onChange={changeHandler}
-                  >
-                    <FormControl
-                      className="MentorList_DropdownMenu"
-                      aria-label="Default select example"
-                      placeholder="Select Status"
-                      // style={{ width: "212px" }}
+                <Col className="wrapper">
+                  <div className="mb-3 form-check" id={"crmselect"}>
+                    <label>
+                      <b>STATUS:</b>
+                    </label>
+                    <InputGroup
+                      className="mb-3"
                       name="Status"
                       onChange={changeHandler}
-                      list="datalistOptions1"
-                      id="exampleDataList"
-                      {...register("Status", {
-                        required: "Please Select Your Status",
-                      })}
-                    />
+                    >
+                      <FormControl
+                        className="MentorList_DropdownMenu"
+                        aria-label="Default select example"
+                        placeholder="Select Status"
+                        // style={{ width: "212px" }}
+                        name="Status"
+                        defaultValue={test1.state.status}
+                        onChange={changeHandler}
+                        list="datalistOptions1"
+                        id="exampleDataList"
+                        {...register("Status", {
+                          required: "Please Select Your Status",
+                        })}
+                      />
 
-                    <datalist id="datalistOptions1" className="overflowY-scroll">
-                      
-                      <option name={Status} value="Active">
-                        Active
-                      </option>
-                      <option name={Status} value="In Active">
-                        In Active
-                      </option>   
+                      <datalist
+                        id="datalistOptions1"
+                        className="overflowY-scroll"
+                      >
+                        <option name={Status} value="Active">
+                          Active
+                        </option>
+                        <option name={Status} value="In Active">
+                          In Active
+                        </option>
                       </datalist>
-                  </InputGroup>
-                  
-                  {errors.Status && (
-                    <small className="text-danger">
-                      {errors.Status.message}
-                    </small>
-                  )}
-                </div>
-              </Col>
-             
+                    </InputGroup>
+
+                    {errors.Status && (
+                      <small className="text-danger">
+                        {errors.Status.message}
+                      </small>
+                    )}
+                  </div>
+                </Col>
               </Col>
             </Row>
           </Container>
@@ -437,7 +442,7 @@ console.log(location.nation)
                       aria-describedby="basic-addon1"
                       name="BankName"
                       onChange={changeHandler}
-                      value={BankName}
+                      defaultValue={test1.state.bankname}
                     />
                   </InputGroup>
                   {errors.BankName && (
@@ -467,7 +472,7 @@ console.log(location.nation)
                       aria-label="AccountNo"
                       aria-describedby="basic-addon1"
                       name="AccountNo"
-                      value={AccountNo}
+                      defaultValue={test1.state.accountno}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -498,7 +503,7 @@ console.log(location.nation)
                       aria-label="IFSC"
                       aria-describedby="basic-addon1"
                       name="IFSCCODE"
-                      value={IFSCCODE}
+                      defaultValue={test1.state.ifsccode}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -528,7 +533,7 @@ console.log(location.nation)
                       placeholder="Branch Name"
                       aria-label="BankBranch"
                       aria-describedby="basic-addon1"
-                      value={BankBranch}
+                      defaultValue={test1.state.bankbranch}
                       name="BankBranch"
                       onChange={changeHandler}
                     />
@@ -553,7 +558,7 @@ console.log(location.nation)
               <Row>
                 <Col md={4} lg={3} sm={12}>
                   <div className="mb-3  ">
-                    <label htmlFor="mid">
+                    <label >
                       <b>ADDRESS 1:</b>
                     </label>
                     <InputGroup
@@ -566,7 +571,7 @@ console.log(location.nation)
                         placeholder="Address"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        value={Address}
+                        defaultValue={test1.state.address}
                         name="Address"
                         onChange={changeHandler}
                       />
@@ -580,7 +585,7 @@ console.log(location.nation)
                 </Col>
                 <Col md={4} lg={3} sm={12}>
                   <div className="mb-3   ">
-                    <label htmlFor="mid">
+                    <label>
                       <b> ADDRESS 2:</b>
                     </label>
                     <InputGroup
@@ -593,7 +598,7 @@ console.log(location.nation)
                         placeholder="Alternate Address"
                         aria-label="Username"
                         aria-describedby="basic-addon1"
-                        value={AAddress}
+                        defaultValue={test1.state.aaddress}
                         name="AAddress"
                         onChange={changeHandler}
                       />
@@ -625,7 +630,7 @@ console.log(location.nation)
                         aria-label="PINCODE"
                         aria-describedby="basic-addon1"
                         name="Pincode"
-                        value={Pincode}
+                        defaultValue={Pincode}
                         onChange={changeHandler}
                       />
                     </InputGroup>
@@ -654,7 +659,7 @@ console.log(location.nation)
                       <FormControl
                         aria-label="Default select example"
                         placeholder="Please Enter Your State"
-                        value={state}
+                        defaultValue={test1.state.state}
                         name="state"
                         onChange={changeHandler}
                       />
@@ -691,7 +696,7 @@ console.log(location.nation)
                         aria-label="Default select example"
                         placeholder="Please Enter Your State"
                         // style={{ width: "212px" }}
-                        value={district}
+                        defaultValue={test1.state.district}
                         name="district"
                         onChange={changeHandler}
                       />
@@ -722,7 +727,7 @@ console.log(location.nation)
                         aria-label="Default select example"
                         placeholder="Please Enter Your State"
                         // style={{ width: "212px" }}
-                        value={city}
+                        defaultValue={test1.state.city}
                         name="city"
                         onChange={changeHandler}
                       />
@@ -763,6 +768,7 @@ console.log(location.nation)
                       placeholder="Designation"
                       // style={{ width: "212px" }}
                       name="designation"
+                      defaultValue={test1.state.designation}
                       onChange={changeHandler}
                       list="datalistOptions"
                       id="exampleDataList"
@@ -776,7 +782,6 @@ console.log(location.nation)
                     />
 
                     <datalist id="datalistOptions" className="overflowY-scroll">
-                     
                       <option name={designation} value="Managing Director">
                         Managing Director
                       </option>
@@ -798,13 +803,12 @@ console.log(location.nation)
                       <option name={designation} value="Zonal Manager">
                         Zonal Manager
                       </option>
-            {/* {options.map((option) => (
+                      {/* {options.map((option) => (
               <option name={option.designation}>{option.designation}</option>
             ))} */}
 
-            
-            {/* for enabiling and diabling Assigned manager */}
-            {/* {designation === 'Admin' ? null : (
+                      {/* for enabiling and diabling Assigned manager */}
+                      {/* {designation === 'Admin' ? null : (
               <div className="mb-3 ">
               <label htmlFor="mid">
                 <b>ASSIGNED MANAGER:</b>
@@ -836,13 +840,9 @@ console.log(location.nation)
               )}
             </div>
             )} */}
-
-              
-        
                     </datalist>
-                    
                   </InputGroup>
-                  
+
                   {errors.designation && (
                     <small className="text-danger">
                       {errors.designation.message}
@@ -850,7 +850,7 @@ console.log(location.nation)
                   )}
                 </div>
               </Col>
-     
+
               <Col md={4} lg={3} sm={12}>
                 <div className="mb-3 ">
                   <label htmlFor="mid">
@@ -871,7 +871,7 @@ console.log(location.nation)
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                       name="AssignedManager"
-                      value={AssignedManager}
+                      defaultValue={test1.state.assignedmanager}
                       onChange={changeHandler}
                       disabled={show}
                     />
@@ -902,7 +902,7 @@ console.log(location.nation)
                       placeholder="Company Location"
                       aria-label="Username"
                       aria-describedby="basic-addon1"
-                      value={companylocation}
+                      defaultValue={test1.state.companylocation}
                       name="companylocation"
                       onChange={changeHandler}
                     />
@@ -933,7 +933,7 @@ console.log(location.nation)
                       placeholder="Company Branch"
                       aria-label="CBankBranch"
                       aria-describedby="basic-addon1"
-                      value={CBankBranch}
+                      defaultValue={test1.state.cbankbranch}
                       name="CBankBranch"
                       onChange={changeHandler}
                     />
@@ -974,7 +974,7 @@ console.log(location.nation)
                         aria-describedby="basic-addon1"
                         name="officialNum"
                         type="number"
-                        value={officialNum}
+                        defaultValue={test1.state.official_number}
                         onChange={changeHandler}
                       />
                     </InputGroup>
@@ -1005,7 +1005,7 @@ console.log(location.nation)
                         placeholder="Official  Email"
                         id="officialEmailid"
                         name="officialEmail"
-                        value={officialEmail}
+                        defaultValue={test1.state.official_email}
                         onChange={changeHandler}
                       />
                       {/* /> */}
@@ -1035,7 +1035,7 @@ console.log(location.nation)
                       <FormControl
                         aria-label="Default select example"
                         placeholder="Please Enter Your State"
-                        value={officialState}
+                        defaultValue={test1.state.company_state}
                         name="officialState"
                         onChange={changeHandler}
                       />
@@ -1065,23 +1065,11 @@ console.log(location.nation)
               <b>Edit</b>
             </Button>
           </div>
-        {/* modal for Jounal mannerger */}
-  
+          {/* modal for Jounal mannerger */}
         </Form>
-        
-        
       </div>
     </>
   );
 };
 
 export default EditEmployee;
-
-
-
-
-
-
-
-
-
