@@ -14,7 +14,9 @@ import Modal from "react-bootstrap/Modal";
 const AddEmployee = () => {
   // console.log(EmployeeValidation)
   const [show, setShow] = useState(false);
-
+  const [designations, setDesignations] = useState([]); /////// limited roles
+  const [allDesignation, setAllDesignation] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -27,7 +29,6 @@ const AddEmployee = () => {
   const initialValues = addEmployeeInitialValues();
   // const EmployeeValidation = AddEmployeeValidation();
   // for disabbling the assigned Manager
-
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
@@ -127,7 +128,7 @@ const AddEmployee = () => {
     }
   };
   const submitHandler1 = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // const body = userinfo.response;
     console.log(userinfo);
     const response = await fetch(`http://localhost:8001/permission/api/post`, {
@@ -135,6 +136,52 @@ const AddEmployee = () => {
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(userinfo),
     });
+  };
+  //////////designation get limited roles////////////////////////////////////////////////
+  const fetchData = async () => {
+    const response = await fetch(
+      `http://localhost:8001/designation/api/v1/conditional`
+    );
+    const jsonData = await response.json();
+    setDesignations(jsonData);
+  };
+
+  //////////designation get all roles except admin, ceo ////////////////////////////////////////////////
+  const fetchDesignation = async () => {
+    const response = await fetch(
+      `http://localhost:8001/designation/api/v1/all `
+    );
+    const jsonData = await response.json();
+    setAllDesignation(jsonData);
+  };
+  useEffect(() => {
+    fetchDesignation();
+    fetchData();
+  }, []);
+
+  //////////////////////////////////////////////////////////
+  //get req from backend
+  const getRequest = async () => {
+    const res = await fetch(`http://localhost:8001/branchloc/api/v1/get`);
+    const jsonData = await res.json();
+    setAllUsers(jsonData);
+  };
+  if (allUsers.designation === "ADMIN") {
+    alert("hi");
+  }
+  // console.log(allUsers.designation==="ADMIN")
+
+  useEffect(() => {
+    getRequest();
+  }, []);
+  // for disabling the assigned manager
+  const [showhide, setShowhide] = useState("");
+
+  //
+  const handleshowhide = (event) => {
+    const getuser = event.target.value;
+    console.log(getuser);
+    setShowhide(getuser);
   };
 
   return (
@@ -149,9 +196,9 @@ const AddEmployee = () => {
         <SideNav />
         {/* <div > */}
         <Form
-          noValidate
           id="addEmployeeFrom"
           onSubmit={handleSubmit(submitHandler)}
+          // autoComplete="off"
         >
           <div className="text-center mb-3">
             <h5 className="mb-5" id="empdeslabel" style={{ color: "#00adff" }}>
@@ -296,7 +343,6 @@ const AddEmployee = () => {
           <Container>
             <Row>
               <Col md={4} lg={3} sm={12}>
-                {/* <div className="mb-3  "> */}
                 <label htmlFor="mid">
                   <b>ALTERNATE NUMBER:</b>
                 </label>
@@ -406,7 +452,6 @@ const AddEmployee = () => {
                         className="MentorList_DropdownMenu"
                         aria-label="Default select example"
                         placeholder="Select Status"
-                        // style={{ width: "212px" }}
                         name="Status"
                         onChange={changeHandler}
                         list="datalistOptions1"
@@ -583,7 +628,7 @@ const AddEmployee = () => {
               <Row>
                 <Col md={4} lg={3} sm={12}>
                   <div className="mb-3  ">
-                    <label >
+                    <label>
                       <b>ADDRESS 1:</b>
                     </label>
                     <InputGroup
@@ -595,7 +640,6 @@ const AddEmployee = () => {
                       <FormControl
                         placeholder="Address"
                         aria-label="Username"
-                      
                         value={Address}
                         name="Address"
                         onChange={changeHandler}
@@ -778,310 +822,322 @@ const AddEmployee = () => {
           <Container style={{ marginLeft: "-12px" }}>
             <Row>
               <Col className="wrapper">
-                <div className="mb-3 form-check" id={"crmselect"}>
-                  <label>
-                    <b>Designation</b>
+                <div className="mb-3 ">
+                  <label htmlFor="mid">
+                    <b>STATE:</b>
                   </label>
                   <InputGroup
                     className="mb-3"
-                    name="designation"
-                    onChange={changeHandler}
+                    {...register("officialState", {
+                      required: "Please Enter Company State ",
+                      // pattern: {
+                      //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
+                      //   message: "Please Enter  A Valid officialState Name",
+                      // },
+                    })}
                   >
                     <FormControl
-                      className="MentorList_DropdownMenu"
                       aria-label="Default select example"
-                      placeholder="Designation"
-                      // style={{ width: "212px" }}
-                      name="designation"
+                      placeholder="Please Enter Your State"
+                      value={officialState}
+                      name="officialState"
                       onChange={changeHandler}
-                      list="datalistOptions"
-                      id="exampleDataList"
-                      {...register("designation", {
-                        required: "Please Select Your designation",
-                        // pattern: {
-                        //   value:password.trim().length>4,
-                        //   message: "INVALIDE password",
-                        // },
-                      })}
                     />
-
-                    <datalist id="datalistOptions" className="overflowY-scroll">
-                      <option name={designation} value="Managing Director">
-                        Managing Director
-                      </option>
-                      <option name={designation} value="Admin">
-                        Admin
-                      </option>
-                      <option name={designation} value="HR">
-                        HR
-                      </option>
-                      <option name={designation} value="CEO">
-                        CEO
-                      </option>
-                      <option name={designation} value="Principle Manager">
-                        Principle Manager
-                      </option>
-                      <option name={designation} value="Full Stack Developer">
-                        Full Stack Developer
-                      </option>
-                      <option name={designation} value="ZonalManager">
-                        ZonalManager
-                      </option>
-                      {/* modal */}
-                      {/* {options.map((option) => (
-              <option name={option.designation}>{option.designation}</option>
-            ))} */}
-                      {/* for enabiling and diabling Assigned manager */}
-                      {/* {designation === 'Admin' ? null : (
-              <div className="mb-3 ">
-              <label htmlFor="mid">
-                <b>ASSIGNED MANAGER:</b>
-              </label>
-              <InputGroup
-                className="mb-3"
-                {...register("AssignedManager", {
-                  required: "Please Enter Your assigned Manager",
-                  // pattern: {
-                  //   value:password.trim().length>4,
-                  //   message: "INVALIDE password",
-                  // },
-                })}
-              >
-                <FormControl
-                  placeholder="Assigned Manager"
-                  aria-label="Username"
-                  aria-describedby="basic-addon1"
-                  name="AssignedManager"
-                  value={AssignedManager}
-                  onChange={changeHandler}
-                  disabled={show}
-                />
-              </InputGroup>
-              {errors.AssignedManager && (
-                <small className="text-danger">
-                  {errors.AssignedManager.message}
-                </small>
-              )}
-            </div>
-            )} */}{" "}
-                    </datalist>
-                    <select
-                      name={designation}
-                      value="ZonalManager"
-                      data-toggle="modal"
-                      data-target="#exampleModal"
-                      onChange={changeHandler}
-                      onClick={(e) => setShow(true)}
-                    >
-                      Zonal Manager
-                    </select>
                   </InputGroup>
-
-                  {errors.designation && (
+                  {errors.officialState && (
                     <small className="text-danger">
-                      {errors.designation.message}
+                      {errors.officialState.message}
                     </small>
                   )}
                 </div>
               </Col>
 
               <Col md={4} lg={3} sm={12}>
-                <div className="mb-3 ">
-                  <label htmlFor="mid">
-                    <b>ASSIGNED MANAGER:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("AssignedManager", {
-                      required: "Please Enter Your assigned Manager",
+                {/* test */}
+                <label htmlFor="mid">
+                  <b>LOCATION:</b>
+                </label>
+                <InputGroup
+                  className="mb-3"
+                  name="companylocation"
+                  onChange={changeHandler}
+                >
+                  <FormControl
+                    className="MentorList_DropdownMenu"
+                    aria-label="Default select example"
+                    placeholder="Location"
+                    // style={{ width: "212px" }}
+                    name="companylocation"
+                    onChange={changeHandler}
+                    list="datalistOptions2"
+                    id="exampleDataList"
+                    {...register("companylocation", {
+                      required: "Please Select Your companylocation",
                       // pattern: {
                       //   value:password.trim().length>4,
                       //   message: "INVALIDE password",
                       // },
                     })}
-                  >
-                    <FormControl
-                      placeholder="Assigned Manager"
-                      aria-label="Username"
-                      aria-describedby="basic-addon1"
-                      name="AssignedManager"
-                      value={AssignedManager}
-                      onChange={changeHandler}
-                      disabled={show}
-                    />
-                  </InputGroup>
-                  {errors.AssignedManager && (
-                    <small className="text-danger">
-                      {errors.AssignedManager.message}
-                    </small>
-                  )}
-                </div>
+                  />
+
+                  <datalist id="datalistOptions2" className="overflowY-scroll">
+                    {/* modal */}
+
+                    {allUsers.map((option) => (
+                      <option value={option.location}>
+                        {option.location} key={option.id}
+                      </option>
+                    ))}
+                  </datalist>
+                </InputGroup>
+                {errors.companylocation && (
+                  <small className="text-danger">
+                    {errors.companylocation.message}
+                  </small>
+                )}
               </Col>
               <Col md={4} lg={3} sm={12}>
-                <div className="mb-3  ">
-                  <label htmlFor="mid">
-                    <b>LOCATION:</b>
-                  </label>
-                  <InputGroup
-                    className="mb-3"
-                    {...register("companylocation", {
-                      required: "Please Enter Your branch location",
+                {/* TEST */}
+                <label htmlFor="mid">
+                  <b> BRANCH:</b>
+                </label>
+                <InputGroup
+                  className="mb-3"
+                  name="CBankBranch"
+                  onChange={changeHandler}
+                  {...register("CBankBranch", {
+                    required: "Please Enter Your Branch Name ",
+                    pattern: {
+                      value: /[A-Za-z]/,
+                      message: "Invalid User Name",
+                    },
+                  })}
+                >
+                  <FormControl
+                    className="MentorList_DropdownMenu"
+                    aria-label="Default select example"
+                    placeholder="Bank Branch"
+                    // style={{ width: "212px" }}
+                    name="CBankBranch"
+                    onChange={changeHandler}
+                    list="datalistOptions3"
+                    id="exampleDataList"
+                    {...register("CBankBranch", {
+                      required: "Please Select Your Company Bank Branch",
                       // pattern: {
-                      //   value: /d{1,5}\s\w.\s(\b\w*\b\s){1,2}\w*/,
-                      //   message: "Invalid address Number",
+                      //   value:password.trim().length>4,
+                      //   message: "INVALIDE password",
                       // },
                     })}
+                  />
+
+                  <datalist id="datalistOptions3" className="overflowY-scroll">
+                    {/* modal */}
+                    {allUsers.map((option) => (
+                      <option value={option.companybranch}>
+                        {option.companybranch}
+                      </option>
+                    ))}
+                  </datalist>
+                </InputGroup>
+                {errors.CBankBranch && (
+                  <small className="text-danger">
+                    {errors.CBankBranch.message}
+                  </small>
+                )}
+                {/*  */}
+                <div className="mb-3 "></div>
+              </Col>
+              <Col md={4} lg={3} sm={12}>
+                <div className="mb-3">
+                  <label htmlFor="mid">
+                    <b>OFFICIAL EMAIL:</b>
+                  </label>
+                  <InputGroup
+                    {...register("officialEmail", {
+                      required: "Please Enter Your  Official Email",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Invalid Email",
+                      },
+                    })}
+                    style={{ marginLeft: "-10px" }}
                   >
-                    <FormControl
-                      placeholder="Company Location"
-                      aria-label="Username"
-                      aria-describedby="basic-addon1"
-                      value={companylocation}
-                      name="companylocation"
+                    <Form.Control
+                      type="officialEmail"
+                      placeholder="Official  Email"
+                      id="officialEmailid"
+                      name="officialEmail"
+                      value={officialEmail}
                       onChange={changeHandler}
                     />
+                    {/* /> */}
                   </InputGroup>
-                  {errors.companylocation && (
+                  {errors.officialEmail && (
                     <small className="text-danger">
-                      {errors.companylocation.message}
+                      {errors.officialEmail.message}
                     </small>
                   )}
                 </div>
+
+                {/*  */}
               </Col>
-              <Col md={4} lg={3} sm={12}>
-                <div className="mb-3 ">
+            </Row>
+          </Container>
+          {/*  */}
+          <Container style={{ marginLeft: "-12px" }}>
+            <Row>
+              <Col md={4} lg={3} sm={12} className="wrapper">
+                <div className="mb-3 " style={{width:"max-width"}}>
                   <label htmlFor="mid">
-                    <b> BRANCH:</b>
+                    <b> OFFICIAL NUMBER:</b>
                   </label>
                   <InputGroup
-                    className="mb-3"
-                    {...register("CBankBranch", {
-                      required: "Please Enter Your Branch Name ",
+                    {...register("officialNum", {
+                      required: "Please Enter The Official Number",
                       pattern: {
-                        value: /[A-Za-z]/,
-                        message: "Invalid User Name",
+                        value: /^[6-9]\d{9}$/,
+                        message: "Invalid Mobile Number",
                       },
                     })}
                   >
                     <FormControl
-                      placeholder="Company Branch"
-                      aria-label="CBankBranch"
+                      placeholder=" Official Mobile Number"
+                      aria-label="Mobile Number"
                       aria-describedby="basic-addon1"
-                      value={CBankBranch}
-                      name="CBankBranch"
+                      name="officialNum"
+                      type="number"
+                      value={officialNum}
                       onChange={changeHandler}
                     />
                   </InputGroup>
-                  {errors.CBankBranch && (
+                  {errors.officialNum && (
                     <small className="text-danger">
-                      {errors.CBankBranch.message}
+                      {errors.officialNum.message}
                     </small>
                   )}
                 </div>
               </Col>
-            </Row>
-          </Container>
-          <div>
-            <div className="d-flex">{/*  */}</div>
-          </div>
-          {/*  */}
-          <div className="companydetails">
-            <Container>
-              <Row>
-                <Col md={4} lg={4} sm={12}>
-                  <div className="mb-3 ">
-                    <label htmlFor="mid">
-                      <b> OFFICIAL NUMBER:</b>
-                    </label>
-                    <InputGroup
-                      {...register("officialNum", {
-                        required: "Please Enter The Official Number",
-                        pattern: {
-                          value: /^[6-9]\d{9}$/,
-                          message: "Invalid Mobile Number",
-                        },
-                      })}
+
+              <Col md={4} lg={3} sm={12}>
+                {/* test */}
+                <div className=" form-group">
+                  <label className="">
+                    <b>DESIGNATION:</b>
+                  </label>
+                  <select
+                    name="designation"
+                    className="form-control"
+                    onClick={(e) => handleshowhide(e)}
+                    onChange={changeHandler}
+                  >
+                    <option name="designation" value="">
+                      -- Designation--
+                    </option>
+                    <option name="designation" value="ADMIN">
+                      ADMIN
+                    </option>
+                    <option name="designation" value="MD">
+                      MD
+                    </option>
+                    <option name="designation" value="CEO">
+                      CEO
+                    </option>
+                    <option
+                      name="designation"
+                      value="ZONAL MANAGER"
+                      onClick={(e) => setShow(false)}
                     >
-                      <FormControl
-                        placeholder=" Official Mobile Number"
-                        aria-label="Mobile Number"
-                        aria-describedby="basic-addon1"
-                        name="officialNum"
-                        type="number"
-                        value={officialNum}
-                        onChange={changeHandler}
-                      />
-                    </InputGroup>
-                    {errors.officialNum && (
-                      <small className="text-danger">
-                        {errors.officialNum.message}
-                      </small>
-                    )}
-                  </div>
-                </Col>
-                <Col md={4} lg={4} sm={12}>
-                  <div className="mb-3">
+                      ZONAL MANAGER
+                    </option>
+
+                    {allDesignation.map((option) => {
+                      return (
+                        <option value={option.designation} key={option.id}>
+                          {option.designation}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                {errors.designation && (
+                  <small className="text-danger">
+                    {errors.designation.message}
+                  </small>
+                )}
+              </Col>
+              <Col md={4} lg={3} sm={12}>
+                {/* TEST */}
+                {showhide === "ADMIN" ? (
+                  ""
+                ) : showhide === "MD" ? (
+                  ""
+                ) : showhide === "CEO" ? (
+                  ""
+                ) : showhide === "PRINCIPLE MANAGER" ? (
+                  ""
+                ) : (
+                  <div className="mb-3 " id="ShowAndHide">
                     <label htmlFor="mid">
-                      <b>OFFICIAL EMAIL:</b>
-                    </label>
-                    <InputGroup
-                      {...register("officialEmail", {
-                        required: "Please Enter Your  Official Email",
-                        pattern: {
-                          value: /\S+@\S+\.\S+/,
-                          message: "Invalid Email",
-                        },
-                      })}
-                      style={{ marginLeft: "-10px" }}
-                    >
-                      <Form.Control
-                        type="officialEmail"
-                        placeholder="Official  Email"
-                        id="officialEmailid"
-                        name="officialEmail"
-                        value={officialEmail}
-                        onChange={changeHandler}
-                      />
-                      {/* /> */}
-                    </InputGroup>
-                    {errors.officialEmail && (
-                      <small className="text-danger">
-                        {errors.officialEmail.message}
-                      </small>
-                    )}
-                  </div>
-                </Col>
-                <Col md={4} lg={4} sm={12}>
-                  <div className="mb-3 ">
-                    <label htmlFor="mid">
-                      <b>STATE:</b>
+                      <b>ASSIGNED MANAGER:</b>
                     </label>
                     <InputGroup
                       className="mb-3"
-                      {...register("officialState", {
-                        required: "Please Enter Company State ",
+                      {...register("AssignedManager", {
+                        required: "Please Enter Your assigned Manager",
                         // pattern: {
-                        //   value:/([A-Z][a-z]+\s?)+,\s[A-Z]{2}/,
-                        //   message: "Please Enter  A Valid officialState Name",
+                        //   value:password.trim().length>4,
+                        //   message: "INVALIDE password",
                         // },
                       })}
                     >
                       <FormControl
-                        aria-label="Default select example"
-                        placeholder="Please Enter Your State"
-                        value={officialState}
-                        name="officialState"
+                        placeholder="Assigned Manager"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        name="AssignedManager"
+                        value={AssignedManager}
                         onChange={changeHandler}
+                        disabled={show}
                       />
                     </InputGroup>
-                    {errors.officialState && (
+                    {errors.AssignedManager && (
                       <small className="text-danger">
-                        {errors.officialState.message}
+                        {errors.AssignedManager.message}
                       </small>
                     )}
                   </div>
-                </Col>
-              </Row>
+                )}
+              </Col>
+              <Col md={4} lg={3} sm={12}>
+            <div style={{width: "27rem"}}></div>
+
+                {/*  */}
+              </Col>
+            </Row>
+          </Container>
+          {/*  */}
+          <div className="companydetails">
+            <Container>
+              <div className="d-flex">
+                <Row>
+                  {/* for showing the zonal manager button */}
+                  <Col>
+                    {showhide === "ZONAL MANAGER" && (
+                      <option
+                        name={designation}
+                        value="Zonal Manager"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        style={{ color: "blue" }}
+                        onClick={(e) => setShow(true)}
+                      >
+                        CLICK ME TO SELECT YOUR ZONE
+                      </option>
+                    )}
+                  </Col>
+                </Row>
+              </div>
             </Container>
           </div>
           {/*  */}
@@ -1114,30 +1170,8 @@ const AddEmployee = () => {
               {/* persmission form handler */}
               <form onSubmit={submitHandler1}>
                 <div className="row">
-                  <div className="col-md-6">
-                    {/* <div className="form-check m-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="ZonalManager"
-                        value="Telangana"
-                        id="flexCheckDefault"
-                        onChange={handleChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexCheckDefault"
-                      >
-                        Telangana
-                      </label>
-                    </div> */}
-                    
-                    
-                    
-                  </div>
-                  <div className="col-md-6">
-                    
-                  </div>
+                  <div className="col-md-6"></div>
+                  <div className="col-md-6"></div>
                 </div>
 
                 <div className="form-floating mt-3 mb-3 text-center">
@@ -1152,7 +1186,6 @@ const AddEmployee = () => {
                     onChange={handleChange}
                   ></textarea>
                 </div>
-                <button type="submit">Submit</button>
               </form>
             </Modal.Body>
             <Modal.Footer>
@@ -1173,14 +1206,85 @@ const AddEmployee = () => {
           <Modal.Header closeButton>
             <Modal.Title>PERMISSIONS FOR ZONAL MANAGER </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <form onSubmit={submitHandler1}>
+          <form onSubmit={submitHandler1}>
+            <Modal.Body>
               <h6>SELECT ONLY FOR ZONAL MANAGER</h6>
+              <div>
+              <div className="d-flex sm-grid" 
+              style={{gap: "45px"}}
+              >
+            
+            <div md={4} lg={3} sm={12}>
+              <div className="mb-3 ">
+                <label htmlFor="mid">
+                  <b>EMPLOYEE ID:</b>
+                </label>
+                <InputGroup
+                  className="mb-3"
+                  {...register("Employeeid", {
+                    required: "Please Enter Your Employee Id",
+                    pattern: {
+                      value: /(?<!\d)\d{5}(?!\d)/g,
+                      message: "Invalid  Employee Id",
+                    },
+                  })}
+                >
+                  <FormControl
+                    placeholder="EmployeeId"
+                    aria-label="Employeeid"
+                    aria-describedby="basic-addon1"
+                    name="Employeeid"
+                    value={Employeeid}
+                    onChange={changeHandler}
+                  />
+                </InputGroup>
+                {errors.Employeeid && (
+                  <small className="text-danger">
+                    {errors.Employeeid.message}
+                  </small>
+                )}
+              </div>
+            </div>
+            <div md={4} lg={3} sm={12}>
+              <div className="mb-3 ">
+                <label htmlFor="mid">
+                  <b> EMPLOYEE NAME:</b>
+                </label>
+                <InputGroup
+                  className="mb-3"
+                  {...register("userName", {
+                    required: "Please Enter Your User Name ",
+                    pattern: {
+                      value: /[A-Za-z]/,
+                      message: "Invalid User Name",
+                    },
+                  })}
+                >
+                  <FormControl
+                    placeholder="User Name"
+                    aria-label="userName"
+                    aria-describedby="basic-addon1"
+                    value={userName}
+                    name="userName"
+                    onChange={changeHandler}
+                  />
+                </InputGroup>
+                {errors.userName && (
+                  <small className="text-danger">
+                    {errors.userName.message}
+                  </small>
+                )}
+              </div>
+            </div>
+                  </div>
+              </div>
               <h5>STATE:</h5>
-              <Col className=" d-flex align-items-center ml-25" lg={4} sm={12}>
+              <div className=" d-flex align-items-center ml-25" lg={4} sm={12}>
                 <br />
                 <div className="d-grid">
                   <div className="form-check m-3">
+                    {/* adding employeeeid and username */}
+                 
                     <input
                       className="form-check-input"
                       type="checkbox"
@@ -1197,87 +1301,86 @@ const AddEmployee = () => {
                     </label>
                   </div>
                   <div className="form-check m-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="ap"
-                        value="ap"
-                        id="flexCheckDefault"
-                        onChange={handleChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexCheckDefault"
-                      >
-                        ANDHRAPRADESH
-                      </label>
-                    </div>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name="ap"
+                      value="ap"
+                      id="flexCheckDefault"
+                      onChange={handleChange}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      ANDHRAPRADESH
+                    </label>
+                  </div>
                 </div>
                 <div className="d-grid">
-                <div className="form-check m-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="karnataka"
-                        value="karnataka"
-                        id="flexCheckDefault"
-                        onChange={handleChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexCheckDefault"
-                      >
-                        KARNATAKA
-                      </label>
-                    </div>
-                    <div className="form-check m-3">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="TN"
-                        value="TN"
-                        id="flexCheckDefault"
-                        onChange={handleChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexCheckDefault"
-                      >
-                        TAMILNADU
-                      </label>
-                    </div>
+                  <div className="form-check m-3">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name="karnataka"
+                      value="karnataka"
+                      id="flexCheckDefault"
+                      onChange={handleChange}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      KARNATAKA
+                    </label>
+                  </div>
+                  <div className="form-check m-3">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name="TN"
+                      value="TN"
+                      id="flexCheckDefault"
+                      onChange={handleChange}
+                    />
+                    <label
+                      className="form-check-label"
+                      htmlFor="flexCheckDefault"
+                    >
+                      TAMILNADU
+                    </label>
+                  </div>
                 </div>
                 <div className="form-check m-3" id="zonalmodal">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="maharastra  "
-                        value="maharastra"
-                        id="flexCheckDefault"
-                        onChange={handleChange}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexCheckDefault"
-                      >
-                        MAHARASTRA
-                      </label>
-                    </div>
-               
-              </Col>
-              <Col className="d-flex w-100 mt-3 " lg={4} sm={12}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name="maharastra  "
+                    value="maharastra"
+                    id="flexCheckDefault"
+                    onChange={handleChange}
+                  />
+                  <label
+                    className="form-check-label"
+                    htmlFor="flexCheckDefault"
+                  >
+                    MAHARASTRA
+                  </label>
+                </div>
+              </div>
+              <div className="d-flex w-100 mt-3 " lg={4} sm={12}>
                 <br />
-              </Col>
-            <button variant="primary">SUBMIT</button>
-
-            </form >
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            
-          </Modal.Footer>
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit" onClick={handleClose}>
+                Submit
+              </Button>
+            </Modal.Footer>
+          </form>
         </Modal>
       </div>
     </>

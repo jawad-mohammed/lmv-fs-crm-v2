@@ -238,7 +238,7 @@ const EmployeeDesignation = () => {
                               type={"text"}
                               className="text-center mb-2"
                               name="searchInput"
-                              value={searchInput}
+                              defaultValue={user.designation}
                               onChange={changeHandler}
                               placeholder="Edit designation"
                               required

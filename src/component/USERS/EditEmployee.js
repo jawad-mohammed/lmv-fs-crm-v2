@@ -28,10 +28,9 @@ const EditEmployee = (editHandler) => {
   const [userdata, setUserdata] = useState({
     ...initialValues,
   });
-  console.log(editHandler);
 
   const {
-    Employeeid,
+    employeeid,
     userName,
     Address,
     Pincode,
@@ -59,11 +58,11 @@ const EditEmployee = (editHandler) => {
   } = userdata;
 
   const changeHandler = (e) => {
-    setUserdata({ ...userdata, [e.target.name]: e.target.value});
+    setUserdata({ ...userdata, [e.target.name]: e.target.defaultValue});
     // disabling the assigned Manager
-    // if (designation === "HR" || "CEO") {
-    //   SetShow(true);
-    // }
+    if (designation === "HR" || "CEO") {
+      SetShow(true);
+    }
   };
 
   const submitHandler = async (e) => {
@@ -154,7 +153,7 @@ const EditEmployee = (editHandler) => {
                       placeholder="EmployeeId"
                       aria-label="Employeeid"
                       aria-describedby="basic-addon1"
-                      name="test1.state.employeeid"
+                      name="employeeid"
                       defaultValue={test1.state.employeeid}
                       onChange={changeHandler}
                     />
@@ -630,7 +629,7 @@ const EditEmployee = (editHandler) => {
                         aria-label="PINCODE"
                         aria-describedby="basic-addon1"
                         name="Pincode"
-                        defaultValue={Pincode}
+                        defaultValue={test1.state.pincode}
                         onChange={changeHandler}
                       />
                     </InputGroup>

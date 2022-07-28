@@ -433,7 +433,7 @@ MenuItem {
 }
 
 .companydetails {
-  margin-left: -18vw;
+  margin-left: -21vw;
 }
 #zonalmodal {
 margin-top: -2.5rem !important;
@@ -446,7 +446,7 @@ margin-top: -2.5rem !important;
   }
 
   .companydetails {
-    margin-left: 0vw;
+    margin-left: -6vw;
   }
 
   #empdestable {

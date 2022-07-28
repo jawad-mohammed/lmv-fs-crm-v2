@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import SideNav from "../UIDesign/SideNav";
 import Logohead from "../UIDesign/Logohead";
 import { FaUserEdit } from "react-icons/fa";
+import Button from 'react-bootstrap/Button';
 import { MdDeleteSweep } from "react-icons/md";
 import { FcSearch } from "react-icons/fc";
 import { useForm } from "react-hook-form";
@@ -41,7 +42,7 @@ const AddBranch = () => {
   }, []);
   //////////////////////////////////////////////////////////////
 
-  const handleEdit = async(id) => {
+  const handleEdit = async (id) => {
     const response = await fetch(
       `http://localhost:8001/branchloc/api/v1/put/${id}`,
       {
@@ -51,6 +52,7 @@ const AddBranch = () => {
       }
     );
     console.log("edited");
+    window.location.reload()
   };
 
   //////////////////////
@@ -79,9 +81,14 @@ const AddBranch = () => {
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     });
-    //window.location.reload();
+    window.location.reload();
   };
 
+  // for opening and closing the model
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   //////////////////////////////////////////////////////////////////
   const changeHandler = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -95,7 +102,7 @@ const AddBranch = () => {
 
       <div style={{ background: "#00adff" }}>
         <h3 className="text-center">
-            <b className="text-white">Branch & Location</b>
+          <b className="text-white">Branch & Location</b>
         </h3>
       </div>
       <SideNav />
@@ -203,18 +210,15 @@ const AddBranch = () => {
               </tr>
             </thead>
             <thead>
-              <tr >
-       
-              </tr>
+              <tr></tr>
             </thead>
             {allUsers.map((user) => {
               return (
-                <tbody className="align-center" >
+                <tbody className="align-center">
                   {/*  */}
-                  <tr key={user.id}>
-                </tr >
+                  <tr key={user.id}></tr>
                   {/*  */}
-                  <tr  >
+                  <tr>
                     <td class="text-center" scope="col">
                       {user.companybranch}
                     </td>
@@ -223,19 +227,18 @@ const AddBranch = () => {
                     </td>
 
                     <td>
-                  {/* edit button */}
+                      {/* edit button */}
 
                       <button
                         className="viewEmployeeBtn text-center"
                         type="button"
                         data-bs-toggle="modal"
                         data-bs-target={`#id${user.id}`}
-                        onClick={() => handleEdit(user.id)}
                       >
                         <FaUserEdit />
                       </button>
                     </td>
-                  {/* delete button */}
+                    {/* delete button */}
 
                     <td>
                       <button
@@ -282,7 +285,7 @@ const AddBranch = () => {
                                 type={"text"}
                                 className="text-center mb-2"
                                 name="CBankBranch"
-                                value={CBankBranch}
+                                defaultValue={user.companybranch}
                                 onChange={changeHandler}
                                 placeholder="Add Branch"
                                 required
@@ -291,6 +294,7 @@ const AddBranch = () => {
                               <b>Add Location:</b>
                               <br />
                               <input
+                                required={true}
                                 style={{
                                   width: "271px",
                                   borderRadius: "6px",
@@ -300,28 +304,23 @@ const AddBranch = () => {
                                 type={"text"}
                                 className="text-center mb-2"
                                 name="companylocation"
-                                value={companylocation}
+                                defaultValue={user.location}
                                 onChange={changeHandler}
                                 placeholder="Add Branch"
-                                required
                               />
-
                               <br />
                             </div>
                           </form>
                         </div>
                         <div className="modal-footer">
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                          >
+                          <Button variant="secondary" onClick={handleClose}>
                             Close
-                          </button>
+                          </Button>
 
                           <button
                             type="button"
                             className="btn btn-primary"
+                            data-bs-dismiss="modal"
                             onClick={() => handleEdit(user.id)}
                           >
                             Edit
