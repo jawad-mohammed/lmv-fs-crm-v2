@@ -27,7 +27,7 @@ const EmployeeDesignation = () => {
 
   //change handler
   const changeHandler = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...userDetails, [e.target.name]: e.target.value.toUpperCase() });
   };
   // const editeHandler = (e) => {
   //   setEditData({ ...editData, [e.target.name]: e.target.value });
@@ -47,7 +47,7 @@ const EmployeeDesignation = () => {
       .then((res) => alert(`user ${body.searchInput} registered`))
       .catch((err) => alert(`user ${body.searchInput} already exists`));
     setData({ searchInput: "" });
-    // window.location.reload()
+    window.location.reload()
   };
 
   /////////////////////////////////////////////////////////////

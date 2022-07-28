@@ -10,7 +10,7 @@ import SideNav from "../UIDesign/SideNav";
 import { addEmployeeInitialValues } from "../../validations/initialValues";
 import Logohead from "../UIDesign/Logohead";
 import Modal from "react-bootstrap/Modal";
-
+import axios from 'axios'
 const AddEmployee = () => {
   // console.log(EmployeeValidation)
   const [show, setShow] = useState(false);
@@ -92,14 +92,27 @@ const AddEmployee = () => {
     );
     //alert(`Registered ${ userName}`)
     const parseRes = await response.json();
-    //console.log(parseRes.message);
-    alert(parseRes.created);
+    console.log(parseRes.message);
+
+    console.log(parseRes.created);
+    alert(parseRes.message)
+    alert(parseRes.created)
+ 
+    //  if(parseRes.Status(200)){
+  //   alert(parseRes.created);
+  //  } 
+  //  if(parseRes.Status(401)){
+  //   alert(parseRes.message)
+  //  }
+    
   };
   // for zonal manager
 
   //getting role req from backend
   // for checkboxes
   const [userinfo, setUserInfo] = useState({
+    Employeeid:"",
+    userName:"",
     languages: [],
     // response: [],
   });
@@ -107,9 +120,9 @@ const AddEmployee = () => {
   const handleChange = (e) => {
     // Destructuring
     const { value, checked } = e.target;
-    const { languages } = userinfo;
+    const { Employeeid,userName,languages } = userinfo;
 
-    console.log(value);
+    // console.log(value);
 
     // Case 1 : The user checks the box
     if (checked) {
@@ -129,13 +142,21 @@ const AddEmployee = () => {
   };
   const submitHandler1 = async (e) => {
     e.preventDefault();
-    // const body = userinfo.response;
-    console.log(userinfo);
-    const response = await fetch(`http://localhost:8001/permission/api/post`, {
+    const body = userinfo.languages;
+    console.log(body);
+  //  axios.post(`http://localhost:8001/permission/api/post`,body)
+  //  .then((res)=>console.log(res))
+  //  .catch((err)=>console.log(err))
+  const response = await fetch(
+    `http://localhost:8001/permission/test/api`,
+    {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
-      body: JSON.stringify(userinfo),
-    });
+      body: JSON.stringify(body),
+    }
+  );
+
+
   };
   //////////designation get limited roles////////////////////////////////////////////////
   const fetchData = async () => {
@@ -1224,17 +1245,19 @@ const AddEmployee = () => {
                   {...register("Employeeid", {
                     required: "Please Enter Your Employee Id",
                     pattern: {
-                      value: /(?<!\d)\d{5}(?!\d)/g,
-                      message: "Invalid  Employee Id",
+                      value: /^[6-9]\d{9}$/,
+                      message: "Invalid Mobile Number",
                     },
                   })}
+                 
                 >
                   <FormControl
                     placeholder="EmployeeId"
                     aria-label="Employeeid"
                     aria-describedby="basic-addon1"
+                    type="tel"
                     name="Employeeid"
-                    value={Employeeid}
+                    value={userinfo.Employeeid}
                     onChange={changeHandler}
                   />
                 </InputGroup>
@@ -1288,8 +1311,8 @@ const AddEmployee = () => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      name="telengana"
-                      value="telengana"
+                      name="telangana"
+                      value="telangana"
                       id="flexCheckDefault"
                       onChange={handleChange}
                     />
@@ -1338,8 +1361,8 @@ const AddEmployee = () => {
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      name="TN"
-                      value="TN"
+                      name="tn"
+                      value="tn"
                       id="flexCheckDefault"
                       onChange={handleChange}
                     />
