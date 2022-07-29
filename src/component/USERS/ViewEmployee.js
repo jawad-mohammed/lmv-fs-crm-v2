@@ -36,8 +36,8 @@ const ViewEmployee = () => {
 
   // delete page
   const handleClick = async (id) => {
-    const confirm = window.confirm(`Are you sure to delete`);
-    if (confirm) {
+    // const confirm = window.confirm(`Are you sure to delete`);
+    // if (confirm) {
       const deleteItem = await fetch(
         `http://localhost:8001/viewEmployee/lmv/${id}`,
         {
@@ -45,8 +45,8 @@ const ViewEmployee = () => {
         }
       );
       setAllUsers(allUsers.filter((user) => user.id !== id));
-    }
-    alert(`deleted your record`);
+    //}
+    //alert(`deleted your record`);
   };
   ////////////////////////////////////////
 
@@ -58,6 +58,7 @@ const ViewEmployee = () => {
     const responseJson = await editItem.json();
     seteditUsers(responseJson);
     // navigation("/EditEmployee",{editUsers:editUsers})
+    console.log(responseJson);
     if (responseJson) {
       navigation("/EditEmployee", { state: responseJson });
     }
@@ -69,6 +70,7 @@ const ViewEmployee = () => {
       const response = await fetch(
         `http://localhost:8001/viewEmployee/api/status/active`
       );
+        // for In Active Table
       const jsonData = await response.json();
       setAllActiveUsers(jsonData);
     } else if (activeSTatus === "In Active") {
@@ -79,7 +81,6 @@ const ViewEmployee = () => {
       setAllActiveUsers(jsonData);
     }
   };
-  const submitHandler = () => {};
   return (
     <>
       {<Logohead />}
@@ -114,7 +115,7 @@ const ViewEmployee = () => {
                 height: "33px",
               }}
             >
-              <form onSubmit={submitHandler}>
+              <form >
                 <label>
                   <b>Status: </b>
                 </label>

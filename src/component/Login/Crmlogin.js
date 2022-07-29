@@ -89,7 +89,7 @@ const Crmlogin = () => {
                       {...register("Employeeid", {
                         required: "Please Enter Your Employee Id",
                         pattern: {
-                          value: /(?<!\d)\d{5}(?!\d)/g,
+                          value: /^([0-9]{4}|[0-9]{5})$/,
                           message: "Invalid  Employee Id",
                         },
                       })}

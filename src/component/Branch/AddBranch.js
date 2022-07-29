@@ -85,9 +85,11 @@ const AddBranch = () => {
   };
 
   // for opening and closing the model
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    window.location.reload()
+  };
   const handleShow = () => setShow(true);
   //////////////////////////////////////////////////////////////////
   const changeHandler = (e) => {
@@ -219,7 +221,7 @@ const AddBranch = () => {
                   <tr key={user.id}></tr>
                   {/*  */}
                   <tr>
-                    <td class="text-center" scope="col">
+                    <td className="text-center" scope="col">
                       {user.companybranch}
                     </td>
                     <td className="text-center" scope="col">
@@ -294,7 +296,6 @@ const AddBranch = () => {
                               <b>Add Location:</b>
                               <br />
                               <input
-                                required={true}
                                 style={{
                                   width: "271px",
                                   borderRadius: "6px",
@@ -313,12 +314,12 @@ const AddBranch = () => {
                           </form>
                         </div>
                         <div className="modal-footer">
-                          <Button variant="secondary" onClick={handleClose}>
+                          <button variant="dark" onClick={handleClose}>
                             Close
-                          </Button>
+                          </button>
 
                           <button
-                            type="button"
+                            type="submit"
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
                             onClick={() => handleEdit(user.id)}

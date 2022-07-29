@@ -1,9 +1,18 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
+
+
+
+
+
 const Otp = () => {
+const [otpNumber,setOtpNumber]=useState([])
+
   useEffect(() => {
     document.querySelector(`input[name="input1"]`).focus();
+   otpFunc()
   }, []);
   const [otp, setOtp] = useState({
     input1: "",
@@ -11,7 +20,12 @@ const Otp = () => {
     input3: "",
     input4: "",
   });
-  const { input1,input2, input3, input4 } = otp;
+  const { input1, input2, input3, input4 } = otp;
+  const otpverify = `${
+    input1 * 1000 + input2 * 100 + input3 * 10 + input4 * 1
+  }`;
+  // const { input1*1000+input2* input3, input4 } = otp;
+
   const [myOtp, setMyOtp] = useState([]);
   const navigation = useNavigate();
   // forward function for otp input
@@ -58,27 +72,29 @@ const Otp = () => {
       }
     }
   };
-  const otpHandle = async (e) => {
-    const response = await fetch("http://localhost:8000/lmv/otp", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-    });
 
-    const parseRes = await response.json();
-    console.log(parseRes);
-    alert(parseRes.otp);
-    setMyOtp(parseRes)
-    if (parseRes.otp) {
-        localStorage.setItem("token", parseRes.otp);
-      
-      }
-    };
-    const submitHandler = (e) => {
-    e.preventDefault()
-    console.log(otp);
-    navigation("/SideNav  ");
+const otpFunc=async()=>{
+// const res = await fetch(`http://localhost:8001/viewEmployee/lmv/otp`)
+// const jsonData = await res.json()
+// console.log(jsonData);
+}
+
+
+//   const otpHandle = async () => {
+//     const response = await fetch(
+//       `http://localhost:8001/viewEmployee/lmv/otp`,
+//       {
+//         method: "get",
+//         headers: { "Content-Type": "Application/json" },
+//         //body: JSON.stringify(body),
+//       }
+//     )
+
+
+//  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+   navigation("/SideNav  ");
   };
   //   e.preventDefault();
   //     if(!otp){
@@ -93,8 +109,12 @@ const Otp = () => {
 
   return (
     <>
-      <button onClick={otpHandle}>otp</button>
-
+      {/* <button onClick={otpHandle}>otp</button> */}
+{otpNumber.map((otp)=>{
+return(<div>
+  {otp.val}
+</div>)
+})}
       <div
         className="logintab"
         style={{ backgroundColor: "#4c4c4c", text: "white" }}
@@ -120,7 +140,7 @@ const Otp = () => {
                   name="input1"
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
-                   required
+                  required
                 />
               </div>
               <div className="p-2">
@@ -135,7 +155,7 @@ const Otp = () => {
                   value={input2}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
-                   required
+                  required
                 />
               </div>
               <div className="p-2">
@@ -150,7 +170,7 @@ const Otp = () => {
                   value={input3}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
-                   required
+                  required
                 />
               </div>
               <div className="p-2">
@@ -165,7 +185,7 @@ const Otp = () => {
                   value={input4}
                   onChange={changeHandler}
                   onKeyDown={onKeyDownHandler}
-                   required
+                  required
                 />
               </div>
             </div>

@@ -291,7 +291,7 @@ const EditEmployee = (editHandler) => {
                       aria-label="Employeeid"
                       aria-describedby="basic-addon1"
                       name="employeeid"
-                      defaultValue={test1.state.employeeid}
+                      defaultValue={test1.state. employeeid }
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -936,6 +936,7 @@ const EditEmployee = (editHandler) => {
                     // style={{ width: "212px" }}
                     name="companylocation"
                     onChange={changeHandler}
+                    defaultValue={test1.state.companylocation}
                     list="datalistOptions2"
                     id="exampleDataList"
                     {...register("companylocation", {
@@ -951,7 +952,7 @@ const EditEmployee = (editHandler) => {
                     {/* modal */}
 
                     {allUsers.map((option) => (
-                      <option defaultValue={test1.state.company_location}>
+                      <option defaultValue={option.location} >
                         {option.location} 
                       </option>
                     ))}
@@ -988,6 +989,7 @@ const EditEmployee = (editHandler) => {
                     name="CBankBranch"
                     onChange={changeHandler}
                     list="datalistOptions3"
+                    defaultValue={test1.state.cbankbranch}
                     id="exampleDataList"
                     {...register("CBankBranch", {
                       required: "Please Select Your Company Bank Branch",
@@ -1001,7 +1003,7 @@ const EditEmployee = (editHandler) => {
                   <datalist id="datalistOptions3" className="overflowY-scroll">
                     {/* modal */}
                     {allUsers.map((option) => (
-                      <option value={option.companybranch}>
+                      <option defaultValue={test1.state.companybranch}>
                         {option.companybranch}
                       </option>
                     ))}
@@ -1035,7 +1037,7 @@ const EditEmployee = (editHandler) => {
                       placeholder="Official  Email"
                       id="officialEmailid"
                       name="officialEmail"
-                      value={officialEmail}
+                      defaultValue={test1.state.official_email}
                       onChange={changeHandler}
                     />
                     {/* /> */}
@@ -1074,7 +1076,7 @@ const EditEmployee = (editHandler) => {
                       aria-describedby="basic-addon1"
                       name="officialNum"
                       type="number"
-                      value={officialNum}
+                      defaultValue={test1.state.official_number}
                       onChange={changeHandler}
                     />
                   </InputGroup>
@@ -1097,6 +1099,7 @@ const EditEmployee = (editHandler) => {
                     className="form-control"
                     onClick={(e) => handleshowhide(e)}
                     onChange={changeHandler}
+                    defaultValue={test1.state.designation}
                   >
                     <option name="designation" value="">
                       -- Designation--
@@ -1163,7 +1166,7 @@ const EditEmployee = (editHandler) => {
                         aria-label="Username"
                         aria-describedby="basic-addon1"
                         name="AssignedManager"
-                        value={AssignedManager}
+                        defaultValue={test1.state.assignedmanager}
                         onChange={changeHandler}
                         disabled={show}
                       />
@@ -1303,7 +1306,7 @@ const EditEmployee = (editHandler) => {
                     aria-describedby="basic-addon1"
                     type="tel"
                     name="Employeeid"
-                    value={userinfo.Employeeid}
+                    defaultValue={userinfo.Employeeid}
                     onChange={changeHandler}
                   />
                 </InputGroup>

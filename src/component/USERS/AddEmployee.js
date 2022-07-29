@@ -144,18 +144,16 @@ const AddEmployee = () => {
     e.preventDefault();
     const body = userinfo.languages;
     console.log(body);
-  //  axios.post(`http://localhost:8001/permission/api/post`,body)
-  //  .then((res)=>console.log(res))
-  //  .catch((err)=>console.log(err))
+
   const response = await fetch(
-    `http://localhost:8001/permission/test/api`,
+    `http://localhost:8001/viewEmployee/lmv/permissionzonal`,
     {
       method: "POST",
       headers: { "Content-Type": "Application/json" },
       body: JSON.stringify(body),
     }
   );
-
+// console.log(body);
 
   };
   //////////designation get limited roles////////////////////////////////////////////////
@@ -218,7 +216,7 @@ const AddEmployee = () => {
         {/* <div > */}
         <Form
           id="addEmployeeFrom"
-          onSubmit={handleSubmit(submitHandler)}
+          onSubmit={handleSubmit(submitHandler)}   //msin form add user
           // autoComplete="off"
         >
           <div className="text-center mb-3">
@@ -244,7 +242,7 @@ const AddEmployee = () => {
                     {...register("Employeeid", {
                       required: "Please Enter Your Employee Id",
                       pattern: {
-                        value: /(?<!\d)\d{5}(?!\d)/g,
+                        value: /^([0-9]{4}|[0-9]{5})$/,
                         message: "Invalid  Employee Id",
                       },
                     })}
@@ -256,6 +254,7 @@ const AddEmployee = () => {
                       name="Employeeid"
                       value={Employeeid}
                       onChange={changeHandler}
+                      maxLength={5}
                     />
                   </InputGroup>
                   {errors.Employeeid && (
@@ -1205,6 +1204,7 @@ const AddEmployee = () => {
                     id="floatingTextarea2"
                     style={{ height: "150px" }}
                     onChange={handleChange}
+
                   ></textarea>
                 </div>
               </form>
@@ -1257,8 +1257,9 @@ const AddEmployee = () => {
                     aria-describedby="basic-addon1"
                     type="tel"
                     name="Employeeid"
-                    value={userinfo.Employeeid}
+                    defaultValue={userinfo.Employeeid}
                     onChange={changeHandler}
+                    disabled
                   />
                 </InputGroup>
                 {errors.Employeeid && (
@@ -1290,6 +1291,8 @@ const AddEmployee = () => {
                     value={userName}
                     name="userName"
                     onChange={changeHandler}
+                    disabled
+
                   />
                 </InputGroup>
                 {errors.userName && (
@@ -1298,6 +1301,51 @@ const AddEmployee = () => {
                   </small>
                 )}
               </div>
+              <Col md={4} lg={3} sm={12}>
+                {/* test */}
+                <div className=" form-group" style={{    width: "206px",
+                    marginLeft: "-247px"}}>
+                  <label className="">
+                    <b>DESIGNATION:</b>
+                  </label>
+                  <select
+                  
+                    name="designation"
+                    className="form-control"
+                    onClick={(e) => handleshowhide(e)}
+                    onChange={changeHandler}
+                    disabled
+                  >
+                   <option
+                      name="designation"
+                      value={ZonalManager}
+                      onClick={(e) => setShow(false)}
+                    >
+                      ZONAL MANAGER
+                    </option>
+                    <option
+                      name="designation"
+                      value="ZONAL MANAGER"
+                      onClick={(e) => setShow(false)}
+                    >
+                      REGINOL MANAGER
+                    </option>
+
+                    {allDesignation.map((option) => {
+                      return (
+                        <option value={option.designation} key={option.id}>
+                          {option.designation}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                {errors.designation && (
+                  <small className="text-danger">
+                    {errors.designation.message}
+                  </small>
+                )}
+              </Col>
             </div>
                   </div>
               </div>
@@ -1378,7 +1426,7 @@ const AddEmployee = () => {
                   <input
                     className="form-check-input"
                     type="checkbox"
-                    name="maharastra  "
+                    name="maharastra"
                     value="maharastra"
                     id="flexCheckDefault"
                     onChange={handleChange}
